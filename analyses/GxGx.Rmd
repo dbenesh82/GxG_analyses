@@ -1,0 +1,235 @@
+---
+title: "Genotype x genotype interactions and host manipulation"
+author: "Dan Benesh"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+knitr::opts_chunk$set(echo = FALSE)
+options(stringsAsFactors = FALSE)
+```
+
+# Background
+About experiment...
+
+```{r}
+# import data
+bd <- read.csv(file = "../data/behav_combined_after_qc2.csv", header = TRUE)
+infd <- read.csv(file = "../data/GxG_inf.csv", header = TRUE)
+```
+
+Wrangle the behavior data frame. Rename columns, create new factors.
+
+```{r}
+##MAYBE DO THIS IN WRANGLING REPO
+# Select and rename columns
+bd <- select(bd, fname, cop_name, day, 
+             slice = Slice.n., dist = Distance, pixel = Pixel.Value, 
+             ok_col_names, ok_col_num, ok_row_num)%>%
+  arrange(day, cop_name, slice)
+
+# for first observation of every video, no 'distance moved' can be calculated; replace with NA
+bd$dist[bd$slice == 1 & bd$dist == -1] <- NA
+
+# create new variables
+bd <- mutate(bd, time_sec = slice * 2 - 2)%>% # convert slice to time in s
+  mutate(drop = if_else(slice == 32, # create categories, before - after drop
+                        "drop",
+                        if_else(slice < 32,
+                                "before",
+                                "after")))
+```
+
+Now move on to infection table. First correct problem from import with `cop_name` column.
+
+```{r}
+if(grepl(pattern = "ï..", names(infd)[1])) { # if first column name has weird 'ï..' after import...
+  names(infd)[1] <- 'cop_name' # change it
+}
+```
+
+```{r}
+# create new trt var with unexposed and uninfecteds pooled
+infd$trt2 <- infd$trt
+infd$trt2[which(infd$infected == 0)] <- 'uninfected'
+```
+
+Make sure that cercomere data is only from infected copepods. It is, 5 copepods are missing cerc data.
+
+```{r}
+table(is.na(infd$cerc_d9), infd$trt)
+```
+
+Make sure that worm size only from infected copepods. It is, though it was not measured in 99. Most of those without size measurement died before the end of the experiment on day 21.
+
+```{r}
+table( is.na(infd$proc_size1), infd$trt)
+```
+
+Worm size was measured twice. The two measures are highly correlated, with a pearson correlation coefficient of `r round( with(infd, cor(proc_size1, proc_size2, use = "pairwise")), 2)`. There was some variation in the measurements. This represents method error mostly (difficult taking photos, moving worms).
+
+```{r message=FALSE, warning=FALSE}
+qplot(data = infd, x = proc_size1, y = proc_size2)
+```
+
+The average of the two measurements is taken as the best size measure.
+
+```{r}
+infd <- mutate(infd, proca = (proc_size1 + proc_size2)/2)
+```
+
+
+Let's move onto to some basic stats for infection. How many copepods were in the experiment?
+```{r}
+sum(!is.na(infd$exposed))
+```
+
+How many were exposed to infection?
+
+```{r}
+sum( infd$exposed == 1, na.rm=T)
+```
+Leaving this many unexposed controls:
+```{r}
+sum( infd$exposed == 0, na.rm=T)
+```
+
+How many survived to be checked for infection?
+```{r}
+sum( !is.na(infd$infected) )
+```
+
+How many were infected?
+```{r}
+sum(infd$infected == 1, na.rm=T)
+```
+
+
+What was the infection rate?
+```{r}
+sum(infd$infected == 1, na.rm=T) / 
+  sum( infd$exposed == 1, na.rm=T)
+```
+
+
+How many copepods had their behavior recorded?
+```{r}
+bd_cops <- unique(bd$cop_name)
+length(bd_cops)
+```
+
+```{r}
+# reduce infection table to just cops in inf file?
+infd_bd <- filter(infd, cop_name %in% bd_cops)
+```
+
+
+There are 5 cop families and 5 parasite families. How many infected cops are in each group?
+
+```{r}
+inf_cops_agg <- filter(infd_bd, trt2 == 'infected')%>%
+  group_by(cop_fam, parasite_fam)%>%
+  summarize(counts = n())
+  
+summary(inf_cops_agg$counts)
+```
+
+What about uninfecteds? Let's check the numbers of unexposed controls and exposed, but uninfected copepods in each copepod family. Generally about 30 per family.
+
+```{r}
+uninf_cops_agg <- filter(infd_bd, infected == 0)%>%
+  group_by(cop_fam, trt)%>%
+  summarize(counts = n())%>%arrange(trt)
+uninf_cops_agg
+```
+
+Join frames
+
+```{r}
+bd <- left_join(bd, 
+          select(infd_bd, cop_name, cop_fam, parasite_fam,
+                 trt, cerc_d9, dead, days_surv, cop_length, proca))
+  
+names(bd)
+```
+
+Make graph comparing treatments.
+
+```{r}
+bd_avg <- group_by(bd, time_sec, trt)%>%
+  summarize(dista = mean(dist, na.rm=T))
+
+ggplot(bd_avg, aes(x = time_sec, y = dista, color = trt)) +
+  geom_line()
+```
+
+
+```{r}
+bd_avg <- group_by(bd, time_sec, day, trt)%>%
+  summarize(dista = mean(dist, na.rm=T))
+
+ggplot(bd_avg, aes(x = time_sec, y = dista, color = trt)) +
+  geom_line() +
+  facet_wrap(~day)
+```
+
+Same plot, but with just uninfected copepods, separate by cop family.
+
+```{r}
+bd_avg <- filter(bd, trt != 'infected')%>%
+  group_by(time_sec, cop_fam)%>%
+  summarize(dista = mean(dist, na.rm=T))
+
+ggplot(bd_avg, aes(x = time_sec, y = dista, color = cop_fam)) +
+  geom_line() 
+```
+
+Now separate by infection
+
+```{r}
+bd_avg <- filter(bd, trt == 'infected')%>%
+  group_by(time_sec, parasite_fam)%>%
+  summarize(dista = mean(dist, na.rm=T))
+
+ggplot(bd_avg, aes(x = time_sec, y = dista, color = parasite_fam)) +
+  geom_line() 
+```
+
+
+
+Models...
+
+```{r}
+library(lme4)
+
+# null model
+out0 <- lmer(dist ~ factor(day) + (1|fname) + (1|cop_name), filter(bd, trt == 'infected'))
+
+# add cop_fam to null
+outc <- lmer(dist ~ cop_fam + factor(day) + (1|fname) + (1|cop_name), filter(bd, trt == 'infected'))
+anova(out0, outc, test = 'Chi')
+
+# add parasite_fam to null
+outp <- lmer(dist ~ parasite_fam + factor(day) + (1|fname) + (1|cop_name), filter(bd, trt == 'infected'))
+anova(out0, outp, test = 'Chi')
+
+# add cop x parasite to null
+outcp <- lmer(dist ~ cop_fam * parasite_fam + factor(day) + (1|fname) + (1|cop_name), filter(bd, trt == 'infected'))
+anova(outc, outcp, test = 'Chi')
+anova(outp, outcp, test = 'Chi')
+```
+
+GxG!!! Awesome!!
+
+```{r}
+bd_avg <- filter(bd, trt == 'infected')%>%
+  group_by(cop_fam, parasite_fam)%>%
+  summarize(dista = mean(dist, na.rm=T))
+
+ggplot(bd_avg, aes(x = parasite_fam, y = dista, color = cop_fam)) +
+  geom_line(aes(group = cop_fam))
+```
+
