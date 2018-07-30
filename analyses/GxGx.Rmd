@@ -1,5 +1,5 @@
 ---
-title: "Genotype x genotype interactions and host manipulation"
+title: "Genotype x genotype interactions in host manipulation"
 author: "Dan Benesh"
 output: html_document
 ---
@@ -13,21 +13,26 @@ options(stringsAsFactors = FALSE)
 ```
 
 # Background
-About experiment...
+Many parasites manipulate the behavior of their hosts in ways that seem beneficial. Little is known about genetic variation in this phenotype. Are parasites genetically variable in how much they manipulate host behavior? Do different host genotypes resist manipulation better than others? I infected 5 host strains with 5 parasite strains to quantify the variability in host manipulation due to parasite genes, host genes, and their interactions. The host-parasite system I used was the tapeworm *Schistocephalus solidus* in its copepod first intermediate host.
 
-```{r}
+```{r importdata}
 # import data
-bd <- read.csv(file = "../data/behav_combined_after_qc2.csv", header = TRUE)
-infd <- read.csv(file = "../data/GxG_inf.csv", header = TRUE)
+bd <- read.csv(file = "../data/behav_combined_after_qc2.csv", header = TRUE) # manual data
+bdr <- read.csv(file = "../data/behav_combined_auto_tracked_corrected.csv", header = TRUE) # auto-tracked data
+infd <- read.csv(file = "../data/GxG_inf.csv", header = TRUE, fileEncoding = "UTF-8-BOM") #excel attached BOM to csv
 ```
 
-Wrangle the behavior data frame. Rename columns, create new factors.
+Copepod movement was video recorded for two minutes. After one minute, the well plate containing the copepods was dropped in a standardized way to simulate a predator attack and 'frighten' the copepods. Each copepod was recorded on several days throughout the course of parasite development (from uninfective to infective larva). 
+
+Recordings were both manually- (clicking on copepod position frame-by-frame) and automatically-processed (with a tracking program). The output from the two approaches was quite comparable (see an extensive comparison [here](GITHUB LINK!!)). The auto-tracked data has some advantages, though. First, I identified mistakes in the manually-processed data, like incorrect number of frames, etc. (see [here](GITHUB LINK)); this motivated the development of the auto-tracker. Second, the auto-tracker allowed additional videos and copepods to be processed that were not included in the manual data for lack of time. I prefer the auto-tracked data as it is more standardized, but here I make sure that both datasets yield concordant results.
+
+In this notebook, I first present descriptive statistics from the experiment. Then I look at ways of defining the response variable. I conduct exploratory analyses of the response variable. Finally, I fit models to test the hypothesis of genotype-by-genotype interactions.
 
 ```{r}
-##MAYBE DO THIS IN WRANGLING REPO
 # Select and rename columns
 bd <- select(bd, fname, cop_name, day, 
-             slice = Slice.n., dist = Distance, pixel = Pixel.Value, 
+             slice = Slice.n., x = X, y = Y,
+             dist = Distance, pixel = Pixel.Value, 
              ok_col_names, ok_col_num, ok_row_num)%>%
   arrange(day, cop_name, slice)
 
@@ -35,130 +40,273 @@ bd <- select(bd, fname, cop_name, day,
 bd$dist[bd$slice == 1 & bd$dist == -1] <- NA
 
 # create new variables
-bd <- mutate(bd, time_sec = slice * 2 - 2)%>% # convert slice to time in s
-  mutate(drop = if_else(slice == 32, # create categories, before - after drop
-                        "drop",
-                        if_else(slice < 32,
-                                "before",
-                                "after")))
+bd <- mutate(bd, time_sec = slice * 2 - 4)
 ```
 
-Now move on to infection table. First correct problem from import with `cop_name` column.
+# Descriptive Statistics
+
+Let's look at some basic stats for the infection. How many copepods were in the experiment?
 
 ```{r}
-if(grepl(pattern = "ï..", names(infd)[1])) { # if first column name has weird 'ï..' after import...
+# correct problem from import with `cop_name` column
+if(grepl(pattern = "?..", names(infd)[1])) { # if first column name has weird '?..' after import...
   names(infd)[1] <- 'cop_name' # change it
-}
-```
+} 
 
-```{r}
 # create new trt var with unexposed and uninfecteds pooled
 infd$trt2 <- infd$trt
 infd$trt2[which(infd$infected == 0)] <- 'uninfected'
 ```
+```{r}
+sum(!is.na(infd$exposed)) # if included, cops had a value for 'exposed' variable
+```
 
-Make sure that cercomere data is only from infected copepods. It is, 5 copepods are missing cerc data.
+Most of these were exposed to infection. 
 
 ```{r}
-table(is.na(infd$cerc_d9), infd$trt)
+sum(infd$exposed == 1, na.rm=T)
 ```
 
-Make sure that worm size only from infected copepods. It is, though it was not measured in 99. Most of those without size measurement died before the end of the experiment on day 21.
+The rest were unexposed controls (n = `r sum( infd$exposed == 0, na.rm=T)`).
 
-```{r}
-table( is.na(infd$proc_size1), infd$trt)
-```
+Whether copepods were infected or not was checked after a week. How many survived until being checked for infection?
 
-Worm size was measured twice. The two measures are highly correlated, with a pearson correlation coefficient of `r round( with(infd, cor(proc_size1, proc_size2, use = "pairwise")), 2)`. There was some variation in the measurements. This represents method error mostly (difficult taking photos, moving worms).
-
-```{r message=FALSE, warning=FALSE}
-qplot(data = infd, x = proc_size1, y = proc_size2)
-```
-
-The average of the two measurements is taken as the best size measure.
-
-```{r}
-infd <- mutate(infd, proca = (proc_size1 + proc_size2)/2)
-```
-
-
-Let's move onto to some basic stats for infection. How many copepods were in the experiment?
-```{r}
-sum(!is.na(infd$exposed))
-```
-
-How many were exposed to infection?
-
-```{r}
-sum( infd$exposed == 1, na.rm=T)
-```
-Leaving this many unexposed controls:
-```{r}
-sum( infd$exposed == 0, na.rm=T)
-```
-
-How many survived to be checked for infection?
 ```{r}
 sum( !is.na(infd$infected) )
 ```
 
-How many were infected?
+And how many were infected?
+
 ```{r}
 sum(infd$infected == 1, na.rm=T)
 ```
 
+So the infection rate was `r round(sum(infd$infected == 1, na.rm=T) / sum( infd$exposed == 1, na.rm=T), 3) * 100`%.
 
-What was the infection rate?
+We can also do some quality control checks on our infection data. For example, I measured some parasite traits like cercomere presence (an indication of developmental rate) and worm size. So we can check to make sure these variables are only recorded from infected copepods, starting with cercomere presence. 
+
+It is, though 5 infected copepods are missing cercomere data.
 ```{r}
-sum(infd$infected == 1, na.rm=T) / 
-  sum( infd$exposed == 1, na.rm=T)
+table(!is.na(infd$cerc_d9), infd$trt)
 ```
 
+Similarly, worm size was only recorded from infected copepods, though in 99 it was not measured. Most of those without size measurement died before the end of the experiment 21 days post exposure.
 
-How many copepods had their behavior recorded?
+```{r}
+table(!is.na(infd$proc_size1), infd$trt)
+```
+
+Worm size was measured twice. The two measures are highly correlated, with a pearson correlation coefficient of `r round( with(infd, cor(proc_size1, proc_size2, use = "pairwise")), 2)`, though there was some variation in the measurements.
+
+```{r message=FALSE, warning=FALSE}
+qplot(data = infd, x = proc_size1, y = proc_size2) + theme_bw()
+```
+
+Presumably, this is normal measurement error due to e.g. photo angles, moving worms, etc. The average of the two body size measurements is taken as the best measure of larval size in future analyses.
+
+```{r}
+infd <- mutate(infd, proca = (proc_size1 + proc_size2)/2) # average of 2 proc measurements
+```
+
+Moving on to the behavior data, how many copepods had their behavior recorded manually?
+
 ```{r}
 bd_cops <- unique(bd$cop_name)
 length(bd_cops)
 ```
 
-```{r}
-# reduce infection table to just cops in inf file?
-infd_bd <- filter(infd, cop_name %in% bd_cops)
-```
+How many were recorded automatically?
 
+```{r}
+bdr <- mutate(bdr, cop_name = substr(fname, 1, 5))
+length(unique(bdr$cop_name))
+```
 
 There are 5 cop families and 5 parasite families. How many infected cops are in each group?
 
 ```{r}
-inf_cops_agg <- filter(infd_bd, trt2 == 'infected')%>%
-  group_by(cop_fam, parasite_fam)%>%
-  summarize(counts = n())
-  
-summary(inf_cops_agg$counts)
+# reduce infection table to just cops with behav measurements
+infd_bd <- filter(infd, cop_name %in% bd_cops)
+
+# make table
+t <- with(filter(infd_bd, trt2 == 'infected'),
+     table(cop_fam, parasite_fam))
+t
 ```
 
-What about uninfecteds? Let's check the numbers of unexposed controls and exposed, but uninfected copepods in each copepod family. Generally about 30 per family.
+It ranges from `r min(t)` to `r max(t)` per combination, with an average of `r mean(t)`.
+
+What about uninfecteds? Let's check the numbers of unexposed controls and exposed-but-uninfected copepods in each copepod family. Generally about 30 per family.
 
 ```{r}
-uninf_cops_agg <- filter(infd_bd, infected == 0)%>%
-  group_by(cop_fam, trt)%>%
-  summarize(counts = n())%>%arrange(trt)
-uninf_cops_agg
+# make table
+t <- with(filter(infd_bd, infected == 0),
+     table(cop_fam, trt))
+t
 ```
 
-Join frames
+# Define Response Variables
+
+Behavior was recorded over two minutes, with the plate being dropped in the middle of the recording. So *a priori* we can divide the recording into three groups: before the drop, during the drop, and after the drop. The simplest behavioral measurement is the distance moved between frames. Let's look at movement distance changes throughout a recording.
 
 ```{r}
-bd <- left_join(bd, 
-          select(infd_bd, cop_name, cop_fam, parasite_fam,
-                 trt, cerc_d9, dead, days_surv, cop_length, proca))
-  
-names(bd)
+bdr_avg <- group_by(bdr, sec)%>%
+  summarize(mean_dist = mean(distance, na.rm = T),
+            mean_dp = mean(dot_product, na.rm = T))%>%
+  mutate(group = if_else(sec < 58.5, 'before the drop', 
+                         if_else(sec > 61.5, 'after the drop', 'drop')))
+
+ggplot(bdr_avg, aes(x = sec, y = mean_dist)) + 
+  geom_path() + geom_point(aes(color=group)) +
+  scale_x_continuous(limits = c(0,120), breaks = seq(0, 120, by = 10)) +
+  labs(title = 'auto tracker, 8 frames/s')
 ```
+```{r warning=FALSE}
+bd_avg <- group_by(bd, time_sec)%>%
+  summarize(mean_dist = mean(dist, na.rm=T))%>%
+  mutate(group = if_else(time_sec < 59, 'before the drop', 
+                         if_else(time_sec > 62, 'after the drop', 'drop')))
+  
+ggplot(bd_avg, aes(x = time_sec, y = mean_dist)) + 
+  geom_path() + geom_point(aes(color=group)) +
+  scale_x_continuous(limits = c(0,120), breaks = seq(0, 120, by = 10)) +
+  labs(title = 'manual tracker, 1 frame/2 s')
+```
+
+The most conspicuous pattern is the spike at 60 second during the drop. The copepod moves so fast during this drop that it cannot be tracked. The slight change in plate position through the drop also causes problems with background subtraction in the auto-tracking program, so these values cannot be considered accurate and need to be removed before analyses. But how much should we remove on either side of the drop? 
+
+Let's zoom in on the drop. It seems like taking the 1.5 seconds on either side of the drop seems to reasonably exclude most of the peak.
+
+```{r}
+ggplot(bdr_avg, aes(x = sec, y = mean_dist)) + 
+  geom_path() + geom_point(aes(color=group)) +
+  labs(title = 'auto tracker, 8 frames/s') + 
+  scale_y_log10() + coord_cartesian(xlim = c(50, 70))
+```
+
+When we exclude the unreliable data around the 'drop', we see clearer patterns. 
+
+```{r}
+ggplot(filter(bdr_avg, group != 'drop'), 
+       aes(x = sec, y = mean_dist, color = group)) + 
+  geom_path() + 
+  scale_x_continuous(limits = c(0,120), breaks = seq(0, 120, by = 10)) +
+  labs(title = 'auto tracker, 8 frames/s')
+```
+```{r}
+ggplot(filter(bd_avg, group != 'drop'), 
+       aes(x = time_sec, y = mean_dist, color = group)) + 
+  geom_path() + 
+  scale_x_continuous(limits = c(0,120), breaks = seq(0, 120, by = 10)) +
+  labs(title = 'manual tracking')
+```
+
+In both cases, there is a clear decrease in activity directly after the drop. However, the copepods seem to recover quickly and by the end of the second minute their activity levels are back up to those before the drop. Also, in the auto-tracked data, there is still a spike shortly before the drop. This might be problems with the tracker, given that it was not observed in the manual data.
+
+Direction moved
+
+Calculate angles of movements.
+
+```{r}
+# calculate angle of movement for auto-tracked data
+bdr <- mutate(bdr, x0 = lag(x), x2 = lead(x), y0 = lag(y), y2 = lead(y))%>%
+    mutate(dist1 = sqrt((x0 - x)^2 + (y0 - y)^2) )%>%
+    mutate(dist2 = sqrt((x - x2)^2 + (y - y2)^2) )%>%
+    mutate(angle = acos(dot_product/(dist1 * dist2)) * 180/pi)%>%
+    select(fname, frame, sec, x, y, blobs, blob_size, 
+           distance, dot_product, angle)
+
+# remove the angle calc for first observation in each recording
+x <- group_by(bdr, fname)%>%
+  summarize(frame_min = min(frame))%>%
+  mutate(mv = paste(fname, frame_min))
+
+bdr <- mutate(bdr, mv = paste(fname, frame))
+bdr$angle[which(bdr$mv %in% x$mv)] <- NA
+bdr <- select(bdr, -mv)
+```
+
+```{r}
+# calculate angle of movement for manually-tracked data
+bd <- mutate(bd, x0 = lag(x), x2 = lead(x), y0 = lag(y), y2 = lead(y))%>%
+    mutate(dist1 = sqrt((x0 - x)^2 + (y0 - y)^2) )%>%
+    mutate(dist2 = sqrt((x - x2)^2 + (y - y2)^2) )%>%
+    mutate(dot_product = ((x2 - x) * (x - x0) + (y2 - y) * (y - y0)))%>%
+    mutate(angle = acos(dot_product/(dist1 * dist2)) * 180/pi)%>%
+    select(fname, day, slice, time_sec, x, y, 
+           dist, dot_product, angle)
+
+head(bd)
+# remove the angle, dot_product calc for first observation in each recording
+x <- group_by(bd, fname)%>%
+  summarize(frame_min = min(slice))%>%
+  mutate(mv = paste(fname, frame_min))
+bd <- mutate(bd, mv = paste(fname, slice))
+bd$angle[which(bd$mv %in% x$mv)] <- NA
+bd$dot_product[which(bd$mv %in% x$mv)] <- NA
+bd <- select(bd, -mv)
+```
+
+Plot over time. Typical angle is super large, presumably due to small oscillations.
+
+```{r}
+bdr_avg <- group_by(bdr, sec)%>%
+  summarize(median_dir = median(angle, na.rm = T),
+            var_dir = var(angle, na.rm = T))%>%
+  mutate(group = if_else(sec < 58.5, 'before the drop', 
+                         if_else(sec > 61.5, 'after the drop', 'drop')))
+
+ggplot(bdr_avg, aes(x = sec, y = median_dir)) + 
+  geom_path() + geom_point(aes(color=group)) +
+  scale_x_continuous(limits = c(0,120), breaks = seq(0, 120, by = 10)) +
+  labs(title = 'Angle - auto tracker, 8 frames/s')
+```
+
+In manually-tracked lower angle, corresponding more to typical movements along the edge of the well. Increase after drop suggests change of direction.
+```{r}
+bd_avg <- group_by(bd, time_sec)%>%
+  summarize(median_dir = median(angle, na.rm=T),
+            var_dir = var(angle, na.rm=T))%>%
+  mutate(group = if_else(time_sec < 59, 'before the drop', 
+                         if_else(time_sec > 62, 'after the drop', 'drop')))
+
+ggplot(bd_avg, aes(x = time_sec, y = median_dir)) + 
+  geom_path() + geom_point(aes(color=group)) +
+  scale_x_continuous(limits = c(0,120), breaks = seq(0, 120, by = 10)) +
+  labs(title = 'manual tracker, 1 frame/2 s')
+```
+
+
+
+
+```{r}
+ggplot(filter(bd, time_sec<59|time_sec>61), aes(x = angle, y = dist)) +
+         geom_point(alpha = 0.01) + geom_smooth(se=F)
+```
+
+
+
+
+
+
+```{r}
+ggplot(filter(bdr, sec<58|sec>62)%>%sample_n(90000), aes(x = angle, y = distance)) + 
+  geom_point(alpha = 0.1) +
+  geom_smooth(se=F) +
+  scale_y_continuous(limits = c(0, 30))
+```
+
+
+
+
+
+
+
+# Exploratory Analyses
 
 Make graph comparing treatments.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 bd_avg <- group_by(bd, time_sec, trt)%>%
   summarize(dista = mean(dist, na.rm=T))
 
@@ -166,6 +314,7 @@ ggplot(bd_avg, aes(x = time_sec, y = dista, color = trt)) +
   geom_line()
 ```
 
+The infected copepods are less active than the uninfected copepods. This is true both before and after the simulated attack. When we separate this plot into the different days of the experiment, we see a similar pattern. Maybe at the earliest time point, day 5, the infected copepods are less manipulated.
 
 ```{r}
 bd_avg <- group_by(bd, time_sec, day, trt)%>%
@@ -176,7 +325,7 @@ ggplot(bd_avg, aes(x = time_sec, y = dista, color = trt)) +
   facet_wrap(~day)
 ```
 
-Same plot, but with just uninfected copepods, separate by cop family.
+Now, let's look at the pattern for just the uninfected copepods, separated by copepod family. They seem pretty similar, thought one family (III) might be a little more active in general.
 
 ```{r}
 bd_avg <- filter(bd, trt != 'infected')%>%
@@ -187,7 +336,7 @@ ggplot(bd_avg, aes(x = time_sec, y = dista, color = cop_fam)) +
   geom_line() 
 ```
 
-Now separate by infection
+Now, separate the data by parasite family. The differences appear reasonably consistent, suggesting parasite family is more important than host family.
 
 ```{r}
 bd_avg <- filter(bd, trt == 'infected')%>%
@@ -198,9 +347,18 @@ ggplot(bd_avg, aes(x = time_sec, y = dista, color = parasite_fam)) +
   geom_line() 
 ```
 
+Here is the combo of host and parasite genotypes.
 
+```{r}
+bd_avg <- filter(bd, trt == 'infected')%>%
+  group_by(cop_fam, parasite_fam)%>%
+  summarize(dista = mean(dist, na.rm=T))
 
-Models...
+ggplot(bd_avg, aes(x = parasite_fam, y = dista, color = cop_fam)) +
+  geom_line(aes(group = cop_fam))
+```
+
+# Models
 
 ```{r}
 library(lme4)
@@ -224,12 +382,10 @@ anova(outp, outcp, test = 'Chi')
 
 GxG!!! Awesome!!
 
-```{r}
-bd_avg <- filter(bd, trt == 'infected')%>%
-  group_by(cop_fam, parasite_fam)%>%
-  summarize(dista = mean(dist, na.rm=T))
 
-ggplot(bd_avg, aes(x = parasite_fam, y = dista, color = cop_fam)) +
-  geom_line(aes(group = cop_fam))
+```{r}
+sort(table(bd$dist), decreasing = T)
+qplot(data = filter(bd, dist > 0), x = dist, binwidth = 0.1) 
+#+ coord_cartesian(xlim = c(0, 0.5))
 ```
 
