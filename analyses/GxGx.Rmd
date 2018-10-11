@@ -8,8 +8,9 @@ output: html_document
 library(ggplot2)
 library(dplyr)
 library(tidyr)
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 options(stringsAsFactors = FALSE)
+theme_set(new = theme_bw())
 ```
 
 # Experiment Background
@@ -24,9 +25,9 @@ infd <- read.csv(file = "../data/GxG_inf.csv", header = TRUE, fileEncoding = "UT
 
 Copepod movement was video recorded for two minutes. After one minute, the well plate containing the copepods was dropped in a standardized way to simulate a predator attack and 'frighten' the copepods. Each copepod was recorded on several days throughout the course of parasite development (from uninfective to infective larva). 
 
-Recordings were both manually- (clicking on copepod position frame-by-frame) and automatically-processed (with a tracking program). The output from the two approaches was quite similar (see an extensive comparison [here](GITHUB LINK!!)). Each approach has some advantages and disadvantages. First of all, I identified mistakes in the manually-processed data, like incorrect number of frames, etc. (see [here](GITHUB LINK)); this human error motivated the development of an auto-tracker. The auto-tracker also allowed additional videos and copepods to be processed that were not included in the manual data for lack of time. However, the auto-tracker was also not free from mistakes, occassionally recording large movements that were not. Here I make sure that both datasets yield concordant results.
+Recordings were both manually- (clicking on copepod position frame-by-frame) and automatically-processed (with a tracking program). The output from the two approaches was quite similar (see an extensive comparison [here](GITHUB LINK!!)). Each approach has some advantages and disadvantages. First of all, I identified mistakes in the manually-processed data, like incorrect number of frames, etc. (see [here](GITHUB LINK)); this human error motivated the development of an auto-tracker. The auto-tracker allowed additional videos and copepods to be processed that were not included in the manual data for lack of time. However, the auto-tracker was also not free from mistakes, occassionally recording large movements that were not. Here I make sure that both datasets yield concordant results.
 
-In this notebook, I first present descriptive statistics from the experiment. Then I look at ways of quantifying behavior and defining the response variable. I conduct exploratory analyses of the factors impacting the response variable. Finally, I fit models to test the hypothesis of genotype-by-genotype interactions.
+In this notebook, I first present descriptive statistics from the experiment. Then, I look at ways of quantifying behavior and defining the response variable. Next, I conduct exploratory analyses of the factors impacting the response variable. Finally, I fit models to test the hypothesis of genotype-by-genotype interactions.
 
 ```{r}
 # Select and rename columns
@@ -119,17 +120,15 @@ How many were recorded automatically?
 
 ```{r}
 bdr <- mutate(bdr, cop_name = substr(fname, 1, 5))
-length(unique(bdr$cop_name))
+bd_cops <- unique((bdr$cop_name))
+length(bd_cops)
 ```
 
 There are 5 cop families and 5 parasite families. How many infected cops are in each group?
 
 ```{r}
-# reduce infection table to just cops with behav measurements
-infd_bd <- filter(infd, cop_name %in% bd_cops)
-
-# make table
-t <- with(filter(infd_bd, trt2 == 'infected'),
+# reduce infection df to just infected cops with manual behav measurements, make table
+t <- with(filter(infd, cop_name %in% bd$cop_name, trt2 == 'infected'),
      table(cop_fam, parasite_fam))
 t
 ```
@@ -139,20 +138,47 @@ It ranges from `r min(t)` to `r max(t)` per combination, with an average of `r m
 What about uninfecteds? Let's check the numbers of unexposed controls and exposed-but-uninfected copepods in each copepod family. Generally about 30 per family in the manually-tracked data.
 
 ```{r}
-# make table
-t <- with(filter(infd_bd, infected == 0),
+# reduce infection df to just uninfected cops with manual behav measurements, make table
+t <- with(filter(infd, cop_name %in% bd$cop_name, infected == 0),
      table(cop_fam, trt))
 t
 ```
 
-And for the auto-tracked data it was XXXX.
+In the auto-tracked data, additional exposed-but-uninfected copepods were tracked with the auto-tracker. This should provide a better baseline for the behavior of uninfected copepods in each family.
+
 ```{r}
 # Auto tracked table of uninfecteds
+t <- with(filter(infd, cop_name %in% bdr$cop_name, infected == 0),
+     table(cop_fam, trt))
+t
 ```
+
+Each copepod was observed on multiple days over the course of the experiment. In the manual dataset, how many times were copepods observed on average?
+
+```{r}
+# manual data
+n_rec <- select(bd, cop_name, day)%>%distinct()%>%group_by(cop_name)%>%summarize(n_rec = n())
+n_rec <- left_join(n_rec, select(infd, cop_name, trt))
+tapply(n_rec$n_rec, n_rec$trt, mean)
+# round(prop.table(table(n_rec$trt, n_rec$n_rec), margin = 1), 2)
+```
+
+In each treatment group, there were nearly 7 observations per copepod, corresponding to days 5, 7, 9, 11, 13, 15, and 17 post-infection. Sometimes, copepods died before the end of the experiment, which is why there were fewer observations for some individuals. What about the auto-tracking data?
+
+```{r}
+# auto data
+bdr <- mutate(bdr, day = substr(fname, start = 7, stop = 8))
+n_rec <- select(bdr, cop_name, day)%>%distinct()%>%group_by(cop_name)%>%summarize(n_rec = n())
+n_rec <- left_join(n_rec, select(infd, cop_name, trt))
+tapply(n_rec$n_rec, n_rec$trt, mean)
+# round(prop.table(table(n_rec$trt, n_rec$n_rec), margin = 1), 2)
+```
+The average number of recordings processed increased to over 8 per copepod. This is because I used the auto-tracker to process additional videos taken at days 19 and 21 postinfection that were not previously manually-processed.
 
 # Define Response Variables
 
-Behavior was recorded over two minutes, with the plate being dropped in the middle of the recording. So *a priori* we can divide a recording into three sections: before the drop, during the drop, and after the drop. The simplest behavioral measurement is the distance moved between frames. Let's see how the magnitude of movements changes throughout a recording.
+### Distance of hops
+For each recording, behavior was filmed over two minutes, with the plate being dropped in the middle of the recording. So *a priori* we can divide a recording into three sections: before the drop, during the drop, and after the drop. The simplest behavioral measurement is the distance moved between frames. Let's see how the magnitude of movements changes throughout a recording.
 
 ```{r}
 bdr_avg <- group_by(bdr, sec)%>%
@@ -206,9 +232,11 @@ ggplot(filter(bd_avg, group != 'drop'),
   labs(title = 'manual tracking')
 ```
 
-There is a clear decrease in activity directly after the drop, but the copepods seem to recover rather quickly such that by the end of the second minute their activity levels are back up to those before the drop. Also, in the auto-tracked data, there is still a spike shortly before the drop, which was not observed in the manual data. I think this represents a problem with how background subtraction worked at the 'edges' of the video (i.e. before and after the drop). Presumably, this is random error and it shouldn't bias treatment differences.
+There is a clear decrease in activity directly after the drop, but the copepods seem to recover rather quickly such that by the end of the second minute their activity levels are back up to those before the drop. Also, in the auto-tracked data, there is still a spike shortly before the drop, which was not observed in the manual data. I think this represents a problem with how background subtraction works at the 'edges' of the video (i.e. before and after the drop). Presumably, this is random error and it shouldn't bias treatment differences.
 
-Another aspect of behavior that can be extracted from the recordings is the direction moved by copepods. I calculated the angle of movement between consecutive video frames.
+### Angle of movements
+
+Another aspect of behavior that can be extracted from the recordings is the direction moved by copepods, like whether they moved forwards or backwards. I calculated the angle of movement between consecutive video frames.
 
 ```{r}
 # calculate angle of movement for auto-tracked data
@@ -260,9 +288,9 @@ ggplot(bd, aes(x = angle)) + geom_histogram(binwidth = 10) +
   labs(title = 'manual tracking')
 ```
 
-The distributions clearly differ; there are more forwards movements in the manual data and far more backwards movements in the auto data (angle values near 180). I think this is due to the time scales of the datasets. The auto-tracking data recorded copepod position 8 times per second, and consequently there was a lot of opportunity for slight oscillations of the tracker back and forth. By contrast, copepod position was recorded once every two seconds in the manual dataset, so there should be less 'noise' oscillations. 
+The distributions clearly differ; there are more forwards movements in the manual data and far more backwards movements in the auto data (angle values near 180). This is partly due to the different time scales of the datasets. The auto-tracking data recorded copepod position 8 times per second, and consequently there was a lot of opportunity for slight oscillations of the tracker back and forth (i.e. high angles). By contrast, copepod position was recorded once every two seconds in the manual dataset, so there should be less 'noise' oscillations. 
 
-Maybe we can understand the difference between the datasets by plotting angle vs the distance moved.
+We can understand the difference between the datasets by plotting angle vs the distance moved.
 
 ```{r}
 bdr <- mutate(bdr, group = if_else(sec < 58, 'before the drop', 
@@ -284,9 +312,9 @@ ggplot(filter(bd, group != 'drop'), aes(x = angle, y = dist, color = group)) +
   labs(title = 'manual tracking')
 ```
 
-Forward movements (low angles) tend to be larger in both datasets. But in the auto-tracked dataset, there is an overabundance of backward movements, some of which are large. This is the result of the auto-tracker incorrectly jumping to one part of the well and then back again. I took steps to eliminate these tracking mistakes (see [here](GITHUB)), but was perhaps too conservative in defining mistakes. There is no indication that the drop changed this aspect of copepod behavior - they move less, but when moving there is not a tendency to e.g. move backwards or in a zig-zag pattern.
+Forward movements (low angles) tend to be larger in both datasets. But in the auto-tracked dataset, there is an overabundance of backward movements, most of which are small, though some are large. Large backwards movements are tracking mistakes - the auto-tracker incorrectly jumps to one part of the well and then back again. I took steps to correct these mistakes (see [here](GITHUB)), but was perhaps too conservative in eliminating these kinds of movements. 
 
-We can plot how movement direction changes over a recording in both datasets.
+In neither dataset is there evidence that the drop markedly changed the directions moved. Copepods do not more often move backwards or in a zig-zag pattern for instance. We can also visualize this by plotting average movement direction over the recording.
 
 ```{r}
 bdr_avg <- group_by(bdr, sec)%>%
@@ -313,9 +341,9 @@ ggplot(bd_avg, aes(x = time_sec, y = mean_dir)) +
   labs(title = 'angle - manual tracker')
 ```
 
-The difference in the mean angle of movement is obvious in the two datasets - the lower value in the manually-tracked data corresponds closely to the typical copepod movements along the edge of the circular well. The drop induces changes in opposite directions in the two datasets. The auto-tracker 'resets' at the drop (i.e. background subtraction of the video frames starts over), so it may not spot the copepod immediately. Once it is tracking something, the small back-and-forth oscillations then dominate and determine the mean values. In the manual dataset, the increase in angle values right after the drop could indicate more sideways or backwards movement by copepods, but this should not be over-interpreted because this was also where copepods moved the least. One consistent feature of both datasets: copepod movements return to 'pre-drop' values very quickly, suggesting the directions moved by copepods was not fundamentally altered by this shock.
+The difference in the mean movement angle is obvious in the two datasets. The lower value in the manually-tracked data corresponds closely to typical copepod movements along the edge of the circular well. The drop induces changes in opposite directions in the two datasets. The auto-tracker 'resets' at the drop (i.e. background subtraction of the video frames starts over), so it may not spot the copepod immediately. Once it is tracking something, the small back-and-forth oscillations then dominate and determine the mean values. In the manual dataset, the increase in angle values right after the drop could indicate more sideways or backwards movement by copepods, but this should not be over-interpreted because this was also where copepods moved the least. One consistent feature of both datasets: angle values return to 'pre-drop' levels very quickly, suggesting the kinds of movements made by copepods was not fundamentally altered by this shock.
 
-Given that the auto-tracker introduces a lot of noise into this behavioral measure and that there is not an obvious effect of the drop, further evaluation of this variable may not be worthwhile. But before ignoring it, I want to check whether the angle of movements differs between infected and uninfected copepods.
+Given that (i) the auto-tracker seems to introduce a lot of noise into this variable measure and (ii) there is not an obvious response to the drop, further evaluation of this variable may not be worthwhile. But before ignoring it, I want to check whether movement angles differs between infected and uninfected copepods.
 
 ```{r}
 bdr <- mutate(bdr, cop_name = substring(fname, 1, 5))%>%
@@ -327,7 +355,7 @@ ggplot(filter(bd_i, group != 'drop'),
        aes(y = angle, x = trt2)) +
   geom_boxplot() +
   labs(title = 'auto tracking - facetted by movement distance', x = 'treatment') +
-  facet_grid(~dist_cat)
+  facet_grid(group~dist_cat)
 ```
 
 ```{r}
@@ -339,12 +367,248 @@ ggplot(filter(bd_i, group != 'drop'),
        aes(y = angle, x = trt2)) +
   geom_boxplot() +
   labs(title = 'manual tracking - facetted by movement distance', x = 'treatment') +
-  facet_grid(~dist_cat)
+  facet_grid(group~dist_cat)
 ```
 
-There is no conspicuous difference between treatments in either dataset, regardless of how large the movement values are. Another way to show this is to compare dot products among treatments, because the dot product combines information about the magnitude and direction of movements. [This plot](GITHUB) shows how the dot product does not differ among treatments. Thus, I will only consider the movement distance from this point forward.
+There is no conspicuous difference between treatments in either dataset, regardless of whether movements are large or small or whether they were before or after the drop. A similar way to assess this by calculating dot products for movements. The dot product of two vectors combines information about vector magnitudes and directions into a single value. [Elsewhere](GITHUB) I compared dot products among treatments and found that they do not differ. Thus, for simplicity I will only consider the movement distance from this point forward.
+
+### Simplifying movement distance measures (IMPROVE SUBHEAD TITLE)
+
+Conducting analyses at the level of each video frame (i.e. each copepod movement) seems like overkill, e.g. the auto-tracked data at 8 frames/s has several million observations. And there is substantial pseudoreplication - within a recording observations are separated by milliseconds and thus presumably highly-correlated. It would be nice to take one or a few composite variables from each recording that summarize copepod behavior. To do this, though, we need to closely examine how behavior changes within a recording so as not to average out any potentially interesting variation. At a minimum we can define two parts expected to differ: before and after the drop. 
+
+Let's re-plot how average behavior changes over a recording, this time with confidence intervals (they are underestimated, as I have not accounted for pseudoreplication; each copepod was recorded multiple times).
+
+```{r}
+bdr <- mutate(bdr, sec_pooled = cut(sec, breaks = seq(0, 120, 2), include.lowest = T))
+bdr_avg <- group_by(bdr, sec_pooled, group)%>%
+  summarize(mean_dist = mean(distance, na.rm=T),
+            sd_dist = sd(distance, na.rm = T),
+            n = n())%>%
+  mutate(se = sd_dist/sqrt(n))%>%
+  mutate(uci = mean_dist + 2.6*se,
+         lci = mean_dist - 2.6*se)
+```
+```{r}
+ggplot(filter(bdr_avg, group != 'drop'),
+       aes(x = sec_pooled, y = mean_dist, color = group)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = lci, ymax = uci)) + 
+  labs(title = 'auto tracker - 99% CIs')
+```
 
 
+```{r}
+bd_avg <- group_by(bd, time_sec)%>%
+  summarize(mean_dist = mean(dist, na.rm=T),
+            sd_dist = sd(dist, na.rm = T),
+            n = n())%>%
+  mutate(se = sd_dist/sqrt(n))%>%
+  mutate(uci = mean_dist + 2.6*se,
+         lci = mean_dist - 2.6*se)%>%
+  mutate(group = if_else(time_sec < 59, 'before the drop', 
+                         if_else(time_sec > 62, 'after the drop', 'drop')))
+```
+```{r}
+ggplot(filter(bd_avg, group != 'drop', time_sec != -2),
+       aes(x = time_sec, y = mean_dist, color = group)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = lci, ymax = uci)) +
+  labs(title = 'manual tracker - 99% CIs')
+```
+
+The pattern is broadly similar in both dataset; a decrease in activity after the drop, followed by a steady recovery in activity, which is perhaps a bit faster in the manual data. There is some suspicious variation in the auto-tracker - low values at the start of the recording and high values right before the drop - which do not appear in the manual dataset. What sections of the recording can we pool together to both capture this temporal variation and simplify analyses?
+
+There is not an obvious biological reason to split the 'before' group, given that it experiences constant conditions. Perhaps it could be split to account for technical variation, such as the slightly lower activity levels at the beginning of the recording (presumably due to the copepod not being tracked right away - it needs to be spotted before it can be followed). The 'after' group could be split to account for the recovery over time, such as into a 'shocked' and 'recovering' phase, or even into three groups ('shocked', 'recovering', and 'recovered'). Let's see what that looks like.
+
+```{r}
+bdr_avg$sec <- seq(0, 120, 2)
+bdr_avg <- mutate(bdr_avg, group2 = if_else(group == 'before the drop', 'before', 
+                                    if_else(sec>61.5 & sec<=80, 'shocked', 
+                                            if_else(sec>80 & sec<100, 'recovering', 'recovered'))))
+```
+```{r}
+ggplot(filter(bdr_avg, group != 'drop'),
+       aes(x = sec_pooled, y = mean_dist, color = group2)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = lci, ymax = uci)) + 
+  labs(title = 'auto tracker - 99% CIs')
+```
+
+```{r}
+bd_avg <- mutate(bd_avg, group2 = if_else(group == 'before the drop', 'before', 
+                                          if_else(time_sec>61.5 & time_sec<=80, 'shocked', 
+                                            if_else(time_sec>80 & time_sec<100, 'recovering', 'recovered'))))
+```
+```{r}
+ggplot(filter(bd_avg, group != 'drop', time_sec != -2),
+       aes(x = time_sec, y = mean_dist, color = group2)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = lci, ymax = uci)) +
+  labs(title = 'manual tracker - 99% CIs')
+```
+
+Obviously, there is still some variation within these groups, particularly the 'shocked' group. To get an idea about how adequate these categories are, I fit simple linear models using different groupings and looked at the variance explained. The simplest categorization is just before vs after. Then, I separate the after period into two 30s intervals, and then into three 20s intervals. Finally, we consider a factor for every two seconds of observation (presumably overkill).
+
+```{r}
+# auto data - model comp
+bdr <- mutate(bdr, group2 = if_else(group == 'before the drop', 'before', 
+                                    if_else(sec>61.5 & sec<=90, 'recovery', 'recovered')),
+              group3 = if_else(group == 'before the drop', 'before', 
+                                    if_else(sec>61.5 & sec<=80, 'shocked',
+                                            if_else(sec>80 & sec<=100, 'recovering', 'recovered')))
+              )
+
+lm0 <- lm(distance ~ factor(sec_pooled), filter(bdr, group != 'drop'))
+lm1 <- lm(distance ~ group3, filter(bdr, group != 'drop'))
+lm2 <- lm(distance ~ group2, filter(bdr, group != 'drop'))
+lm3 <- lm(distance ~ group, filter(bdr, group != 'drop'))
+lm4 <- lm(distance ~ 1, filter(bdr, group != 'drop'))
+anova(lm4, lm3, lm2, lm1, lm0)
+
+# make plot of r2
+dx <- data.frame(r2 = c(summary(lm4)$r.squared,
+        summary(lm3)$r.squared,
+        summary(lm2)$r.squared,
+        summary(lm1)$r.squared,
+        summary(lm0)$r.squared),
+        df = c(summary(lm4)$df[1],
+        summary(lm3)$df[1],
+        summary(lm2)$df[1],
+        summary(lm1)$df[1],
+        summary(lm0)$df[1]),
+        trt = factor(c("int-only", "bef-aft", "bef-2 groups", "bef-3 groups", "2 sec"),
+                     levels = c("int-only", "bef-aft", "bef-2 groups", "bef-3 groups", "2 sec"))
+        )
+
+ggplot(dx, aes(x = trt, y = r2, size = df)) + geom_point() + geom_label(aes(label = df))
+```
+
+```{r}
+# manual data - model comp
+bd <- mutate(bd, group2 = if_else(group == 'before the drop', 'before', 
+                                    if_else(time_sec>61.5 & time_sec<=90, 'recovery', 'recovered')),
+              group3 = if_else(group == 'before the drop', 'before', 
+                                    if_else(time_sec>61.5 & time_sec<=80, 'shocked',
+                                            if_else(time_sec>80 & time_sec<=100, 'recovering', 'recovered')))
+              )
+
+lm0 <- lm(dist ~ factor(time_sec), filter(bd, group != 'drop', time_sec != -2))
+lm1 <- lm(dist ~ group3, filter(bd, group != 'drop', time_sec != -2))
+lm2 <- lm(dist ~ group2, filter(bd, group != 'drop', time_sec != -2))
+lm3 <- lm(dist ~ group, filter(bd, group != 'drop', time_sec != -2))
+lm4 <- lm(dist ~ 1, filter(bd, group != 'drop', time_sec != -2))
+anova(lm4, lm3, lm2, lm1, lm0)
+
+
+# make plot of r2
+dx <- data.frame(r2 = c(summary(lm4)$r.squared,
+        summary(lm3)$r.squared,
+        summary(lm2)$r.squared,
+        summary(lm1)$r.squared,
+        summary(lm0)$r.squared),
+        df = c(summary(lm4)$df[1],
+        summary(lm3)$df[1],
+        summary(lm2)$df[1],
+        summary(lm1)$df[1],
+        summary(lm0)$df[1]),
+        trt = factor(c("int-only", "bef-aft", "bef-2 groups", "bef-3 groups", "2 sec"),
+                     levels = c("int-only", "bef-aft", "bef-2 groups", "bef-3 groups", "2 sec"))
+        )
+
+ggplot(dx, aes(x = trt, y = r2, size = df)) + geom_point() + geom_label(aes(label = df))
+
+```
+
+The variance explained by different categorizations is similar in the two datasets. The be
+
+```{r}
+# make different cut points
+bs<-seq(2, 60, by = 2)
+for(b in bs){
+  # print(b)
+  bd <- mutate(bd, secx = cut(time_sec, breaks = b))
+  
+  lmx <- lm(dist ~ secx, filter(bd, group != 'drop', time_sec != -2))
+  df <- summary(lmx)$df[1]
+  r2 <- summary(lmx)$r.squared
+  
+  if(b == 2) {
+    dx <- data.frame( df = df, r2 = r2)
+  } else {
+    dxx <- data.frame( df = df, r2 = r2)
+    dx <- rbind(dx, dxx)
+    rm(dxx)
+  }
+  
+}
+```
+Funky looking because of how groups are made...
+```{r}
+ggplot(dx, aes(x = df, y = r2)) + geom_point()
+```
+
+```{r}
+x
+```
+
+```{r}
+y
+```
+
+
+
+```{r}
+bd_i <- mutate(bd_i, sec_pooled = cut(sec, breaks = seq(0, 120, 2), include.lowest = T))
+bdr_avg <- group_by(bd_i, sec_pooled, trt2)%>%
+  summarize(mean_dist = mean(distance, na.rm=T),
+            sd_dist = sd(distance, na.rm = T),
+            n = n())%>%
+  mutate(se = sd_dist/sqrt(n))%>%
+  mutate(uci = mean_dist + 1.96*se,
+         lci = mean_dist - 1.96*se)
+```
+
+```{r}
+ggplot(filter(bdr_avg),
+       aes(x = sec_pooled, y = mean_dist, color = trt2)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = lci, ymax = uci)) + coord_cartesian(ylim = c(0, 1.5))
+```
+
+
+
+
+
+
+
+
+
+
+```{r}
+bdr_avg <- filter(bdr, group != 'drop')%>%
+  group_by(fname, group)%>%
+  summarize(avg_dist = mean(distance, na.rm=T))%>%
+  mutate(group = factor(group, levels = c("before the drop", "after the drop")))
+```
+```{r}
+ggplot(bdr_avg, aes(x = avg_dist)) + geom_histogram()
+ggplot(bdr_avg, aes(x = log(avg_dist))) + geom_histogram()
+```
+
+```{r}
+ggplot(bdr_avg, aes(x = group, y = avg_dist)) +
+  geom_line(aes(group = fname), alpha = 0.05) + geom_point(alpha = 0.1)
+```
+
+
+```{r}
+bdr_avg <- mutate(bdr_avg, cop_name = substring(fname, 1, 5))
+bdr_avg <- left_join(bdr_avg, select(infd, cop_name, trt2))
+```
+
+```{r}
+ggplot(bdr_avg, aes(x = group, y = avg_dist)) + geom_boxplot() + facet_grid(~trt2)
+```
 
 
 # Exploratory Analyses
