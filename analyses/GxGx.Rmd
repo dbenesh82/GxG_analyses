@@ -42,6 +42,10 @@ bd$dist[bd$slice == 1 & bd$dist == -1] <- NA
 
 # create new variables
 bd <- mutate(bd, time_sec = slice * 2 - 4)
+
+# make fname consistent with auto-tracked file
+bd <- mutate(bd, fname = if_else(day > 10, paste0(cop_name, "_", day),
+                          paste0(cop_name, "_0", day)))
 ```
 
 # Descriptive Statistics
@@ -173,11 +177,115 @@ n_rec <- left_join(n_rec, select(infd, cop_name, trt))
 tapply(n_rec$n_rec, n_rec$trt, mean)
 # round(prop.table(table(n_rec$trt, n_rec$n_rec), margin = 1), 2)
 ```
+
 The average number of recordings processed increased to over 8 per copepod. This is because I used the auto-tracker to process additional videos taken at days 19 and 21 postinfection that were not previously manually-processed.
 
 # Define Response Variables
 
+What should we record from the videos of copepod of behavior? What should be our response variable?
+
+### Frames per second
+
+Previous studies recorded copepods at 1 frame per 2 sec (LINKS!!)[XXX], which some preliminary experimentation determined was optimal for manual tracking - only a small number of frames needed to be clicked through and it did not miss much movement. By comparison, the auto tracker used 8 frames/sec, a frame rate 16 times higher. This high rate was used because each frame helped establish the recording's 'background', which was then subtracted out to detect movement from one frame to the next. Recording a copepod's position every 1/8 of a second is probably overkill; it probably detects superfluous movements and creates an unnecessarily large dataset. But how much should we reduce the frame rate? To evaluate this, for several frame rates I averaged copepod position across frames to be pooled, recalculated the distance moved between frames, and then summed the total distance moved during the recording. Then, I checked how steeply the correlation with the full dataset dropped off.
+
+```{r}
+# reduce the data frame to different frame rates...
+# get cop position and distance for 1 frame per 4 s - less than even manual rate
+bdr_1per4s <- mutate(bdr, fg = cut(sec, 30))%>%
+  group_by(fname, fg)%>%
+  summarize(x = mean(x), y = mean(y))%>%
+  mutate(x0 = lag(x), y0 = lag(y))%>%
+  mutate(dist = sqrt((x0 - x)^2 + (y0 - y)^2))%>%
+  select(fname, fg, dist)
+
+# get cop position and distance for 1 frame per 2 s
+bdr_1per2s <- mutate(bdr, fg = cut(sec, 60))%>%
+  group_by(fname, fg)%>%
+  summarize(x = mean(x), y = mean(y))%>%
+  mutate(x0 = lag(x), y0 = lag(y))%>%
+  mutate(dist = sqrt((x0 - x)^2 + (y0 - y)^2))%>%
+  select(fname, fg, dist)
+
+# for 1 frames per s
+bdr_1pers <- mutate(bdr, fg = cut(sec, 120))%>%
+  group_by(fname, fg)%>%
+  summarize(x = mean(x), y = mean(y))%>%
+  mutate(x0 = lag(x), y0 = lag(y))%>%
+  mutate(dist = sqrt((x0 - x)^2 + (y0 - y)^2))%>%
+  select(fname, fg, dist)
+
+# for 2 frames per s
+bdr_2pers <- mutate(bdr, fg = cut(sec, 240))%>%
+  group_by(fname, fg)%>%
+  summarize(x = mean(x), y = mean(y))%>%
+  mutate(x0 = lag(x), y0 = lag(y))%>%
+  mutate(dist = sqrt((x0 - x)^2 + (y0 - y)^2))%>%
+  select(fname, fg, dist)
+
+# for 4 frames per s
+bdr_4pers <- mutate(bdr, fg = cut(sec, 480))%>%
+  group_by(fname, fg)%>%
+  summarize(x = mean(x), y = mean(y))%>%
+  mutate(x0 = lag(x), y0 = lag(y))%>%
+  mutate(dist = sqrt((x0 - x)^2 + (y0 - y)^2))%>%
+  select(fname, fg, dist)
+```
+
+```{r}
+# calc tot distance moved over recording in auto-tracked data at diff frame rates
+bdr_td <- group_by(bdr, fname)%>%
+  summarize(dist_full = sum(distance, na.rm = T))
+
+bdr_td_1per4s <- group_by(bdr_1per4s, fname)%>%
+  summarize(dist_1per4s = sum(dist, na.rm = T))
+
+bdr_td_1per2s <- group_by(bdr_1per2s, fname)%>%
+  summarize(dist_1per2s = sum(dist, na.rm = T))
+
+bdr_td_1pers <- group_by(bdr_1pers, fname)%>%
+  summarize(dist_1pers = sum(dist, na.rm = T))
+
+bdr_td_2pers <- group_by(bdr_2pers, fname)%>%
+  summarize(dist_2pers = sum(dist, na.rm = T))
+
+bdr_td_4pers <- group_by(bdr_4pers, fname)%>%
+  summarize(dist_4pers = sum(dist, na.rm = T))
+
+# combine for plotting
+bdr_comp <- left_join(bdr_td, bdr_td_1per4s)
+bdr_comp <- left_join(bdr_comp, bdr_td_1per2s)
+bdr_comp <- left_join(bdr_comp, bdr_td_1pers)
+bdr_comp <- left_join(bdr_comp, bdr_td_2pers)
+bdr_comp <- left_join(bdr_comp, bdr_td_4pers)
+```
+
+The correlation (r^2^ on the y-axis below) between the full auto-tracked dataset and the reduced datasets decreases as the frame rate is reduced, as we would expect. However, even when the frame rate is reduced 8x (1 per sec), r^2^ is still quite high at 0.9, indicating that we are not losing much information on copepod movement.
+
+```{r}
+ctab <- cor(select(bdr_comp, -fname), use = "pairwise.complete.obs")
+
+fr = c(8, 0.25, 0.5, 1, 2, 4)
+
+cor_plot <- data.frame(frame_rate = fr,
+                       frames_per_rec = fr * 120,
+                       r2 = ctab[1,]^2)
+                    
+ggplot(cor_plot, aes(x = frame_rate, y = r2)) + geom_point() + geom_line() +
+  scale_x_reverse()
+```
+
+Subjectively, a frame rate of 2 per second seems like a reasonable compromise. It reduces the auto-tracked data 4 fold, while retaining much of the information (r^2^ = 0.93). It also retains 4x more data on copepod position than the manually-tracked dataset, though as mentioned before, previous work did not indicate a lot of information gain through a frame rate higher than 1 per 2 seconds. In the end, the reduction in frame rate is a practical decision, unlikely to bias or gloss over differences between treatments or differences between genotypes.
+
+```{r}
+# remove unneeded data frames
+rm(list = ls(pattern = "bdr_td"))
+rm(list = ls(pattern = "bdr_1p"))
+rm(bdr_comp, cor_plot, ctab, fr, bdr_4pers)
+```
+
+
 ### Distance of hops
+
 For each recording, behavior was filmed over two minutes, with the plate being dropped in the middle of the recording. So *a priori* we can divide a recording into three sections: before the drop, during the drop, and after the drop. The simplest behavioral measurement is the distance moved between frames. Let's see how the magnitude of movements changes throughout a recording.
 
 ```{r}
