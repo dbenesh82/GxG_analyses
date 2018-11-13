@@ -187,7 +187,7 @@ What measures of copepod behavior should we extract from the videos? What should
 ## Behavioral measures
 ### Measure 1 - hop distance
 
-The simplest behavioral measurement is the distance moved between frames. For each recording, behavior was filmed over two minutes, with the plate being dropped in the middle of the recording. So *a priori* we can divide a recording into three sections: before the drop, during the drop, and after the drop.  Let's see how 'hop distance' changes throughout a recording.
+The simplest measurement is the distance moved between frames. For each recording, behavior was filmed over two minutes, with the plate being dropped in the middle of the recording. So *a priori* we can divide a recording into three sections: before the drop, during the drop, and after the drop.  Let's see how 'hop distance' changes throughout a recording.
 
 ```{r}
 bdr_avg <- group_by(bdr, sec)%>%
@@ -215,7 +215,7 @@ ggplot(bd_avg, aes(x = time_sec, y = mean_dist)) +
 
 The most conspicuous pattern is the spike at 60 second during the drop. The copepod moves so fast during this drop that it cannot be tracked. The slight change in plate position through the drop also causes problems with background subtraction in the auto-tracking program. The values during the plate drop cannot be considered accurate and need to be removed before analyses. But how much should we remove on either side of the drop? 
 
-Let's zoom in on the drop. It seems like taking the 1.5 seconds on either side of the drop seems to reasonably exclude most of the peak.
+Let's zoom in on the drop. Just eyeballing it, it seems like taking the 1.5 seconds on either side of the drop seems to reasonably exclude most of the peak.
 
 ```{r}
 ggplot(bdr_avg, aes(x = sec, y = mean_dist)) + 
@@ -241,13 +241,260 @@ ggplot(filter(bd_avg, group != 'drop'),
   labs(title = 'manual tracking')
 ```
 
-There is a clear decrease in activity directly after the drop, but the copepods seem to recover rather quickly such that by the end of the second minute their activity levels are back up to those before the drop. Also, in the auto-tracked data, there is still a spike shortly before the drop, which was not observed in the manual data. I think this represents a problem with how background subtraction works at the 'edges' of the video (i.e. before and after the drop). Presumably, this is random error and it shouldn't bias treatment differences.
+There is a clear decrease in activity directly after the drop, but the copepods seem to recover rather quickly such that by the end of the recording their activity levels are back up to those before the drop. Also, in the auto-tracked data, there is still a spike shortly before the drop, which was not observed in the manual data. I think this represents a problem with how background subtraction works at the 'edges' of the video (i.e. before and after the drop). Presumably, this is random error and it shouldn't bias treatment differences, but it might be worth excluding a little more than 1.5 seconds on both sides of the drop.
 
 ### Measure 2 - time moving
 
-Instead of asking how far a copepod moved in a given time frame, we can ask if it was moving at all.
+Instead of asking how far a copepod moved in a given time frame, we can ask if it was moving at all. This may provide some additional nuance, because a copepod can move the same distance over a recodring in different ways, e.g. steady, slow movements vs. a few large/fast movements. Previous studies (LINK!!!)[] using the same recording approach have examined two behavior variables: i) whether a copepod was moving and ii) if yes, how fast/far it was moving. Let's examine behavior broken into these two variables to see if it adds any clear information relative to just 'hop distance' between frames.
 
-CHECK CORRELATION BETWEEN HOP DISTANCE AND PROP MOVING! CHECK IF RESIDUALS DIFFER BTW TREATMENTS ACROSS RECORDING!
+```{r}
+# tag frames where cop not-moving
+# auto
+bdr <- mutate(bdr, moving = if_else(distance < 0.13, 0, 1))
+# manual
+bd <- mutate(bd, moving = if_else(dist < 0.13, 0, 1))
+# value of 0.13 was used as cutoff to designate non-moving tiny oscillattions, because it represented a one pixel move in the manual data, which is presumably due to clicking in a slightly different spot than a genuine change in copepod position
+```
+
+Here is the average proportion of time spent moving over the recording.
+
+```{r}
+# plot over time for auto tracker
+bdr_avg2 <- filter(bdr, !is.na(moving))%>%
+  group_by(sec)%>%
+  summarise(moving = sum(moving, na.rm = T) , n = n())%>%
+  mutate(prop_moving = moving/n, 
+         group = if_else(sec < 58.5, 'before the drop', if_else(sec > 61.5, 'after the drop', 'drop')))
+
+ggplot(bdr_avg2, aes(x = sec, y = prop_moving)) + 
+  geom_line() +
+  geom_point(aes(color = group)) +
+  labs(title = 'auto tracker') +
+  scale_y_continuous(limits = c(0,1))
+```
+
+```{r}
+# plot over time for manual tracking
+bd_avg2 <- filter(bd, !is.na(moving), time_sec != -2)%>%
+  group_by(time_sec)%>%
+  summarise(moving = sum(moving, na.rm = T) , n = n())%>%
+  mutate(prop_moving = moving/n, 
+         group = if_else(time_sec < 59, 'before the drop', if_else(time_sec > 62, 'after the drop', 'drop')))
+
+ggplot(bd_avg2, aes(x = time_sec, y = prop_moving)) +
+  geom_line() +
+  geom_point(aes(color = group)) +
+  labs(title = 'manual tracking') +
+  scale_y_continuous(limits = c(0,1))
+```
+
+As expected, the patterns are very similar to those observed with just 'hop distance'. The auto tracker seems to miss some movements at the start of the recording, which probably has to do with how quickly the video's 'background' is established by the algorithm and then subtracted out to detect movement. It also detects less movement overall, which is probably due to the higher frame rate - more movement can happen in 2 seconds (manual frame rate) than in 1/8 of a second (auto frame rate).
+
+Turning to the second component of 'hop distance' - when a copepod is moving, how far it moves. I'll call this the velocity, because it is the distance moved in a set time frame, i.e. a rate. The next two plots show how velocity changes over the recording. There is a clear difference between auto and manually tracked data.
+```{r}
+bdr_avg3 <- filter(bdr, moving == 1)%>%
+  group_by(sec)%>%
+  summarize(mean_dist = mean(distance, na.rm=T), sd = sd(distance), n = n())%>%
+  mutate(se = sd/sqrt(n),
+         group = if_else(sec < 58.5, 'before the drop', if_else(sec > 61.5, 'after the drop', 'drop')))
+
+ggplot(filter(bdr_avg3, group != 'drop'),
+       aes(x = sec, y = mean_dist, color = group, fill = group)) + 
+  geom_ribbon(aes(ymin = mean_dist - 1.96*se, ymax = mean_dist + 1.96*se)) +
+  geom_path(color = 'black') +
+  labs(title = 'auto tracker', y = 'mean velocity when moving + CI')
+
+```
+```{r}
+bd_avg3 <- filter(bd, moving == 1, time_sec != -2)%>%
+  group_by(time_sec)%>%
+  summarize(mean_hop_dist = mean(dist, na.rm=T), sd = sd(dist), n =n())%>%
+  mutate(se = sd/sqrt(n),
+         group = if_else(time_sec < 59, 'before the drop', if_else(time_sec > 62, 'after the drop', 'drop')))
+
+ggplot(filter(bd_avg3, group != 'drop'),
+       aes(x = time_sec, y = mean_hop_dist, color = group, fill = group)) + 
+  geom_ribbon(aes(ymin = mean_hop_dist - 1.96*se, ymax = mean_hop_dist + 1.96*se)) +
+  geom_path(color = 'black') +
+  labs(title = 'manual tracking', y = 'mean velocity when moving + CI')
+```
+
+Right after the drop, copepods seems to exhibit large movements in the auto dataset, which is tempting to interpet as escape movements, but the opposite is seen in the manual tracking data. So, again it looks like there some artifacts in the auto-tracking dataset, probably due to the background being shifted when a plate is dropped. However, in both cases, it is worth noting that when we do not focus on the time right after the drop, it doesn't look like the drop has a profound effect on this variable. For most of the time after the drop, copepod movements look similar to before the drop.
+
+Next we check whether the number of movements (proportion of time moving) is correlated to the magnitude of movements (velocity). When we plot these components, we see very high values in copepods that hardly moved. This is because a single, large perhaps erroneously recorded movement can determine the average velocity over the recording when few movements are detected.
+
+```{r}
+# remove drop and missing data
+bdr_comp <- filter(bdr, sec < 59 | sec > 61, !is.na(distance))%>%
+  group_by(fname)%>%
+  summarise(n = n(), tot_dist = sum(distance), moving = sum(moving))%>%
+  mutate(avg_vel = tot_dist/n, avg_vel_when_moving = tot_dist/moving, prop_moving = moving/n)
+
+ggplot(bdr_comp, aes(x = prop_moving, y = avg_vel_when_moving)) + 
+  geom_point(alpha = 0.051) +
+  geom_smooth(method = 'lm', se = F) +
+  labs(title = 'auto tracking')
+```
+
+When we zoom in to exclude the copepods with a few, high magnitude movements, then we see that there is not a strong correlation between these variables. The residual variation suggests that in some recordings copepods are more slow and steady movers while in others they are more fast and jerky. 
+
+```{r}
+ggplot(bdr_comp, aes(x = prop_moving, y = avg_vel_when_moving)) + 
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = 'lm', se = F) +
+  scale_x_continuous(limits = c(0.05, 0.9)) + scale_y_continuous(limits = c(0,10)) +
+  labs(title = 'auto tracking')
+```
+
+For the purpose of this experiment, we want to know how infection affects where copepods land on this plot. Additionally, we would like to know if there is a clear response to the plate drop in one or both of these variables. Let's add median values for the infection groups to the above plot and split it by the recording period, before and after the drop.
+
+```{r}
+# new ways of showing two responses, trt, and recording time together
+bdr_avg4 <- filter(bdr, sec < 58 | sec > 62, !is.na(distance))%>%
+  mutate(drop = if_else(sec < 60, 'before', 'after'))%>%
+  group_by(fname, drop)%>%
+  summarise(n = n(), tot_dist = sum(distance), moving = sum(moving))%>%
+  mutate(avg_vel = tot_dist/n, avg_vel_when_moving = tot_dist/moving, prop_moving = moving/n)%>%
+  mutate(drop = factor(drop, levels = c('before', 'after')))
+
+# avg for 3 trts
+bdr_avg4 <- left_join(bdr_avg4, select(bdr, fname, cop_name)%>%distinct())
+bdr_avg4 <- left_join(bdr_avg4, select(infd, cop_name, trt))
+bdr_avg4_inf <- ungroup(bdr_avg4)%>%
+  group_by(trt,drop)%>%
+  summarize(n = n(),
+            avg_vel = median(avg_vel), 
+            avg_vel_when_moving = median(avg_vel_when_moving, na.rm=T), 
+            prop_moving = mean(prop_moving),
+            sd_vel = sd(avg_vel_when_moving, na.rm = T),
+            sd_prop = sd(prop_moving, na.rm = T))
+
+ggplot(filter(bdr_avg4, prop_moving > 0.0),
+       aes(x = prop_moving, y = avg_vel_when_moving)) + 
+  geom_point(alpha = 0.1) + geom_smooth() + 
+  geom_point(data = bdr_avg4_inf, 
+             aes(x = prop_moving, y = avg_vel_when_moving, color = trt),
+             size = 5) +
+  facet_grid(~drop) + 
+  scale_y_log10() +
+  labs(title = 'auto tracker')
+# tried adding error bars, but couldn't get them to look reasonable given skew in the data
+```
+```{r}
+bd_avg4 <- filter(bd, time_sec < 59 | time_sec > 61, !is.na(dist))%>%
+  mutate(drop = if_else(time_sec < 60, 'before', 'after'))%>%
+  group_by(fname, drop)%>%
+  summarise(n = n(), tot_dist = sum(dist), moving = sum(moving))%>%
+  mutate(avg_vel = tot_dist/n, avg_vel_when_moving = tot_dist/moving, prop_moving = moving/n,
+         drop = factor(drop, levels = c('before', 'after')))
+
+bd_avg4$avg_vel_when_moving[which(is.infinite(bd_avg4$avg_vel_when_moving))]<-NA
+
+bd_avg4 <- left_join(bd_avg4, select(bd, fname, cop_name)%>%distinct())
+bd_avg4 <- left_join(bd_avg4, select(infd, cop_name, trt))
+
+bd_avg4_inf <- ungroup(bd_avg4)%>%
+  group_by(trt, drop)%>%
+  summarize(avg_vel = mean(avg_vel), 
+            avg_vel_when_moving = mean(avg_vel_when_moving, na.rm=T), 
+            prop_moving = mean(prop_moving))
+
+ggplot(filter(bd_avg4, prop_moving > 0.0),
+       aes(x = prop_moving, y = avg_vel_when_moving)) + 
+  geom_point(alpha = 0.1) + geom_smooth() + 
+  geom_point(data = bd_avg4_inf, 
+             aes(x = prop_moving, y = avg_vel_when_moving, color = trt),
+             size = 5) +
+  facet_grid(~drop) + 
+  # scale_y_log10() +
+  labs(title = 'manual tracking')
+```
+
+Again, there are idiosyncratic differences between the datasets, like in the auto-tracking dataset the combinations of high velocities and a low proportion of time moving, which is presumably an artifact. The qualitative patterns appear similar in both datasets. The infecteds clearly spend less time moving than uninfecteds (shifted on the x-axis), but when they are moving, velocities are comparable (minimal shift along the y-axis). Additionally, the responses to the drop are subtle, suggesting copepods do not substantially change their behavior in response to the 'shock'. Indeed, the time-series (plots above)[] suggest that on average they recover to pre-drop levels rather quickly.
+
+Here's another way to visualize treatment and drop effects in the different behavior variables. Until now, we have looked averages across recordings and groups, ignoring how copepods respond to a drop within a recording. The next plots show how individuals respond to the drop, first for proportion of time moving. The overall average response is the bold line.
+
+```{r}
+ggplot(bdr_avg4, aes(x = drop, y = prop_moving, color = trt)) + 
+  geom_line(aes(group = fname), alpha = 0.1) +
+  geom_point(data = bdr_avg4_inf, aes(x = drop, y = prop_moving), size = 3) +
+  geom_line(data = bdr_avg4_inf, aes(group = trt), size = 3) +
+  facet_grid(~trt) +
+  labs(title = 'auto tracker')
+```
+```{r}
+ggplot(bd_avg4, aes(x = drop, y = prop_moving, color = trt)) + 
+  geom_line(aes(group = fname), alpha = 0.05) +
+  geom_point(data = bd_avg4_inf, aes(x = drop, y = prop_moving), size = 3) +
+  geom_line(data = bd_avg4_inf, aes(group = trt), size = 3) +
+  facet_grid(~trt) +
+  labs(title = 'manual tracker')
+```
+The qualitative pattern is very similar in the two datasets - infecteds spend less time moving in general and all groups reduce activity after the drop. The raw values are higher in the manual data, but this makes sense given it's lower frame rate, i.e. more movement is possible within 2 seconds than an 1/8 of a second.
+
+Making the same plot for our second response variable, copepod velocity when moving...
+
+```{r}
+ggplot(bdr_avg4, aes(x = drop, y = avg_vel_when_moving, color = trt)) + 
+  geom_line(aes(group = fname), alpha = 0.05) +
+  geom_point(data = bdr_avg4_inf, aes(x = drop, y = avg_vel_when_moving), size = 3) +
+  geom_line(data = bdr_avg4_inf, aes(group = trt), size = 3) +
+  scale_y_log10() +
+  facet_grid(~trt) +
+  labs(title = 'auto tracker')
+```
+```{r}
+ggplot(bd_avg4, aes(x = drop, y = avg_vel_when_moving, color = trt)) + 
+  geom_line(aes(group = fname), alpha = 0.05) +
+  geom_point(data = bd_avg4_inf, aes(x = drop, y = avg_vel_when_moving), size = 3) +
+  geom_line(data = bd_avg4_inf, aes(group = trt), size = 3) +
+  facet_grid(~trt) +
+  scale_y_log10() +
+  labs(title = 'manual tracker')
+```
+
+Here the pattern is a little differnt. In neither dataset is there much of a change due to the drop - copepod hops are of a similar magnitude before and after being frightened. Thus, the main response to the drop is fewer movements, not a change in the type of movements. In the manual dataset, the infecteds have slightly smaller hops than uninifecteds, but this is not seen in the auto-tracked dataset.
+
+Now the composite measure, average velocity including non-movements.
+
+```{r}
+ggplot(bdr_avg4, aes(x = drop, y = avg_vel, color = trt)) + 
+  geom_line(aes(group = fname), alpha = 0.05) +
+  geom_point(data = bdr_avg4_inf, aes(x = drop, y = avg_vel), size = 3) +
+  geom_line(data = bdr_avg4_inf, aes(group = trt), size = 3) +
+  facet_grid(~trt) +
+  labs(title = 'auto tracker')
+```
+```{r}
+ggplot(bd_avg4, aes(x = drop, y = avg_vel, color = trt)) + 
+  geom_line(aes(group = fname), alpha = 0.05) +
+  geom_point(data = bd_avg4_inf, aes(x = drop, y = avg_vel), size = 3) +
+  geom_line(data = bd_avg4_inf, aes(group = trt), size = 3) +
+  facet_grid(~trt) +
+  labs(title = 'manual tracker')
+```
+
+The pattern is quite similar in both datasets. Activity decreases in response to the drop, particularly in the uninfected groups, because they were more active to begin with. Infected copepods are less active regardless of whether they are observed before or after the drop.
+
+ARGUE FOR USING THIS ONE COMPOSITE MEAUSRE! One problem is bizarre dist.
+
+```{r}
+# frame level
+ggplot(bdr, aes(x = distance)) + 
+  geom_histogram(binwidth = 0.1) +
+  coord_cartesian(xlim = c(0,5))
+```
+
+
+```{r}
+# composite level
+head(bdr_avg4)
+ggplot(bdr_avg4, aes(x=tot_dist)) + 
+  geom_histogram() + 
+  facet_grid(~drop)
+```
+
+
 
 ### Measure 3 - angle of movements
 
