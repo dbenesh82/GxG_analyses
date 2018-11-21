@@ -182,10 +182,10 @@ The average number of recordings processed increased to over 8 per copepod. This
 
 # Define Response Variables
 
-What measures of copepod behavior should we extract from the videos? What should be our response variable? How can we simplify the very fine frame-by-frame data to something more manageable and understandable? First, I examine how three measures of copepod behavior vary over a recording. Second, I check ways to simplify the measurements to ease modelling and improve understanding.
+What measures of copepod behavior should we extract from the videos? What should be our response variable? How can we simplify the very fine frame-by-frame data to something more manageable and understandable? First, I examine the utility of different measures of copepod behavior. Second, I check ways to simplify the measurements to ease modelling and improve understanding.
 
 ## Behavioral measures
-### Measure 1 - speed
+### Speed
 
 The simplest measurement is the distance moved between frames. We can also call this copepod's speed, given that it is a distance moved in a defined time. Behavior was filmed over two minutes, with the plate being dropped in the middle of the recording. So *a priori* we can divide a recording into three sections: before the drop, during the drop, and after the drop.  Let's see how average speed changes throughout a recording.
 
@@ -243,7 +243,7 @@ ggplot(filter(bd_avg, group != 'drop'),
 
 There is a clear decrease in activity directly after the drop, but the copepods seem to recover rather quickly so that by the end of the recording their activity levels have recovered. Also, in the auto-tracked data, there is still a spike shortly before the drop, which was not observed in the manual data. I think this represents a problem with how background subtraction works at the 'edges' of the video (i.e. before and after the drop). Presumably, this is random error and it shouldn't bias treatment differences, but it might be worth excluding a little more than 1.5 seconds on both sides of the drop.
 
-### Measure 2 - time moving
+### Proportion of time moving vs distance moved
 
 Instead of asking how far/fast a copepod moved in a given time frame, we can ask if it was moving at all. This may provide some additional nuance, because a copepod can move the same distance over a recodring in different ways, e.g. steady, slow movements vs. a few large, fast movements. Previous studies (LINK!!!)[] using the same recording approach have examined two behavior variables: i) whether a copepod was moving and ii) if yes, how fast/far it was moving. These two behavioral variables are components of the 'speed' measure used above, but let's separate them to see if it adds any information. In particular, we are interested in how they are affected by infection.
 
@@ -475,32 +475,31 @@ ggplot(bd_avg4, aes(x = drop, y = avg_vel, color = trt)) +
 
 The pattern is quite similar in both datasets. Average speed decreases in response to the drop, particularly in the uninfected groups because they were more active to begin with. Infected copepods are less active regardless of whether they are observed before or after the drop.
 
-To summarize, Infected copepods are spend less time moving than uninfected copepods, but when they are moving their 'hops' are of a similar magnitude. In response to the drop, copepods also reduce how often they move, but do not exhibit fundamentally different 'hops'.
+To summarize, Infected copepods spend less time moving than uninfected copepods, but when they are moving their 'hops' are of a similar magnitude. In response to the drop, copepods also reduce how often they move, but not how fast they move, i.e. their 'hops' are similar. Given these results, my preference is to *not* break movement in multiple variables in further analyses. First and foremost, this is simpler. Hop distance seems relatively unaffected by infection or the drop, so it is not obvious this variable reflects anything of biological importance. Additionally, analyzing multiple variables increases the opportunity for false positives (p-hacking), which is relevant when we get to the main analysis, i.e. comparing genotype by genotype interactions. Alternatively, I could just use time moving as the response, because infection and drop effects are most clearly seen here. However, this would exclude all information on copepod speed/distance, which also seems excessive. The composite measure can be conveniently called 'activity' and expressed as either a distance or a speed.
 
-Given these results, my preference is to simply use the composite measure for all further analyses. I have a couple justifications for this. First and foremost, hop distance seems neither impacted by infection nor the drop, so the variable does not obviously capture anything of biological importance. Second, analyzing multiple variables increases the opportunity for p-hacking and false positives, which is especially important when we get to the analysis of primary interest, comparing genotype by genotype interactions. Third, I could just use time moving as the response, as it is where infection and drop effects are most clearly seen. However, this would exclude all information on the distance copepods moved during the recording, which also seems to throw out a lot of information. The composite measure can be conveniently called 'activity' and expressed as either a distance or a speed.
-
-One issue to address at the modelling phase is the unusual distribution of activity. Here it is at the frame level...
+One issue to address at the modelling phase is the unusual distribution of activity. Here it is at the frame level.
 
 ```{r}
 # frame level
 ggplot(bdr, aes(x = distance)) + 
   geom_histogram(binwidth = 0.1) +
-  coord_cartesian(xlim = c(0,5))
+  coord_cartesian(xlim = c(0,5)) +
+  labs(x = 'distance moved per frame', title = 'auto tracker')
 ```
 
-...and here at the composite level of average activity across a recording.
+And here at the composite level of average activity across a recording.
 
 ```{r}
 # composite level
 ggplot(bdr_avg4, aes(x=tot_dist)) + 
   geom_histogram() + 
-  facet_grid(~drop)
+  facet_grid(~drop) +
+  labs(title = 'auto tracker', x = 'distance moved in 1 min')
 ```
 
+In both cases, it is quite skewed, though less so when averaged. We'll return to this issue when we start building statistical models, but now let's look at one more potential response variable that can be extracted from the tracking data.
 
-
-
-### Measure 3 - angle of movements
+### Angle of movements
 
 Another aspect of behavior that can be extracted from the recordings is the direction moved by copepods, like whether they moved forwards or backwards. I calculated the angle of movement between consecutive video frames.
 
@@ -603,13 +602,13 @@ bd_avg <- group_by(bd, time_sec)%>%
 
 ggplot(bd_avg, aes(x = time_sec, y = mean_dir)) + 
   geom_path() + geom_point(aes(color=group)) +
-  scale_x_continuous(limits = c(0,120), breaks = seq(0, 120, by = 10)) +
+  scale_x_continuous(limits = c(0,119), breaks = seq(0, 120, by = 10)) +
   labs(title = 'angle - manual tracker')
 ```
 
-The difference in the mean movement angle is obvious in the two datasets. The lower value in the manually-tracked data corresponds closely to typical copepod movements along the edge of the circular well. The drop induces changes in opposite directions in the two datasets. The auto-tracker 'resets' at the drop (i.e. background subtraction of the video frames starts over), so it may not spot the copepod immediately. Once it is tracking something, the small back-and-forth oscillations then dominate and determine the mean values. In the manual dataset, the increase in angle values right after the drop could indicate more sideways or backwards movement by copepods, but this should not be over-interpreted because this was also where copepods moved the least. One consistent feature of both datasets: angle values return to 'pre-drop' levels very quickly, suggesting the kinds of movements made by copepods was not fundamentally altered by this shock.
+The time-dependence of average movement angle differs in the two datasets. The drop induces changes in opposite directions in the two datasets. The auto-tracker 'resets' at the drop (i.e. background subtraction of the video frames starts over), so it may not spot the copepod immediately. Once it is tracking something, the small back-and-forth oscillations then dominate and determine the mean values. In the manual dataset, the average tended to be lower, around 45 degrees, which corresponds closely to typical copepod movements along the edge of the circular wells. Also, the increase in angle values right after the drop in the manual data could indicate more sideways or backwards movement by copepods, but this should not be over-interpreted because this was also where copepods moved the least. One consistent feature of both datasets: angle values return to 'pre-drop' levels very quickly, suggesting the kinds of movements made by copepods were not fundamentally altered by this shock.
 
-Given that (i) the auto-tracker seems to introduce a lot of noise into this variable measure and (ii) there is not an obvious response to the drop, further evaluation of this variable may not be worthwhile. But before ignoring it, I want to check whether movement angles differs between infected and uninfected copepods.
+Given that (i) the auto-tracker seems to introduce a lot of noise into this variable measure and (ii) there is not an obvious response to the drop, this variable does not look so interesting. But before ignoring it, I want to check whether movement angles differs between infected and uninfected copepods.
 
 ```{r}
 bdr <- mutate(bdr, cop_name = substring(fname, 1, 5))%>%
@@ -617,7 +616,7 @@ bdr <- mutate(bdr, cop_name = substring(fname, 1, 5))%>%
 
 bd_i <- left_join(bdr, infd, by = 'cop_name')
 
-ggplot(filter(bd_i, group != 'drop'),
+ggplot(filter(bd_i, group != 'drop', !is.na(dist_cat)),
        aes(y = angle, x = trt2)) +
   geom_boxplot() +
   labs(title = 'auto tracking - facetted by movement distance', x = 'treatment') +
@@ -629,23 +628,22 @@ bd <- mutate(bd, cop_name = substring(fname, 1, 5))%>%
   mutate(dist_cat = cut(dist, breaks = c(0, 0.5, 2, 7)))
 bd_i <- left_join(bd, infd, by = 'cop_name')
 
-ggplot(filter(bd_i, group != 'drop'),
+ggplot(filter(bd_i, group != 'drop', !is.na(dist_cat)),
        aes(y = angle, x = trt2)) +
   geom_boxplot() +
   labs(title = 'manual tracking - facetted by movement distance', x = 'treatment') +
   facet_grid(group~dist_cat)
 ```
 
-There is no conspicuous difference between treatments in either dataset, regardless of whether movements are large or small or whether they were before or after the drop. A similar way to assess this by calculating dot products for movements. The dot product of two vectors combines information about vector magnitudes and directions into a single value. [Elsewhere](GITHUB) I compared dot products among treatments and found that they do not differ. Thus, for simplicity I will only consider the movement distance from this point forward.
+There is no conspicuous difference between treatments in either dataset, regardless of whether movements are large or small or whether they were before or after the drop. A similar way to assess this by calculating dot products for movements. The dot product of two vectors combines information about vector magnitudes and directions into a single value. [Elsewhere](GITHUB) I compared dot products among treatments and found that they do not differ. Thus, there seems to be little to gain by looking at the *direction* copepods move - it does not respond to the drop nor does it differ between treatments.
 
+To this point, we have considered differ ways of recording copepod behavior and have found that 'activity', a combination of how much and how far they move, is a simple measure that captures the behavior of biological interest. Next, I consider ways to further simplify this variable for downstream analyses. 
 
 ## Simplifying behavioral measurements
 
-Now, I explore ways to justifiably simplify our response variable.
-
 ### Reducing the frame rate
 
-Previous studies recorded copepods at 1 frame per 2 sec (LINKS!!)[XXX], which preliminary experiments determined was optimal for manual tracking - only a small number of frames needed to be clicked through and it did not miss much movement. By comparison, the auto tracker used 8 frames/sec, a frame rate 16 times higher. This high rate was used because each frame helped establish the recording's 'background', which was then subtracted out to detect movement from one frame to the next. Recording a copepod's position every 1/8 of a second is presumably overkill; it probably detects superfluous movements and creates an unnecessarily large dataset. But how much should we reduce the frame rate? To evaluate this, for several frame rates I averaged copepod position across the frames to be pooled and then recalculated the distance moved between frames. To compare different frame rates, I summed the total distance moved during the recording - if much information is lost with lower frame rates, the total distance moved should diverge from that using the full set of frames.
+Previous studies recorded copepods at 1 frame per 2 sec (LINKS!!)[XXX], which preliminary experiments determined was optimal for manual tracking - only a small number of frames needed to be clicked through and it did not miss much movement. By comparison, the auto tracker used 8 frames/sec, a frame rate 16 times higher. This high rate was used because each frame helped establish the recording's 'background', which was then subtracted out to detect movement from one frame to the next. Recording a copepod's position every 1/8 of a second is presumably overkill; it probably detects superfluous movements and creates an unnecessarily large dataset. But how much should we reduce the frame rate? To evaluate this, I averaged copepod position across frames for several frame rates and then recalculated the distance moved between frames. To compare different frame rates, I summed the total distance moved during the recording - if much information is lost with lower frame rates, then the correlation between the full and the reduced-frame-rate datasets should decrease.
 
 ```{r}
 # reduce the data frame to different frame rates...
@@ -718,7 +716,7 @@ bdr_comp <- left_join(bdr_comp, bdr_td_2pers)
 bdr_comp <- left_join(bdr_comp, bdr_td_4pers)
 ```
 
-As expected, the correlation (r^2^ on the y-axis below) between the full dataset and the reduced datasets decreases as the frame rate is reduced. However, even when the frame rate is reduced 8x (1 per sec), r^2^ is still quite high at 0.9, indicating that we are not losing much information on copepod movement. And some of the lost information might be random noise, i.e. the tiny oscillations between frames that are averaged out at lower frame rates.
+As expected, the correlation (r^2^ on the y-axis below) between the full dataset and the reduced datasets decreases as the frame rate is reduced. However, even when the frame rate is reduced 8x to 1 per sec, r^2^ is still quite high (0.9), indicating that we are not losing much information on copepod movement. And some of the lost information might be meaningless, random noise, i.e. the tiny oscillations between frames that are averaged out at lower frame rates.
 
 ```{r}
 ctab <- cor(select(bdr_comp, -fname), use = "pairwise.complete.obs")
@@ -741,6 +739,63 @@ rm(list = ls(pattern = "bdr_td"))
 rm(list = ls(pattern = "bdr_1p"))
 rm(bdr_comp, cor_plot, ctab, fr, bdr_4pers)
 ```
+
+In fact, when we plot the differences between treatments, the pattern is unchanged.
+
+```{r}
+# re-cut the sec variable more carefully
+bdr_2pers <- mutate(bdr, fg = cut(sec, seq(0, 120, by = 0.5), right = F, include.lowest = T))%>%
+  group_by(fname, fg)%>%
+  summarize(x = mean(x), y = mean(y), n = n())%>%
+  mutate(x0 = lag(x), y0 = lag(y))%>%
+  mutate(dist = sqrt((x0 - x)^2 + (y0 - y)^2))%>%
+  select(fname, fg, dist)
+
+# add quantitative sec var back to reduced frame rate dataset
+secfg <- data.frame(fg = unique(bdr_2pers$fg), sec = seq(0, 119.5, by = 0.5))
+bdr_2pers <- left_join(bdr_2pers, secfg)
+
+# add infection data
+bdr_2pers <- mutate(bdr_2pers, cop_name = substring(fname, 1, 5))
+bdr_2pers <- left_join(bdr_2pers, select(infd, cop_name, trt), by = 'cop_name')
+```
+```{r}
+#average for each second across recordings
+bdr_2pers_avg <- group_by(bdr_2pers, sec, trt)%>%
+  summarize(dist = mean(dist, na.rm=T))
+
+ggplot(filter(bdr_2pers_avg, sec < 59 | sec > 61),
+       aes(x = sec, y = dist, color = trt)) +
+  geom_path() +
+  labs(title = 'auto tracker - values during drop removed', y = 'mean activity', x = 'seconds')
+```
+
+```{r}
+# sum moved for auto tracker full, auto tracker reduced, manual tracker
+bdr_td <- group_by(bdr, fname)%>%
+  summarize(dist_full = sum(distance, na.rm = T))
+bdr_td2pers <- group_by(bdr_2pers, fname)%>%
+  summarize(dist_full_2pers = sum(dist, na.rm = T))
+bd_td <- group_by(bd, fname)%>%
+  summarize(dist_full_man = sum(dist, na.rm = T))
+
+# get correlations with manual data
+bd_comp1 <- left_join(bdr_td, bd_td, by = 'fname')
+bd_comp2 <- left_join(bdr_td2pers, bd_td, by = 'fname')
+
+cor1 <- cor(select(bd_comp1, -fname), use = "pairwise.complete.obs")
+cor2 <- cor(select(bd_comp2, -fname), use = "pairwise.complete.obs")
+
+cor1
+cor2
+```
+
+The reduction in frame rate also makes the data more comparable to the manual dataset. When we take the distance moved over a recording, we find the correlation between the full auto-tracked data and the manual data to be `r cor1[1,2]`. The correlation between the reduced frame rate data and the manual dataset is larger at `r cor2[1,2]`. This is what we would expect, because we are losing (or more generously, eliminating) movements between frames. Thus, I think the reduced frame rate dataset strikes a balance in a few respects. One, it reduces the data magnitude, easing modelling. Two, it approaches the manual dataset more closely. Three, it retain data that was not in the manual dataset (the auto-tracker was used on plates that were not processed manually).
+
+```{r}
+rm(cor1, cor2, bd_comp1, bd_comp2, bdr_td, bd_td, bdr_td2pers)
+```
+
 
 ### Categorizing sections of the recording
 
