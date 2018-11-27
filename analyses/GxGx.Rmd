@@ -492,7 +492,7 @@ And here at the composite level of average activity across a recording.
 ```{r}
 # composite level
 ggplot(bdr_avg4, aes(x=tot_dist)) + 
-  geom_histogram() + 
+  geom_histogram(binwidth = 20) + 
   facet_grid(~drop) +
   labs(title = 'auto tracker', x = 'distance moved in 1 min')
 ```
@@ -716,7 +716,7 @@ bdr_comp <- left_join(bdr_comp, bdr_td_2pers)
 bdr_comp <- left_join(bdr_comp, bdr_td_4pers)
 ```
 
-As expected, the correlation (r^2^ on the y-axis below) between the full dataset and the reduced datasets decreases as the frame rate is reduced. However, even when the frame rate is reduced 8x to 1 per sec, r^2^ is still quite high (0.9), indicating that we are not losing much information on copepod movement. And some of the lost information might be meaningless, random noise, i.e. the tiny oscillations between frames that are averaged out at lower frame rates.
+As expected, the correlation (r^2^ on the y-axis below) between the full dataset and the reduced datasets decreases as the frame rate is reduced. However, even when the frame rate is reduced 8-fold to 1 per sec, r^2^ is still quite high (0.9), indicating that we are not losing much information on copepod movement. And some of the lost information might be meaningless, random noise, i.e. the tiny oscillations between frames that are averaged out at lower frame rates.
 
 ```{r}
 ctab <- cor(select(bdr_comp, -fname), use = "pairwise.complete.obs")
@@ -731,7 +731,7 @@ ggplot(cor_plot, aes(x = frame_rate, y = r2)) + geom_point() + geom_line() +
   scale_x_reverse()
 ```
 
-Subjectively, a frame rate of 2 per second seems like a reasonable compromise. It reduces the auto-tracked data 4 fold, while retaining much of the information (r^2^ = 0.93). Conversely, compared to the manually-tracked data, this retains 4x more data on copepod position, though as mentioned before, previous work did not indicate a lot of information gain through a frame rate higher than 1 per 2 seconds. In the end, the reduction in frame rate is a practical decision, unlikely to bias or gloss over differences between treatments.
+Subjectively, a frame rate of 2 per second seems like a reasonable compromise. It reduces the auto-tracked data 4-fold, while retaining much of the information (r^2^ = 0.93). Conversely, compared to the manually-tracked data, this retains 4x more data on copepod position, though as mentioned before, previous work did not indicate a lot of information gain through a frame rate higher than 1 per 2 seconds. In the end, the reduction in frame rate is a practical decision, unlikely to bias or gloss over differences between treatments.
 
 ```{r}
 # remove unneeded data frames
@@ -785,29 +785,40 @@ bd_comp2 <- left_join(bdr_td2pers, bd_td, by = 'fname')
 
 cor1 <- cor(select(bd_comp1, -fname), use = "pairwise.complete.obs")
 cor2 <- cor(select(bd_comp2, -fname), use = "pairwise.complete.obs")
-
-cor1
-cor2
 ```
 
-The reduction in frame rate also makes the data more comparable to the manual dataset. When we take the distance moved over a recording, we find the correlation between the full auto-tracked data and the manual data to be `r cor1[1,2]`. The correlation between the reduced frame rate data and the manual dataset is larger at `r cor2[1,2]`. This is what we would expect, because we are losing (or more generously, eliminating) movements between frames. Thus, I think the reduced frame rate dataset strikes a balance in a few respects. One, it reduces the data magnitude, easing modelling. Two, it approaches the manual dataset more closely. Three, it retain data that was not in the manual dataset (the auto-tracker was used on plates that were not processed manually).
+The reduction in frame rate also makes the data more similar to the manual dataset. Using the total distance moved over a recording, we find the correlation between the full auto-tracked data and the manual data to be `r round(cor1[1,2],2)`. The correlation between the 4-fold reduced frame rate data and the manual dataset is larger at `r round(cor2[1,2],2)`, as we would expect. 
+
+In sum, I believe the reduced-frame-rate dataset has several advantages. One, it reduces the full dataset significantly (4x), easing statistical modelling. Two, it is more similar to the manual dataset, yet it still retains additional movement information (though I don't know if this extra info represents improved tracking or just random noise). Three, it retains additional recordings that were not in the manual dataset (manual processing was tedious and slow, so it was not done for all recordings). Finally, using auto-tracked data circumvents some of the flaws in the dataset I previously discovered (see [here](LINK!!!)).
 
 ```{r}
 rm(cor1, cor2, bd_comp1, bd_comp2, bdr_td, bd_td, bdr_td2pers)
 ```
 
-
 ### Categorizing sections of the recording
 
-Conducting analyses at the level of each video frame (i.e. each copepod movement) seems like overkill, e.g. the auto-tracked data at 8 frames/s has several million observations. And there is substantial pseudoreplication - within a recording observations are separated by milliseconds and thus presumably highly-correlated. It would be nice to take one or a few composite variables from each recording that summarize copepod behavior. To do this, though, we need to closely examine how behavior changes within a recording so as not to average out any potentially interesting variation. At a minimum we can define two parts expected to differ: before and after the drop. 
-
-Let's re-plot how average behavior changes over a recording, this time with confidence intervals (they are underestimated, as I have not accounted for pseudoreplication; each copepod was recorded multiple times).
+Even with a reduced frame rate, there is still substantial pseudoreplication in the data - within a recording, observations are separated by half a second and are thus conceivably highly-correlated. In previous analyses with this kind of data, we fit mixed models to account for this (i.e. recording was a random effect - see e.g. this [study](LINK!!!)). However, this might be insufficient, because it assumes the same covariance between all observations within a recording. In other words, it does not differentiate between two observations in the same recording that are 2 seconds apart or that are 20 seconds apart. A solution would be to fit some kind of autoregressive function that models how similarity decays over time within a recording. But this would be difficult. When we look at individual recordings like a time-series, we see peaks (the copepod is hopping) and valleys (the copepod is stationary). There is not the obvious temporal autocorrelation (i.e. time points near each other more similar than time points further away) that we can see when averaging over all recordings (see [plot above](LINK!!!)).
 
 ```{r}
-bdr <- mutate(bdr, sec_pooled = cut(sec, breaks = seq(0, 120, 2), include.lowest = T))
-bdr_avg <- group_by(bdr, sec_pooled, group)%>%
-  summarize(mean_dist = mean(distance, na.rm=T),
-            sd_dist = sd(distance, na.rm = T),
+rrec <- sample(bdr$fname, size = 5)
+ggplot(filter(bdr_2pers, fname %in% rrec),
+       aes(x = sec, y = dist, color = fname)) +
+  geom_line(aes(group = fname)) +
+  guides(color = F) +
+  labs(title = 'looking for autocorrelation in 5 random recordings')
+  
+```
+
+Thus, trying to model this data at the find level of each frame seems to be quite complex. The old-fashioned approach of averaging out pseudoreplication might be preferable (and easier for readers to understand).
+
+Before this, though, we need to closely examine how behavior changes within a recording so as not to average out any potentially interesting temporal variation. At a minimum, we can define two parts of the recording: before and after the drop. Let's re-plot how average behavior changes over a recording, this time with confidence intervals (they are underestimated, as I have not accounted for the fact that each copepod was recorded on multiple days).
+
+```{r}
+bdr_2pers <- mutate(bdr_2pers, group = if_else(sec < 58.5, 'before the drop', 
+                         if_else(sec > 61.5, 'after the drop', 'drop')))
+bdr_avg <- group_by(bdr_2pers, sec, group)%>%
+  summarize(mean_dist = mean(dist, na.rm=T),
+            sd_dist = sd(dist, na.rm = T),
             n = n())%>%
   mutate(se = sd_dist/sqrt(n))%>%
   mutate(uci = mean_dist + 2.6*se,
@@ -815,9 +826,9 @@ bdr_avg <- group_by(bdr, sec_pooled, group)%>%
 ```
 ```{r}
 ggplot(filter(bdr_avg, group != 'drop'),
-       aes(x = sec_pooled, y = mean_dist, color = group)) +
-  geom_point() +
-  geom_errorbar(aes(ymin = lci, ymax = uci)) + 
+       aes(x = sec, y = mean_dist, fill = group)) +
+  geom_ribbon(aes(ymin = lci, ymax = uci), alpha = 0.5) +
+  geom_line() +
   labs(title = 'auto tracker - 99% CIs')
 ```
 
@@ -835,9 +846,9 @@ bd_avg <- group_by(bd, time_sec)%>%
 ```
 ```{r}
 ggplot(filter(bd_avg, group != 'drop', time_sec != -2),
-       aes(x = time_sec, y = mean_dist, color = group)) +
-  geom_point() +
-  geom_errorbar(aes(ymin = lci, ymax = uci)) +
+       aes(x = time_sec, y = mean_dist, fill = group)) +
+  geom_ribbon(aes(ymin = lci, ymax = uci), alpha = 0.5) +
+  geom_line() +
   labs(title = 'manual tracker - 99% CIs')
 ```
 
@@ -846,16 +857,15 @@ The pattern is broadly similar in both dataset; a decrease in activity after the
 There is not an obvious biological reason to split the 'before' group, given that it experiences constant conditions. Perhaps it could be split to account for technical variation, such as the slightly lower activity levels at the beginning of the recording (presumably due to the copepod not being tracked right away - it needs to be spotted before it can be followed). The 'after' group could be split to account for the recovery over time, such as into a 'shocked' and 'recovering' phase, or even into three groups ('shocked', 'recovering', and 'recovered'). Let's see what that looks like.
 
 ```{r}
-bdr_avg$sec <- seq(0, 120, 2)
 bdr_avg <- mutate(bdr_avg, group2 = if_else(group == 'before the drop', 'before', 
                                     if_else(sec>61.5 & sec<=80, 'shocked', 
                                             if_else(sec>80 & sec<100, 'recovering', 'recovered'))))
 ```
 ```{r}
 ggplot(filter(bdr_avg, group != 'drop'),
-       aes(x = sec_pooled, y = mean_dist, color = group2)) +
-  geom_point() +
-  geom_errorbar(aes(ymin = lci, ymax = uci)) + 
+       aes(x = sec, y = mean_dist, fill = group2)) +
+  geom_ribbon(aes(ymin = lci, ymax = uci), alpha = 0.5) +
+  geom_line() +
   labs(title = 'auto tracker - 99% CIs')
 ```
 
@@ -866,19 +876,21 @@ bd_avg <- mutate(bd_avg, group2 = if_else(group == 'before the drop', 'before',
 ```
 ```{r}
 ggplot(filter(bd_avg, group != 'drop', time_sec != -2),
-       aes(x = time_sec, y = mean_dist, color = group2)) +
-  geom_point() +
-  geom_errorbar(aes(ymin = lci, ymax = uci)) +
+       aes(x = time_sec, y = mean_dist, fill = group2)) +
+  geom_ribbon(aes(ymin = lci, ymax = uci), alpha = 0.5) +
+  geom_line() +
   labs(title = 'manual tracker - 99% CIs')
 ```
 
-Obviously, there is still some variation within these groups, particularly the 'shocked' group. To get an idea about how adequate these categories are, I fit simple linear models using different groupings and looked at the variance explained. The simplest categorization is just before vs after. Then, I separate the after period into two 30s intervals, and then into three 20s intervals. Finally, we consider a factor for every two seconds of observation (presumably overkill).
+Obviously, there is still some variation within these groups, particularly the 'shocked' group.
 
 
 
 
 
 
+
+To get an idea about how adequate these categories are, I fit simple linear models using different groupings and looked at the variance explained. The simplest categorization is just before vs after. Then, I separate the after period into two 30s intervals, and then into three 20s intervals. Finally, we consider a factor for every two seconds of observation (presumably overkill).
 
 
 ```{r}
