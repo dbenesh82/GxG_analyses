@@ -797,7 +797,7 @@ rm(cor1, cor2, bd_comp1, bd_comp2, bdr_td, bd_td, bdr_td2pers)
 
 ### Categorizing sections of the recording
 
-Even with a reduced frame rate, there is still substantial pseudoreplication in the data - within a recording, observations are separated by half a second and are thus conceivably highly-correlated. In previous analyses with this kind of data, we fit mixed models to account for this (i.e. recording was a random effect - see e.g. this [study](LINK!!!)). However, this might be insufficient, because it assumes the same covariance between all observations within a recording. In other words, it does not differentiate between two observations in the same recording that are 2 seconds apart or that are 20 seconds apart. A solution would be to fit some kind of autoregressive function that models how similarity decays over time within a recording. But this would be difficult. When we look at individual recordings like a time-series, we see peaks (the copepod is hopping) and valleys (the copepod is stationary). There is not the obvious temporal autocorrelation (i.e. time points near each other more similar than time points further away) that we can see when averaging over all recordings (see [plot above](LINK!!!)).
+Even with a reduced frame rate, there is still substantial pseudoreplication in the data - within a recording, observations are separated by half a second and are conceivably highly correlated. In [previous analyses](LINK!!), we fit mixed models to account for this (i.e. treat recording as a random effect). However, this might be insufficient, because it assumes the same covariance between all observations within a recording. In other words, it does not differentiate between two observations in the same recording that are 2 seconds apart or that are 20 seconds apart. A solution would be to fit some kind of autoregressive function that models how similarity decays over time within a recording. But this would not be straightforward. When we look at individual recordings as time series plot, we see peaks (the copepod is hopping) and valleys (the copepod is stationary). The temporal autocorrelation that we see when we average over all recordings (see [plot above](LINK!!!)) is not evident in individual recordings. A further challenge would be assessing whether the same autoregression function fits both before and after the drop.
 
 ```{r}
 rrec <- sample(bdr$fname, size = 5)
@@ -806,10 +806,9 @@ ggplot(filter(bdr_2pers, fname %in% rrec),
   geom_line(aes(group = fname)) +
   guides(color = F) +
   labs(title = 'looking for autocorrelation in 5 random recordings')
-  
 ```
-
-Thus, trying to model this data at the find level of each frame seems to be quite complex. The old-fashioned approach of averaging out pseudoreplication might be preferable (and easier for readers to understand).
+ 
+Thus, modelling this data at the level of individual frames appears quite complex. The old-fashioned approach of averaging out pseudoreplication might be easier for readers to understand.
 
 Before this, though, we need to closely examine how behavior changes within a recording so as not to average out any potentially interesting temporal variation. At a minimum, we can define two parts of the recording: before and after the drop. Let's re-plot how average behavior changes over a recording, this time with confidence intervals (they are underestimated, as I have not accounted for the fact that each copepod was recorded on multiple days).
 
@@ -852,9 +851,7 @@ ggplot(filter(bd_avg, group != 'drop', time_sec != -2),
   labs(title = 'manual tracker - 99% CIs')
 ```
 
-The pattern is broadly similar in both dataset; a decrease in activity after the drop, followed by a steady recovery in activity, which is perhaps a bit faster in the manual data. There is some suspicious variation in the auto-tracker - low values at the start of the recording and high values right before the drop - which do not appear in the manual dataset. What sections of the recording can we pool together to both capture this temporal variation and simplify analyses?
-
-There is not an obvious biological reason to split the 'before' group, given that it experiences constant conditions. Perhaps it could be split to account for technical variation, such as the slightly lower activity levels at the beginning of the recording (presumably due to the copepod not being tracked right away - it needs to be spotted before it can be followed). The 'after' group could be split to account for the recovery over time, such as into a 'shocked' and 'recovering' phase, or even into three groups ('shocked', 'recovering', and 'recovered'). Let's see what that looks like.
+We saw these patterns before - a decrease in activity after the drop, followed by a rather quick recovery, with some minor differences between datasets. Can we categorize sections of the recording to both capture this temporal variation and simplify analyses? There is not an obvious biological reason to split the 'before' group, given that it experiences constant conditions. Perhaps it could be split to account for technical variation, such as the slightly lower activity levels at the beginning of the recording (presumably due to the copepod not being tracked right away - it needs to be spotted before it can be followed). The 'after' group could be split to account for the recovery over time, such as into a 'shocked' and 'recovering' phase, or even into three groups ('shocked', 'recovering', and 'recovered'). Let's see what that looks like.
 
 ```{r}
 bdr_avg <- mutate(bdr_avg, group2 = if_else(group == 'before the drop', 'before', 
@@ -882,10 +879,42 @@ ggplot(filter(bd_avg, group != 'drop', time_sec != -2),
   labs(title = 'manual tracker - 99% CIs')
 ```
 
-Obviously, there is still some variation within these groups, particularly the 'shocked' group.
+There is not much difference between 'recovering' and 'recovered' groups, and the variation within these two groups is small. However, the 'shocked' group still covers a wide range, from hardly moving to moving at near-normal speeds. I suppose we could try to split this group further to reduce the within-group variance, but this seems subjective and not obviously biologically justifed. Moreover, as the categories get smaller so do sample sizes. This could result in failing to find treatment-differences in some categories, not because they do not exist but because power differs depending on which groups are being compared.
 
+To step back, I have considered three approaches to deal with the non-independence of measurements within recordings. First, model it at the frame-by-frame level using time-series methods like autoregression, which seems overly complex, particularly since there are multiple time-series for each copepod (i.e. each copepod was recorded on multiple days - a second source of non-independence). Second, average out the pseudoreplication in a way that maintains temporal patterns, such as by defining categories like 'shocked', 'recovering', etc. This also has its problems, particularly it makes more comparisons with fewer samples. Third and simplest, average out the pseudoreplication, disregarding the fine-scale temporal variation. In other words, just take the average before and after the drop. I prefer this, because it is simple and justified by the experimental setup. Moreover, the main goal of the experiment is to assess genotype by genotype interactions. There were 5 host and 5 parasite strains (25 combinations) and making these comparisons across multiple temporal categories would result in a huge number of comparisons.
 
+Still, we should show whether there are conspicuous differences between treatments in their behavior over a recording. Let's make a plot worthy of the supplementary material to demonstrate.
 
+```{r}
+bdr_avg <- group_by(bdr_2pers, sec, trt)%>%
+  summarize(mean_dist = mean(dist, na.rm=T),
+            sd_dist = sd(dist, na.rm = T),
+            n = n())%>%
+  mutate(se = sd_dist/sqrt(n))%>%
+  mutate(uci = mean_dist + 2.6*se,
+         lci = mean_dist - 2.6*se)
+
+bdr_avg$mean_dist[which(bdr_avg$sec > 58.4 & bdr_avg$sec < 61.6)] <- NA
+bdr_avg$uci[which(bdr_avg$sec > 58.4 & bdr_avg$sec < 61.6)] <- NA
+bdr_avg$lci[which(bdr_avg$sec > 58.4 & bdr_avg$sec < 61.6)] <- NA
+
+ggplot(bdr_avg,
+       aes(x = sec, y = mean_dist, fill = trt)) +
+  geom_ribbon(aes(ymin = lci, ymax = uci), alpha = 0.3) +
+  geom_line(aes(color = trt)) +
+  labs(title = 'Manual Tracker - 99% CIs', x = 'Seconds', y = 'Activity', fill = 'Treatment') +
+  guides(color = FALSE) +
+  annotate('rect', xmin = 58, xmax = 62, ymin = 0, ymax = 4, 
+           alpha = 0.3, fill = 'gray') +
+  annotate('text', x = 60, y = 2, angle = 90, label = 'Plate dropped') +
+  scale_y_continuous(limits = c(0,4), expand = c(0,0))
+```
+
+This clearly shows that the infecteds are less active overall than the uninfecteds. The difference may be slightly smaller after the drop, because uninfecteds decrease their activity more substantially (or the infecteds just can't decrease much more). The only part of the time-series where there is not a treatment difference is right after the drop. But the difference in behavior is noticeable within a few seconds again, so again it does not seem necessary to consider this separately.
+
+# Summary
+
+Which dataset? Next analysis - defining manipulation (absolute value vs relative to controls) and GxG. 
 
 
 
