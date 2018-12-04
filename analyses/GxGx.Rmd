@@ -894,6 +894,7 @@ bdr_avg <- group_by(bdr_2pers, sec, trt)%>%
   mutate(uci = mean_dist + 2.6*se,
          lci = mean_dist - 2.6*se)
 
+# introduce NAs at drop to exclude from plot
 bdr_avg$mean_dist[which(bdr_avg$sec > 58.4 & bdr_avg$sec < 61.6)] <- NA
 bdr_avg$uci[which(bdr_avg$sec > 58.4 & bdr_avg$sec < 61.6)] <- NA
 bdr_avg$lci[which(bdr_avg$sec > 58.4 & bdr_avg$sec < 61.6)] <- NA
@@ -910,11 +911,36 @@ ggplot(bdr_avg,
   scale_y_continuous(limits = c(0,4), expand = c(0,0))
 ```
 
-This clearly shows that the infecteds are less active overall than the uninfecteds. The difference may be slightly smaller after the drop, because uninfecteds decrease their activity more substantially (or the infecteds just can't decrease much more). The only part of the time-series where there is not a treatment difference is right after the drop. But the difference in behavior is noticeable within a few seconds again, so again it does not seem necessary to consider this separately.
+As we have seen before, the infecteds are less active overall than the uninfecteds. The difference may be slightly smaller after the drop than before, but there is not a conspicuous difference in how the different group respond to the drop. The only part of the time-series where there is not a treatment difference (overlapping confidence intervals) is in the few seconds immediately after the drop. But the activity difference is quickly re-established, so breaking the recording into different sections to account for temporal differences between treatments in unnecessary.
 
 # Summary
 
-Which dataset? Next analysis - defining manipulation (absolute value vs relative to controls) and GxG. 
+In this document, I presented descriptive statistics, examined potential response variables, and looked for ways to justifiably simplify this massive dataset. I decided that analyses should just use activity (expressed as either a distance or speed), as there was not much to gain by breaking movements down into their frequency, magnitude, and direction. Moreover, I found that little information was lost by reducing the frame rate in the auto-tracked dataset. Finally, I found that the mean difference betweeen infected and uninfected copepods was relatively consistent across a typical recording, obviating the need for complicated categorizations to follow changes in parasite manipulation over the course of recordings.
+
+```{r}
+# write data to new csvs!
+# auto
+bdr_avg <- filter(bdr_2pers, group != 'drop', !is.na(dist))%>% # removes data between 58.5 and 61.5 sec
+  group_by(fname, group)%>%
+  summarize(tot_dist = sum(dist, na.rm = T),
+            var_dist = var(dist, na.rm = T),
+            frames_tracked = n())
+write.table(bdr_avg, file = "../data/behav_autotracked_reduced_dataset.csv", sep = ",", row.names = F)
+
+# manual
+bd_avg <- filter(bd, group != 'drop', !is.na(dist))%>%
+  group_by(fname, group)%>%
+  summarise(tot_dist = sum(dist, na.rm=T),
+            var_dist = var(dist, na.rm=T),
+            frames_tracked = n())
+write.table(bd_avg, file = "../data/behav_manutracked_reduced_dataset.csv", sep = ",", row.names = F)
+```
+
+I wrote new, simplified data files for use in downstream analyses, one for the [auto-tracked](../data/behav_autotracked_reduced_dataset.csv) and one for the [manually-tracked data](../data/behav_manutracked_reduced_dataset.csv). Movement values were averaged within recordings (separately for before and after the drop), and in the case of the auto-tracked data, I used the reduced frame rate (2 per second).
+
+The next step is go onto the main analyses and examine the role of host and parasite genotypes in determining the magnitude of parasitic manipulation. This analysis is conducted in a new [markdown]().
+
+
 
 
 
