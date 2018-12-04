@@ -1,0 +1,117 @@
+---
+title: "Genotype x genotype interactions in host manipulation"
+author: "Dan Benesh"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+options(stringsAsFactors = FALSE)
+theme_set(new = theme_bw())
+```
+
+# Experiment Background
+Many parasites manipulate the behavior of their hosts in ways that seem beneficial. Little is known about genetic variation in this phenotype. Are parasites genetically variable in how much they manipulate host behavior? Do different host genotypes resist manipulation better than others? I infected 5 host strains with 5 parasite strains to quantify the variability in host manipulation due to parasite genes, host genes, and their interactions. The host-parasite system I used was the tapeworm *Schistocephalus solidus* in its copepod first intermediate host.
+
+
+
+Next analysis - defining manipulation (absolute value vs relative to controls) and GxG. 
+
+
+
+
+
+
+
+# Exploratory Analyses
+
+Make graph comparing treatments.
+
+```{r message=FALSE, warning=FALSE}
+bd_avg <- group_by(bd, time_sec, trt)%>%
+  summarize(dista = mean(dist, na.rm=T))
+
+ggplot(bd_avg, aes(x = time_sec, y = dista, color = trt)) +
+  geom_line()
+```
+
+The infected copepods are less active than the uninfected copepods. This is true both before and after the simulated attack. When we separate this plot into the different days of the experiment, we see a similar pattern. Maybe at the earliest time point, day 5, the infected copepods are less manipulated.
+
+```{r}
+bd_avg <- group_by(bd, time_sec, day, trt)%>%
+  summarize(dista = mean(dist, na.rm=T))
+
+ggplot(bd_avg, aes(x = time_sec, y = dista, color = trt)) +
+  geom_line() +
+  facet_wrap(~day)
+```
+
+Now, let's look at the pattern for just the uninfected copepods, separated by copepod family. They seem pretty similar, thought one family (III) might be a little more active in general.
+
+```{r}
+bd_avg <- filter(bd, trt != 'infected')%>%
+  group_by(time_sec, cop_fam)%>%
+  summarize(dista = mean(dist, na.rm=T))
+
+ggplot(bd_avg, aes(x = time_sec, y = dista, color = cop_fam)) +
+  geom_line() 
+```
+
+Now, separate the data by parasite family. The differences appear reasonably consistent, suggesting parasite family is more important than host family.
+
+```{r}
+bd_avg <- filter(bd, trt == 'infected')%>%
+  group_by(time_sec, parasite_fam)%>%
+  summarize(dista = mean(dist, na.rm=T))
+
+ggplot(bd_avg, aes(x = time_sec, y = dista, color = parasite_fam)) +
+  geom_line() 
+```
+
+Here is the combo of host and parasite genotypes.
+
+```{r}
+bd_avg <- filter(bd, trt == 'infected')%>%
+  group_by(cop_fam, parasite_fam)%>%
+  summarize(dista = mean(dist, na.rm=T))
+
+ggplot(bd_avg, aes(x = parasite_fam, y = dista, color = cop_fam)) +
+  geom_line(aes(group = cop_fam))
+```
+
+# Models
+
+```{r}
+library(lme4)
+
+# null model
+out0 <- lmer(dist ~ factor(day) + (1|fname) + (1|cop_name), filter(bd, trt == 'infected'))
+
+# add cop_fam to null
+outc <- lmer(dist ~ cop_fam + factor(day) + (1|fname) + (1|cop_name), filter(bd, trt == 'infected'))
+anova(out0, outc, test = 'Chi')
+
+# add parasite_fam to null
+outp <- lmer(dist ~ parasite_fam + factor(day) + (1|fname) + (1|cop_name), filter(bd, trt == 'infected'))
+anova(out0, outp, test = 'Chi')
+
+# add cop x parasite to null
+outcp <- lmer(dist ~ cop_fam * parasite_fam + factor(day) + (1|fname) + (1|cop_name), filter(bd, trt == 'infected'))
+anova(outc, outcp, test = 'Chi')
+anova(outp, outcp, test = 'Chi')
+```
+
+GxG!!! Awesome!!
+
+
+```{r}
+sort(table(bd$dist), decreasing = T)
+qplot(data = filter(bd, dist > 0), x = dist, binwidth = 0.1) 
+#+ coord_cartesian(xlim = c(0, 0.5))
+```
+
+
+
