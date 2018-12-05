@@ -1,5 +1,5 @@
 ---
-title: "Genotype x genotype interactions in host manipulation"
+title: "Genotype x genotype interactions in host manipulation - Define responses"
 author: "Dan Benesh"
 output: github_document
 ---
@@ -27,7 +27,7 @@ Copepod movement was video recorded for two minutes. After one minute, the well 
 
 Recordings were processed both manually (clicking on copepod position frame-by-frame) and automatically (with a tracking program). The output from the two approaches was quite similar (see an extensive comparison [here](https://github.com/dbenesh82/automatic_copepod_tracker/blob/master/compare_manual_vs_auto_tracking/testing_automatic_tracker.md)). Each approach has some advantages and disadvantages. First of all, I identified mistakes in the manually-processed data, like incorrect number of frames, etc. (see [here](https://github.com/dbenesh82/behav_vid_data_compiler)); this human error motivated the development of an auto-tracker. The auto-tracker allowed additional videos and copepods to be processed that were not included in the manual data for lack of time. However, the auto-tracker was also not free from mistakes, occassionally incorrectly recording large movements.
 
-In this notebook, I first present descriptive statistics from the experiment. Then, I look at ways of quantifying behavior and defining the response variable. Next, I look at ways to justifiably simplify the data for the main analyses. The main analysis, looking for genotype by genotype interactions, is conducted in a separate [notebook](GxG_01_define_responses.Rmd).
+In this notebook, I first present descriptive statistics from the experiment. Then, I look at ways of quantifying behavior and defining the response variable. Next, I look at ways to justifiably simplify the data for the main analyses. The main analysis, looking for genotype by genotype interactions, is conducted in a separate [notebook](GxG_02_genotype_comps.md).
 
 ```{r}
 # Select and rename columns
@@ -409,7 +409,7 @@ ggplot(filter(bd_avg4, prop_moving > 0.0),
   labs(title = 'manual tracking', x = 'proportion moving', y = 'hop distance')
 ```
 
-Again, there are idiosyncratic differences between the datasets (like the aforementioned spurious combinations of large hops with little movement in the auto-tracking dataset). Nevertheless, the qualitative patterns appear similar in both datasets. The infecteds clearly spend less time moving than uninfecteds (shifted on the x-axis), but their hops are comparable (minimal shift along the y-axis). Additionally, response to the drop are subtle, suggesting copepods do not massively alter their behavior in response to the 'shock'. Indeed, the time-series plots [above](LINK!!) suggest that on average they recover to pre-drop levels within a minute.
+Again, there are idiosyncratic differences between the datasets (like the aforementioned spurious combinations of large hops with little movement in the auto-tracking dataset). Nevertheless, the qualitative patterns appear similar in both datasets. The infecteds clearly spend less time moving than uninfecteds (shifted on the x-axis), but their hops are comparable (minimal shift along the y-axis). Additionally, responses to the drop are subtle, suggesting copepods do not massively alter their behavior in response to the 'shock'. Indeed, the time-series plots [above](GxG_01_define_responses_files/figure-markdown_github/unnamed-chunk-21-1.png) suggest that on average they recover to pre-drop levels within a minute.
 
 Here's another way to visualize treatment and drop effects in the two behavior variables. Until now, we have looked at averages across recordings and groups, ignoring how individual copepods respond to the drop within a recording. The next plots show how individuals respond to the drop, first for proportion of time moving. The overall averages are plotted in bold.
 
@@ -939,4 +939,4 @@ write.table(bd_avg, file = "../data/behav_manutracked_reduced_dataset.csv", sep 
 
 I created new, simplified data files for use in downstream analyses, one for the [auto-tracked](../data/behav_autotracked_reduced_dataset.csv) and one for the [manually-tracked data](../data/behav_manutracked_reduced_dataset.csv). Movement values were averaged within recordings (separately for before and after the drop), and in the case of the auto-tracked data, I used a reduced frame rate (2 per second).
 
-The next step is move on to the main analyses and examine the role of host and parasite genotypes in determining the magnitude of parasitic manipulation. This analysis is conducted in a new [markdown](GxG_02_genotype_comps.Rmd).
+The next step is move on to the main analyses and examine the role of host and parasite genotypes in determining the magnitude of parasitic manipulation. This analysis is conducted in a new [markdown](GxG_02_genotype_comps.md).
