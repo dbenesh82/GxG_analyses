@@ -1,4 +1,4 @@
-"fname","group","tot_dist","var_dist","frames_measured"
+"fname","group","tot_dist","var_dist","frames_tracked"
 "01_1D_05","after the drop",295.907936137458,49.5026576377513,116
 "01_1D_05","before the drop",318.98689724324,16.552560237685,116
 "01_1D_07","after the drop",858.732643563428,72.3512902984124,116
