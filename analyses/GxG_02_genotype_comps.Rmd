@@ -33,40 +33,160 @@ infd <- mutate(infd, proc_size = (proc_size1 + proc_size2)/2)
 # add useful variables to manual data
 bd <- mutate(bd, speed_per_sec = tot_dist/frames_tracked * 0.5,
        cop_name = substring(fname, 1, 5),
-       day_char = substring(fname, 7, 8))
+       day_char = substring(fname, 7, 8),
+       rec_time = factor(group, levels = c('before the drop', 'after the drop')))%>%
+  select(-group)
+
 # combine with inf data
 bd <- left_join(bd, select(infd, -proc_size1, -proc_size2, -exposed, -tank, -cerc_multinom, -remarks),
                 by = 'cop_name')
+# better labels to trts
+bd <- mutate(bd, trt = factor(trt, levels = c('unexposed', 'uninfected', 'infected')),
+       trt = factor(trt, labels = c('unexposed, control', 'exposed, uninfected', 'infected')))
 ```
 ```{r}
 # add useful variables to auto data
 bdr <- mutate(bdr, speed_per_sec = tot_dist/frames_tracked * 2,
        cop_name = substring(fname, 1, 5),
-       day_char = substring(fname, 7, 8))
+       day_char = substring(fname, 7, 8),
+       rec_time = factor(group, levels = c('before the drop', 'after the drop')))%>%
+  select(-group)
+
+# combine with inf data
 bdr <- left_join(bdr, select(infd, -proc_size1, -proc_size2, -exposed, -tank, -cerc_multinom, -remarks),
                 by = 'cop_name')
+# better labels to trts
+bdr <- mutate(bdr, trt = factor(trt, levels = c('unexposed', 'uninfected', 'infected')),
+       trt = factor(trt, labels = c('unexposed, control', 'exposed, uninfected', 'infected')))
+```
+
+Copepod movement was video recorded for two minutes. After one minute, the well plate containing the copepods was dropped in a standardized way to simulate a predator attack and 'frighten' the copepods. Each copepod was recorded on several days throughout the course of parasite development (from uninfective to infective larva). 
+
+I explored different aspects of behavior that could be quantifed from these recordings [here](GxG_01_define_responses.md). I decided to focus on 'activity', the average speed of copepod movement's before and after the drop, as this measure was simple and seemed to incorporate the differences between infected and uninfected copepods.
+
+# Treatment differences
+
+Infected copepods are less active than uninfected copepods, which presumably affects their susceptibility to predation. In the previous notebook, we look at treatment differences at the level of recordings. We did not examine how infected and uninfected copepods differ across the development period.
+
+```{r}
+bd_avg <- filter(bd, !is.na(speed_per_sec))%>%
+  group_by(rec_time, trt, day_char)%>%
+  summarize(speed_m = mean(speed_per_sec),
+            speed_sd = sd(speed_per_sec),
+            n = n())%>%
+  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
+         lci = speed_m - 2 * (speed_sd/sqrt(n)))
+
+ggplot(bd_avg, aes(x = day_char, y = speed_m, color = trt)) +
+  geom_point(position = position_dodge(width = 0.5)) +
+  geom_errorbar(aes(ymin = lci, ymax = uci), 
+                position = position_dodge(width = 0.5)) +
+  geom_line() +
+  facet_grid(~rec_time) +
+  labs(title = 'manual tracking', color = 'Treatment', x = 'days post infection', y = 'average speed')
+```
+```{r}
+bdr_avg <- filter(bdr, !is.na(speed_per_sec))%>%
+  group_by(rec_time, trt, day_char)%>%
+  summarize(speed_m = mean(speed_per_sec),
+            speed_sd = sd(speed_per_sec),
+            n = n())%>%
+  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
+         lci = speed_m - 2 * (speed_sd/sqrt(n)))
+
+ggplot(bdr_avg, aes(x = day_char, y = speed_m, color = trt)) +
+  geom_point(position = position_dodge(width = 0.5)) +
+  geom_errorbar(aes(ymin = lci, ymax = uci), 
+                position = position_dodge(width = 0.5)) +
+  geom_line() +
+  facet_grid(~rec_time) +
+  labs(title = 'auto tracking', color = 'Treatment', x = 'days post infection', y = 'average speed')
+```
+
+Pre-infective versus post-infective
+No difference between uninfected groups - consistent with previous analyses. Pool?
+
+# Filter for survival
+
+How many died during experiment?
+
+```{r}
+x<-select(bdr, cop_name, dead)%>%distinct()
+sum(x$dead)
+```
+Out of `r length(unique(bdr$cop_name))` total copepods with behavioral recordings. Should we exclude these? 
+
+Simple check
+```{r}
+bdr_avg <- filter(bdr, !is.na(speed_per_sec))%>%
+  group_by(rec_time, dead, trt, day_char)%>%
+  summarize(speed_m = mean(speed_per_sec),
+            speed_sd = sd(speed_per_sec),
+            n = n())%>%
+  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
+         lci = speed_m - 2 * (speed_sd/sqrt(n)))
+
+bdr_avg
+ggplot(bdr_avg, aes(x = day_char, y = speed_m, color = trt, shape = factor(dead))) +
+  geom_point(position = position_dodge(width = 0.5)) +
+  geom_errorbar(aes(ymin = lci, ymax = uci), 
+                position = position_dodge(width = 0.5)) +
+  facet_grid(trt~rec_time) +
+  labs(title = 'auto tracking', color = 'Treatment', x = 'days post infection', y = 'average speed', shape = 'Dead')
+```
+
+Maybe a little lower, but when it is low samples and SEs are high.
+
+
+Maybe their behavior just becomes conspicuous closer to death. Let's check.
+
+```{r}
+# make days before death var
+bdr <- mutate(bdr, days_before_dead = if_else(dead == 1,
+                                       as.numeric(day_char) - days_surv,
+                                       NA_real_))
+ggplot(bdr, aes(x = days_before_dead, y = speed_per_sec, color = trt)) + 
+  geom_point(position = position_jitterdodge(), alpha = 0.5) + 
+  geom_smooth(se=F) +
+  facet_grid(~rec_time)
 ```
 
 ```{r}
-# compare manual and auto as quality control
-bd_comp <- left_join(bdr, bd, by = c("fname", "group"))
-ggplot(bd_comp, aes(x = speed_per_sec.x, y = speed_per_sec.y)) + 
-  geom_point(alpha = 0.1) + 
-  facet_grid(~group) +
-  labs(x = 'auto speed', y = 'manual speed')
+ggplot(bdr, aes(x = days_before_dead, y = speed_per_sec, color = trt)) + 
+  geom_line(aes(group = cop_name), alpha = 0.2) +
+  facet_grid(~rec_time)
 ```
 
-OUTLINE
-Describe treatment differences - pool uninfecteds
-GxG - absolute vs relative manipulation (abs simpler, relative is relative to controls)
-Correlated parasite traits?
-Quant genetics or at least variance partitioning
+```{r}
+ggplot(filter(bdr, dead == 1),
+       aes(x = day_char, y = speed_per_sec)) + 
+  geom_line(aes(group = cop_name), alpha = 0.2) +
+  facet_grid(days_surv~rec_time) +
+  geom_smooth(se=F, color = 'red')
+```
 
 
+```{r}
+deads <- filter(bdr, dead==1, !is.na(speed_per_sec))%>%
+  group_by(rec_time, days_surv, day_char)%>%
+  summarize(speed_m = mean(speed_per_sec),
+            speed_sd = sd(speed_per_sec),
+            n = n())%>%
+  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
+         lci = speed_m - 2 * (speed_sd/sqrt(n)))
 
-# Exploratory Analyses
+ggplot(deads, aes(x = day_char, y = speed_m)) + 
+  geom_point() +
+  geom_line() +
+  facet_grid(days_surv~rec_time) 
 
-Make graph comparing treatments.
+```
 
-The infected copepods are less active than the uninfected copepods. This is true both before and after the simulated attack. When we separate this plot into the different days of the experiment, we see a similar pattern. Maybe at the earliest time point, day 5, the infected copepods are less manipulated.
 
+# Manipulation in an absolute sense
+
+# Manipulation in a relative sense
+
+# Variance partitioning (or comparing effect sizes)
+
+# Correlated traits
