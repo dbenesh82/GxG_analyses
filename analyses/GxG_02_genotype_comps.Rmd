@@ -28,7 +28,6 @@ infd <- read.csv(file = "../data/GxG_inf.csv", header = TRUE, fileEncoding = "UT
 # take average worm size
 infd <- mutate(infd, proc_size = (proc_size1 + proc_size2)/2)
 ```
-
 ```{r}
 # add useful variables to manual data
 bd <- mutate(bd, speed_per_sec = tot_dist/frames_tracked * 0.5,
@@ -42,7 +41,8 @@ bd <- left_join(bd, select(infd, -proc_size1, -proc_size2, -exposed, -tank, -cer
                 by = 'cop_name')
 # better labels to trts
 bd <- mutate(bd, trt = factor(trt, levels = c('unexposed', 'uninfected', 'infected')),
-       trt = factor(trt, labels = c('unexposed, control', 'exposed, uninfected', 'infected')))
+       trt = factor(trt, labels = c('unexposed, control', 'exposed, uninfected', 'infected')),
+       parasite_fam = factor(parasite_fam, labels = c('A', 'B', 'C', 'D', 'E')))
 ```
 ```{r}
 # add useful variables to auto data
@@ -57,16 +57,140 @@ bdr <- left_join(bdr, select(infd, -proc_size1, -proc_size2, -exposed, -tank, -c
                 by = 'cop_name')
 # better labels to trts
 bdr <- mutate(bdr, trt = factor(trt, levels = c('unexposed', 'uninfected', 'infected')),
-       trt = factor(trt, labels = c('unexposed, control', 'exposed, uninfected', 'infected')))
+       trt = factor(trt, labels = c('unexposed, control', 'exposed, uninfected', 'infected')),
+              parasite_fam = factor(parasite_fam, labels = c('A', 'B', 'C', 'D', 'E')))
 ```
 
-Copepod movement was video recorded for two minutes. After one minute, the well plate containing the copepods was dropped in a standardized way to simulate a predator attack and 'frighten' the copepods. Each copepod was recorded on several days throughout the course of parasite development (from uninfective to infective larva). 
+Copepod movement was video recorded for two minutes. After one minute, the well plate containing the copepods was dropped in a standardized way to simulate a predator attack and 'frighten' the copepods. Each copepod was recorded multiple times throughout the course of parasite development (from uninfective to infective larva).
 
-I explored different aspects of behavior that could be quantifed from these recordings [here](GxG_01_define_responses.md). I decided to focus on 'activity', the average speed of copepod movement's before and after the drop, as this measure was simple and seemed to incorporate the differences between infected and uninfected copepods.
+I explored different behavioral variables that could be extracted from these recordings [here](GxG_01_define_responses.md). I decided to focus on 'activity', which was the average speed copepods moved before and after the drop (it could be equivalently expressed as the distance moved). Activity incorporates both the frequency and magnitude of copepod movements. And though I found that the difference between infected and uninfected copepods was mainly determined by [movement frequency](GxG_01_define_responses.md#proportion-of-time-moving-vs-hop-distance), I decided there was little to gain by breaking this variable down into its component parts.
+
+In that [notebook](GxG_01_define_responses.md), the focus was on variation within the 2-minute recordings. There is another temporal scale in this experiment, behavior over the days of the parasite's development. Treatment differences also need to be considered at this level, because infected copepods may behave differently when harboring infective vs uninfective worms. However, before looking at treatment differences, the focus on behavior from one day to the next brings up the issue that some copepods died during the experiment. Should we filter these out? Or can we retain these data, because the dead copepods did not behave unusually before dying?
+
+# Filter out dead copepods?
+
+First of all, out of `r length(unique(bdr$cop_name))` total copepods with behavioral recordings, how many died during the experiment?
+
+```{r}
+x<-select(bdr, cop_name, dead)%>%distinct()
+sum(x$dead)
+```
+
+That would be a fairly large number of copepods to exclude. Let's explore whether that is necessary. As a start, we can compare the behavior of copepods that died during the experiment with those that did not.
+
+```{r}
+bdr_avg <- filter(bdr, !is.na(speed_per_sec))%>%
+  group_by(rec_time, dead, day_char)%>%
+  summarize(speed_m = mean(speed_per_sec),
+            speed_sd = sd(speed_per_sec),
+            n = n())%>%
+  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
+         lci = speed_m - 2 * (speed_sd/sqrt(n)))
+
+ggplot(bdr_avg, aes(x = as.numeric(day_char), y = speed_m, shape = factor(dead))) +
+  geom_point(position = position_dodge(width = 0.5)) +
+  geom_errorbar(aes(ymin = lci, ymax = uci), 
+                position = position_dodge(width = 0.5)) +
+  geom_line(aes(linetype = factor(dead))) +
+  facet_grid(~rec_time) +
+  labs(title = 'auto tracking', x = 'days post infection', y = 'average speed', shape = 'Dead', linetype = 'Dead')
+```
+
+The dead ones are less active on average, which seems realistic. However, treatment differences are lumped together in the above plot. Infecteds are less active than uninfecteds, and if they are also more likely to die, then that could drive the difference. However, the proportion of copepods that died was rather comparable across treatments.
+
+```{r}
+deads <- select(bdr, cop_name, trt, dead)%>%
+  distinct()%>%
+  mutate(dead = factor(dead, labels = c('survived', 'died')))%>%
+  group_by(trt, dead)%>%
+  summarize(n = n())%>%
+  spread(dead, n)%>%
+  mutate(prop_dead = died/(survived + died))
+deads
+```
+
+Consequently, it is not surprising, that when we make the same plot, but separate the treatments, we get a similar pattern. The copepods that died exhibited somewhat lower activity levels, particularly later in the experiment.
+
+```{r}
+bdr_avg <- filter(bdr, !is.na(speed_per_sec))%>%
+  group_by(rec_time, dead, trt, day_char)%>%
+  summarize(speed_m = mean(speed_per_sec),
+            speed_sd = sd(speed_per_sec),
+            n = n())%>%
+  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
+         lci = speed_m - 2 * (speed_sd/sqrt(n)))
+
+ggplot(bdr_avg, aes(x = as.numeric(day_char), y = speed_m, color = trt, shape = factor(dead))) +
+  geom_point(position = position_dodge(width = 0.5)) +
+  geom_errorbar(aes(ymin = lci, ymax = uci), 
+                position = position_dodge(width = 0.5)) +
+  geom_line(aes(linetype = factor(dead))) +
+  facet_grid(trt~rec_time) +
+  labs(title = 'auto tracking - 95% CI', color = 'Treatment', 
+       x = 'days post infection', y = 'average speed', 
+       linetype = 'Dead', shape = 'Dead')
+```
+
+Is this reason enough to toss data from dead copepods? Copepods died at different times during the experiment, so maybe their behavior only conspicuously changes right before death. Let's plot the behavioral profiles of individual copepods that died during the experiment. Activity across the experiment is shown for individual copepods (lines connect values for individuals). The vertical panels separate copepods by their time of death.
+
+```{r}
+ggplot(filter(bdr, dead == 1, days_surv != 9),
+       aes(x = as.numeric(day_char), y = speed_per_sec)) + 
+  geom_line(aes(group = cop_name), alpha = 0.2) +
+  facet_grid(days_surv~rec_time) +
+  scale_x_continuous(breaks = c(5,7,9,11,13,15,17,19,21)) +
+  labs(title = 'auto tracking', x = 'days post infection', y = 'speed')
+```
+
+If copepods move less as they near death, then there should be an overabundance of downward lines on the right edge of the plots. That's not obvious, which is partly attributed to the substantial variation within individuals - activity measurements for a given copepod can differ quite a lot from day to day. Maybe the pattern emerges when we plot averages.
+
+```{r}
+# average values for dead
+deads <- filter(bdr, dead==1, !is.na(speed_per_sec))%>%
+  group_by(rec_time, days_surv, day_char)%>%
+  summarize(speed_m = mean(speed_per_sec),
+            speed_sd = sd(speed_per_sec),
+            n = n())%>%
+  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
+         lci = speed_m - 2 * (speed_sd/sqrt(n)))
+
+# average values for survivors
+deads2 <- filter(bdr, dead==0)%>%
+  group_by(rec_time, days_surv, day_char)%>%
+  summarize(speed_m = mean(speed_per_sec),
+            speed_sd = sd(speed_per_sec),
+            n = n())%>%
+  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
+         lci = speed_m - 2 * (speed_sd/sqrt(n)))
+
+# combine for plot
+deads2 <- left_join(select(ungroup(deads), rec_time, day_char, days_surv), 
+                    select(ungroup(deads2), -days_surv),
+                    by = c('rec_time', 'day_char'))
+deads2 <- filter(deads2, days_surv != 9)
+
+ggplot(filter(deads, days_surv != 9),
+       aes(x = as.numeric(day_char), y = speed_m)) +
+  geom_point(color = 'red') +
+  geom_errorbar(aes(ymin = lci, ymax = uci), 
+                color = 'red', width = 0.5) +
+  geom_line(color = 'red') +
+  geom_point(data = deads2, aes(x = as.numeric(day_char), y = speed_m), color = 'gray') +
+  geom_errorbar(data = deads2, aes(x = as.numeric(day_char), y = speed_m,
+                                   ymin = lci, ymax = uci),
+                color = 'gray', width = 0.5) +
+  geom_line(data = deads2, aes(x = as.numeric(day_char), y = speed_m), color = 'gray') +
+  facet_grid(days_surv~rec_time) +
+  scale_x_continuous(breaks = c(5,7,9,11,13,15,17,19,21)) +
+  labs(title = 'auto tracking - 95% CI',
+       x = 'days post infection', y = 'average speed')
+```
+
+In the above plot, the average activity of copepods that died are red. I also plotted the values for copepods that did not die in gray for comparison. In some cases, copepod activity seems to drop as death approaches (for copepods that died on days 21, 20, 18), but not in others (days 16, 12, 10). Early in the experiment, when death is not imminent for most copepods, there is little difference between the dead and surviving copepods. Thus, my inclination is not to toss these data, as the differences seem minor, particularly because the 25 host-parasite genotype combinations cut the data relatively thin. Still, it also seems prudent to re-run the final analysis excluding these copepods to ensure that they do not bias the results.
 
 # Treatment differences
 
-Infected copepods are less active than uninfected copepods, which presumably affects their susceptibility to predation. In the previous notebook, we look at treatment differences at the level of recordings. We did not examine how infected and uninfected copepods differ across the development period.
+Now let's compare the behavior of infected and uninfected copepods over the course of the experiment.
 
 ```{r}
 bd_avg <- filter(bd, !is.na(speed_per_sec))%>%
@@ -77,11 +201,12 @@ bd_avg <- filter(bd, !is.na(speed_per_sec))%>%
   mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
          lci = speed_m - 2 * (speed_sd/sqrt(n)))
 
-ggplot(bd_avg, aes(x = day_char, y = speed_m, color = trt)) +
-  geom_point(position = position_dodge(width = 0.5)) +
+ggplot(bd_avg, aes(x = as.numeric(day_char), y = speed_m, color = trt)) +
+  geom_point(position = position_dodge(width = 1)) +
   geom_errorbar(aes(ymin = lci, ymax = uci), 
-                position = position_dodge(width = 0.5)) +
-  geom_line() +
+                position = position_dodge(width = 1)) +
+  geom_line(position = position_dodge(width = 1)) +
+  scale_x_continuous(breaks = c(5,7,9,11,13,15,17)) +
   facet_grid(~rec_time) +
   labs(title = 'manual tracking', color = 'Treatment', x = 'days post infection', y = 'average speed')
 ```
@@ -94,98 +219,135 @@ bdr_avg <- filter(bdr, !is.na(speed_per_sec))%>%
   mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
          lci = speed_m - 2 * (speed_sd/sqrt(n)))
 
-ggplot(bdr_avg, aes(x = day_char, y = speed_m, color = trt)) +
-  geom_point(position = position_dodge(width = 0.5)) +
+ggplot(bdr_avg, aes(x = as.numeric(day_char), y = speed_m, color = trt)) +
+  geom_point(position = position_dodge(width = 1)) +
   geom_errorbar(aes(ymin = lci, ymax = uci), 
-                position = position_dodge(width = 0.5)) +
-  geom_line() +
+                position = position_dodge(width = 1)) +
+  geom_line(position = position_dodge(width = 1)) +
   facet_grid(~rec_time) +
+  scale_x_continuous(breaks = c(5,7,9,11,13,15,17,19,21)) +
   labs(title = 'auto tracking', color = 'Treatment', x = 'days post infection', y = 'average speed')
 ```
 
-Pre-infective versus post-infective
-No difference between uninfected groups - consistent with previous analyses. Pool?
+Infected copepods are less active than uninfected copepods, regardless of days post infection. The worm becomes infective to its fish next host at around 11 days post infection. Other [studies](HAMMERSCHmidT) have found a conspicuous change in infected copepods as worms develop from uninfective to infective larvae, specifically they switch from reducing to increasing activity, relative to uninfecteds. However, this switch seems to be population-dependent, and it is not observed in the parasite population used in this experiment (see [here](HAFER)). In any case, the behavioral changes are known to affect copepods' predation susceptibility (see [here]()), and are thus likely to be under selection, as they affect parasite transmission and survival probabilities.
 
-# Filter for survival
-
-How many died during experiment?
+The response to the plate drop looks fairly consistent over time as well, particularly in the uninfected groups. The infecteds seem to show less of a response to the drop towards the end of the experiment, but this could also be because they are a little less active in general at the end of the experiment.
 
 ```{r}
-x<-select(bdr, cop_name, dead)%>%distinct()
-sum(x$dead)
-```
-Out of `r length(unique(bdr$cop_name))` total copepods with behavioral recordings. Should we exclude these? 
-
-Simple check
-```{r}
-bdr_avg <- filter(bdr, !is.na(speed_per_sec))%>%
-  group_by(rec_time, dead, trt, day_char)%>%
-  summarize(speed_m = mean(speed_per_sec),
-            speed_sd = sd(speed_per_sec),
-            n = n())%>%
-  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
-         lci = speed_m - 2 * (speed_sd/sqrt(n)))
-
-bdr_avg
-ggplot(bdr_avg, aes(x = day_char, y = speed_m, color = trt, shape = factor(dead))) +
-  geom_point(position = position_dodge(width = 0.5)) +
+ggplot(bdr_avg,
+       aes(x = rec_time, y = speed_m, color = trt)) + 
+  geom_line(aes(group = trt), position = position_dodge(width = 0.3)) +
   geom_errorbar(aes(ymin = lci, ymax = uci), 
-                position = position_dodge(width = 0.5)) +
-  facet_grid(trt~rec_time) +
-  labs(title = 'auto tracking', color = 'Treatment', x = 'days post infection', y = 'average speed', shape = 'Dead')
+                position = position_dodge(width = 0.3)) +
+  geom_point(position = position_dodge(width = 0.3)) +
+  facet_wrap(~day_char, nrow = 3) +
+  labs(title = 'Facetted by observation day', y = 'average speed', x = 'Drop', color = 'Treatment')
 ```
 
-Maybe a little lower, but when it is low samples and SEs are high.
-
-
-Maybe their behavior just becomes conspicuous closer to death. Let's check.
-
-```{r}
-# make days before death var
-bdr <- mutate(bdr, days_before_dead = if_else(dead == 1,
-                                       as.numeric(day_char) - days_surv,
-                                       NA_real_))
-ggplot(bdr, aes(x = days_before_dead, y = speed_per_sec, color = trt)) + 
-  geom_point(position = position_jitterdodge(), alpha = 0.5) + 
-  geom_smooth(se=F) +
-  facet_grid(~rec_time)
-```
-
-```{r}
-ggplot(bdr, aes(x = days_before_dead, y = speed_per_sec, color = trt)) + 
-  geom_line(aes(group = cop_name), alpha = 0.2) +
-  facet_grid(~rec_time)
-```
-
-```{r}
-ggplot(filter(bdr, dead == 1),
-       aes(x = day_char, y = speed_per_sec)) + 
-  geom_line(aes(group = cop_name), alpha = 0.2) +
-  facet_grid(days_surv~rec_time) +
-  geom_smooth(se=F, color = 'red')
-```
-
-
-```{r}
-deads <- filter(bdr, dead==1, !is.na(speed_per_sec))%>%
-  group_by(rec_time, days_surv, day_char)%>%
-  summarize(speed_m = mean(speed_per_sec),
-            speed_sd = sd(speed_per_sec),
-            n = n())%>%
-  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
-         lci = speed_m - 2 * (speed_sd/sqrt(n)))
-
-ggplot(deads, aes(x = day_char, y = speed_m)) + 
-  geom_point() +
-  geom_line() +
-  facet_grid(days_surv~rec_time) 
-
-```
-
+Our focus in this experiment is parasitic manipulation, i.e. how much infected copepods differ from uninfected copepods. But then to look at genotype-by-genotype interactions we are restricted to using only infected copepods. So how should we define manipulation? I think there are two ways. First and simplest, we can take the raw behavior values for infected copepods, in the knowledge that they differ from uninfecteds. Second and somewhat more complex, we can express infected copepod behavior relative to uninfected copepods, e.g. as a difference. In this first case, we assume that 'more is better', and in the second case we assume that manipulation is relative. We'll start with the simplest case, before going on to the complexities of 'relative' manipulation.
 
 # Manipulation in an absolute sense
 
-# Manipulation in a relative sense
+Does it differ by copepod family?
+
+```{r}
+bdr_avg <- filter(bdr, trt == 'infected')%>%
+  group_by(cop_fam)%>%
+  summarize(speed_m = mean(speed_per_sec, na.rm=T),
+            speed_sd = sd(speed_per_sec),
+            n = n())%>%
+  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
+         lci = speed_m - 2 * (speed_sd/sqrt(n)))
+relab <- as.character(arrange(bdr_avg, speed_m)$cop_fam)
+bdr_avg <- mutate(bdr_avg, cop_fam = factor(cop_fam, levels = relab))
+
+ggplot(bdr_avg, aes(x = cop_fam, y = speed_m)) +
+  geom_errorbar(aes(ymin = lci, ymax = uci)) +
+  geom_point() +
+  labs(title = 'auto tracking - confidence intervals underestimated', x = 'host genotype', y = 'average speed')
+```
+
+Does it differ by parasite family?
+
+```{r}
+bdr_avg <- filter(bdr, trt == 'infected')%>%
+  group_by(parasite_fam)%>%
+  summarize(speed_m = mean(speed_per_sec, na.rm=T),
+            speed_sd = sd(speed_per_sec),
+            n = n())%>%
+  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
+         lci = speed_m - 2 * (speed_sd/sqrt(n)))
+relab <- as.character(arrange(bdr_avg, speed_m)$parasite_fam)
+bdr_avg <- mutate(bdr_avg, parasite_fam = factor(parasite_fam, levels = relab))
+
+ggplot(bdr_avg, aes(x = parasite_fam, y = speed_m)) +
+  geom_errorbar(aes(ymin = lci, ymax = uci)) +
+  geom_point() +
+  labs(title = 'auto tracking - confidence intervals underestimated', x = 'parasite genotype', y = 'average speed')
+```
+
+Interaction?
+
+```{r}
+bdr_avg <- filter(bdr, trt == 'infected')%>%
+  group_by(cop_fam, parasite_fam)%>%
+  summarize(speed_m = mean(speed_per_sec, na.rm=T),
+            speed_sd = sd(speed_per_sec),
+            n = n())%>%
+  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
+         lci = speed_m - 2 * (speed_sd/sqrt(n)),
+         parasite_fam = factor(parasite_fam, levels = relab))
+bdr_avg
+
+ggplot(bdr_avg, aes(x = parasite_fam, y = speed_m, color = cop_fam)) +
+  geom_line(aes(group = cop_fam), position = position_dodge(width = 0.3)) +
+  geom_errorbar(aes(ymin = lci, ymax = uci), 
+                position = position_dodge(width = 0.3)) +
+  geom_point(position = position_dodge(width = 0.3)) +
+  labs(title = 'auto tracking - confidence intervals underestimated', x = 'parasite genotype', 
+       y = 'average speed', color = 'host genotype')
+```
+
+Looking at pattern over time.
+
+```{r}
+# cop fams
+bdr_avg <- filter(bdr, trt == 'infected')%>%
+  group_by(cop_fam, day_char)%>%
+  summarize(speed_m = mean(speed_per_sec, na.rm=T))
+
+ggplot(bdr_avg, aes(x = as.numeric(day_char), y = speed_m, color = cop_fam)) +
+  geom_point(position = position_dodge(width = 1)) +
+  geom_line(position = position_dodge(width = 1)) +
+  scale_x_continuous(breaks = c(5,7,9,11,13,15,17,19,21)) +
+  labs(title = 'auto tracking', color = 'Host genotype', x = 'days post infection', y = 'average speed')
+```
+
+```{r}
+# parasite fams
+bdr_avg <- filter(bdr, trt == 'infected')%>%
+  group_by(parasite_fam, day_char)%>%
+  summarize(speed_m = mean(speed_per_sec, na.rm=T))
+
+ggplot(bdr_avg, aes(x = as.numeric(day_char), y = speed_m, color = parasite_fam)) +
+  geom_point(position = position_dodge(width = 1)) +
+  geom_line(position = position_dodge(width = 1)) +
+  scale_x_continuous(breaks = c(5,7,9,11,13,15,17,19,21)) +
+  labs(title = 'auto tracking', color = 'Parasite genotype', x = 'days post infection', y = 'average speed')
+```
+
+### Models
+
+```{r}
+
+```
+
+
+# Manipulation in a relative sense 
+
+## Relative to uninfecteds
+
+## Relative to uninfecteds in specific family
 
 # Variance partitioning (or comparing effect sizes)
 
