@@ -33,6 +33,7 @@ infd <- mutate(infd, proc_size = (proc_size1 + proc_size2)/2)
 bd <- mutate(bd, speed_per_sec = tot_dist/frames_tracked * 0.5,
        cop_name = substring(fname, 1, 5),
        day_char = substring(fname, 7, 8),
+       plate_no = substring(fname, 1, 2),
        rec_time = factor(group, levels = c('before the drop', 'after the drop')))%>%
   select(-group)
 
@@ -42,30 +43,40 @@ bd <- left_join(bd, select(infd, -proc_size1, -proc_size2, -exposed, -tank, -cer
 # better labels to trts
 bd <- mutate(bd, trt = factor(trt, levels = c('unexposed', 'uninfected', 'infected')),
        trt = factor(trt, labels = c('unexposed, control', 'exposed, uninfected', 'infected')),
-       parasite_fam = factor(parasite_fam, labels = c('A', 'B', 'C', 'D', 'E')))
+       parasite_fam = factor(parasite_fam, labels = c('A', 'B', 'C', 'D', 'E')),
+       box = factor(box),
+       devo_period = if_else(day_char %in% c("05", "07", "09"), "uninfective", 
+                             if_else(day_char %in% c("11", "13", "15"), "partially infective", "infective")))%>%
+  mutate(devo_period = factor(devo_period, levels = c("uninfective", "partially infective", "infective")))
 ```
 ```{r}
 # add useful variables to auto data
 bdr <- mutate(bdr, speed_per_sec = tot_dist/frames_tracked * 2,
        cop_name = substring(fname, 1, 5),
        day_char = substring(fname, 7, 8),
+       plate_no = substring(fname, 1, 2),
        rec_time = factor(group, levels = c('before the drop', 'after the drop')))%>%
   select(-group)
+
 
 # combine with inf data
 bdr <- left_join(bdr, select(infd, -proc_size1, -proc_size2, -exposed, -tank, -cerc_multinom, -remarks),
                 by = 'cop_name')
 # better labels to trts
 bdr <- mutate(bdr, trt = factor(trt, levels = c('unexposed', 'uninfected', 'infected')),
-       trt = factor(trt, labels = c('unexposed, control', 'exposed, uninfected', 'infected')),
-              parasite_fam = factor(parasite_fam, labels = c('A', 'B', 'C', 'D', 'E')))
+              trt = factor(trt, labels = c('unexposed, control', 'exposed, uninfected', 'infected')),
+              parasite_fam = factor(parasite_fam, labels = c('A', 'B', 'C', 'D', 'E')),
+              box = factor(box),
+              devo_period = if_else(day_char %in% c("05", "07", "09"), "uninfective", 
+                                    if_else(day_char %in% c("11", "13", "15"), "partially infective", "infective")))%>%
+  mutate(devo_period = factor(devo_period, levels = c("uninfective", "partially infective", "infective")))
 ```
 
 Copepod movement was video recorded for two minutes. After one minute, the well plate containing the copepods was dropped in a standardized way to simulate a predator attack and 'frighten' the copepods. Each copepod was recorded multiple times throughout the course of parasite development (from uninfective to infective larva).
 
 I explored different behavioral variables that could be extracted from these recordings [here](GxG_01_define_responses.md). I decided to focus on 'activity', which was the average speed copepods moved before and after the drop (it could be equivalently expressed as the distance moved). Activity incorporates both the frequency and magnitude of copepod movements. And though I found that the difference between infected and uninfected copepods was mainly determined by [movement frequency](GxG_01_define_responses.md#proportion-of-time-moving-vs-hop-distance), I decided there was little to gain by breaking this variable down into its component parts.
 
-In that [notebook](GxG_01_define_responses.md), the focus was on variation within the 2-minute recordings. There is another temporal scale in this experiment, behavior over the days of the parasite's development. Treatment differences also need to be considered at this level, because infected copepods may behave differently when harboring infective vs uninfective worms. However, before looking at treatment differences, the focus on behavior from one day to the next brings up the issue that some copepods died during the experiment. Should we filter these out? Or can we retain these data, because the dead copepods did not behave unusually before dying?
+In that [notebook](GxG_01_define_responses.md), the focus was on variation within the 2-minute recordings. There is another temporal scale in this experiment, behavior over the days of the parasite's development. Treatment differences also need to be considered at this level, because infected copepods may behave differently when harboring infective vs uninfective worms. However, before looking at treatment differences, the focus on behavior from one day to the next brings up the issue that some copepods died during the experiment. Should we filter these out? Or can we retain these data, because these copepods did not behave unusually before dying?
 
 # Filter out dead copepods?
 
@@ -96,7 +107,7 @@ ggplot(bdr_avg, aes(x = as.numeric(day_char), y = speed_m, shape = factor(dead))
   labs(title = 'auto tracking', x = 'days post infection', y = 'average speed', shape = 'Dead', linetype = 'Dead')
 ```
 
-The dead ones are less active on average, which seems realistic. However, treatment differences are lumped together in the above plot. Infecteds are less active than uninfecteds, and if they are also more likely to die, then that could drive the difference. However, the proportion of copepods that died was rather comparable across treatments.
+The dead ones are less active on average, especially later on in the experiment, which seems realistic. However, treatment differences are lumped together in the above plot. Infecteds are less active than uninfecteds, and if they are also more likely to die, then that could drive the difference. However, the proportion of copepods that died was rather comparable across treatments.
 
 ```{r}
 deads <- select(bdr, cop_name, trt, dead)%>%
@@ -248,7 +259,7 @@ Our focus in this experiment is parasitic manipulation, i.e. how much infected c
 
 # Manipulation in an absolute sense
 
-Different copepod genotypes, which were inbred families in this experiment, exhibited different levels of activity. 
+Infected copepod activity differed among copepod genotypes, which were inbred families in this experiment.
 
 ```{r}
 bdr_avg <- filter(bdr, trt == 'infected')%>%
@@ -307,7 +318,9 @@ ggplot(bdr_avg, aes(x = parasite_fam, y = speed_m, color = cop_fam)) +
        y = 'average speed', color = 'host genotype')
 ```
 
-There appear to be both main effects (e.g. parasite genotype B induces less activity than genotype C) and interactions (e.g. some host genotypes show quite different behavior depending on the parasite genotype). Judging from these initial plots, it looks like parasite genotype has a clear affect, host genotypes less so, and there are interactions. Modeling is needed to confirm this, though. In the last three plots, I noted that confidence intervals were underestimated, and this is because I pooled together the multiple observations from the same copepod across the experiment. Now let's explore whether the effects of host and parasite genotype are consistent over time.
+There appear to be both main effects (e.g. parasite genotype B is associated with lower host activity than genotype C) and interactions (e.g. some host genotypes show quite different behavior depending on the parasite genotype). Judging from these initial plots, it looks like parasite genotype has a clear effect, host genotype less so, and there are interactions. In the last three plots, I noted that confidence intervals were underestimated, and this is because I pooled together multiple observations from the same copepod across the experiment. 
+
+If copepod behavior is temporally labile, then the effects of host and parasite genotype could change over the experiment. Here is how the activity of infected copepod genotypes varies over time. The relative rank of genotypes varies quite a lot. For example, genotype IV shows the lowest average activity on day 15 but the highest on day 21. It is also interesting that the between genotype-variation appears smaller initially than later in the experiment, i.e. the spread of the lines seems larger after 9 dpi.
 
 ```{r}
 # cop fams
@@ -322,7 +335,35 @@ ggplot(bdr_avg, aes(x = as.numeric(day_char), y = speed_m, color = cop_fam)) +
   labs(title = 'auto tracking', color = 'Host genotype', x = 'days post infection', y = 'average speed')
 ```
 
-The relative rank of copepod genotypes varies quite a lot. For example, genotype IV shows the lowest average activity on day 15 but the highest on day 21.
+It is also worth remembering that these are all infected copepods. We can also plot the behavior of uninfected copepods from the same families. It is not obvious that certain copepod genotypes are consistently more or less active, regardless of infection (i.e. the colors vary a lot in their relative position). 
+
+```{r}
+bdr_avg <- bdr%>%
+  group_by(cop_fam, day_char, infected)%>%
+  summarize(speed_m = mean(speed_per_sec, na.rm=T))
+
+ggplot(bdr_avg, aes(x = as.numeric(day_char), y = speed_m, color = cop_fam, linetype = as.factor(infected))) +
+  geom_point(position = position_dodge(width = 0.75)) +
+  geom_line(position = position_dodge(width = 0.75)) +
+  scale_x_continuous(breaks = c(5,7,9,11,13,15,17,19,21)) +
+  labs(title = 'auto tracking', color = 'Host genotype', x = 'days post infection', y = 'average speed', linetype = "Infected")
+```
+
+From the previous plot, it is hard to tell if copepod genotypes react differently to infection. The next plot simply compares the average activity of infected and uninfected copepods from the 5 genotypes. The decrease in activity with infection is rather consistent, with perhaps the exception of one genotype (III).
+
+```{r}
+bdr_avg <- bdr%>%
+  group_by(cop_fam, infected)%>%
+  summarize(speed_m = mean(speed_per_sec, na.rm=T))
+
+ggplot(bdr_avg, aes(x = as.factor(infected), y = speed_m, color = cop_fam)) +
+  geom_point() +
+  geom_line(aes(group = cop_fam)) +
+  labs(title = 'auto tracking', color = 'Host genotype', x = 'Infected', y = 'average speed')
+
+```
+
+Differences among parasite genotypes appear a bit more consistent over time, which supports the idea that parasite genotype more strongly affects behavior than host genotype. However, the relative rank of different genotypes still change over time. Thus, in our modelling approach, we should also consider how genotype effects are time-dependent.
 
 ```{r}
 # parasite fams
@@ -337,98 +378,327 @@ ggplot(bdr_avg, aes(x = as.numeric(day_char), y = speed_m, color = parasite_fam)
   labs(title = 'auto tracking', color = 'Parasite genotype', x = 'days post infection', y = 'average speed')
 ```
 
-The differences among parasite genotypes appears more consistent, which is consistent with the idea that parasite genotype affects behavior more than host genotype. However, the relative rank of different groups still change over time, indicating temporal effects that need to be considered in the model.
-
-
-
-
-
-
 ### Models
 
-Here is my model-building approach. First, establish a base model with the variables of non-primary interest, including day post-infection, whether activity is before or after the drop, individual copepod, and block.
+As a model-building approach, I fit a series of increasingly complex models and then compare them to test specific hypotheses. The first model can be considered a 'null' or 'base' model - it includes variables that we are not specifically interested in, such as block of the experiment, days post infection, whether activity is before or after the drop, and individual copepod effects. The idea is to fit a model that accounts for uninteresting variation (with regard to our primary goals), and then to add host and parasite genotypes to the model to assess their importance. I start with linear mixed models (individual copepod as random effect), but acknowledge below that the distribution of the data (right-skewed with an overabundance of zeros) might call for more complex approaches.
+
+I thought of three possible formulations for the base model. Fixed effects were reaction to the drop, day post infection, and experimental block, plus individual copepod as a random effect. Note that, philosophically, block could be considered a random effect, but there were only 3 blocks, so it has a small number of levels for a random effect. That was the simplest model, and then I allowed the copepod "drop reaction" to vary over time (days post infection) and by copepod (individuals can have different typical reactions).
 
 ```{r}
-# start with linear mixed models, before experimenting with Tweedie or Gamma
+# start with linear mixed models, before experimenting with Tweedie
 library(lme4)
 # testing base models
-lm0 <- lmer(speed_per_sec ~ rec_time + day_char + (1|cop_name) + (1|box), # no interactions
+lm0 <- lmer(speed_per_sec ~ box + rec_time + day_char + (1|cop_name), # no interactions
             data = filter(bdr, trt == 'infected'))
-lm0.1 <- lmer(speed_per_sec ~ rec_time * day_char + (1|cop_name) + (1|box), # let reaction to drop depend on dpi
+lm0.1 <- lmer(speed_per_sec ~ box + rec_time * day_char + (1|cop_name), # let reaction to drop depend on dpi
             data = filter(bdr, trt == 'infected'))
-lm0.2 <- lmer(speed_per_sec ~ rec_time * day_char + 
-                (1|cop_name) + (1|box) + (rec_time|cop_name), # let reaction to drop vary by copepod - rand slopes
+lm0.2 <- lmer(speed_per_sec ~ box + rec_time * day_char +
+                (1|cop_name) + (rec_time|cop_name), # let reaction to drop vary by copepod - rand slopes
             data = filter(bdr, trt == 'infected'))
-anova(lm0, lm0.1, lm0.2) # adding time-dependent drop response improves model, but copepod-dependent drop response does not
+anova(lm0, lm0.1, lm0.2)
 ```
 
-Then, we add copepod and worm genotypes to the model. Has it improved?
+Letting the drop response vary by day post infection is an improvement. As we say above, the response to the drop tends to decrease later in the experiment, see [here](LINK). However, modelling copepod-specific responses did not improve the model. We can visualize this by taking a random sample of copepods and comparing how they responded to the drop. 
 
 ```{r}
-lm1.0 <- lmer(speed_per_sec ~ rec_time * day_char + cop_fam +
-                (1|cop_name) + (1|box), # add cop fam
-            data = filter(bdr, trt == 'infected'))
-lm1.1 <- lmer(speed_per_sec ~ rec_time * day_char + parasite_fam +
-                (1|cop_name) + (1|box), # add parasite fam
-            data = filter(bdr, trt == 'infected'))
-lm1 <- lmer(speed_per_sec ~ rec_time * day_char + cop_fam + parasite_fam +
-                (1|cop_name) + (1|box), # add cop and parasite fam
-            data = filter(bdr, trt == 'infected'))
-anova(lm0.1, lm1.0, lm1)
-anova(lm0.1, lm1.1, lm1) # adding both is an improvement
+rand_inf_cops <- sample( unique( filter(bdr, trt == 'infected')$cop_name ), size = 25)
+bdr_avg <- filter(bdr, trt == 'infected', cop_name %in% rand_inf_cops)
+
+ggplot(bdr_avg, aes(x = rec_time, y = speed_per_sec)) + 
+  geom_line(aes(group = day_char)) + 
+  facet_wrap(~cop_name, nrow = 5, ncol = 5) +
+  scale_x_discrete(expand = c(0,0.5)) +
+  labs(title = 'auto tracking, facetted by individual copepod', y = 'average speed') +
+  theme(axis.title.x = element_blank())
+
 ```
 
-Next, we add the interaction between host and parasite. It is significant.
+Each panel in the plot above is an individual copepod, and we see that within panels there are quite a few crossing lines, indicating that individuals do not always respond to the drop in the same way across the multiple days of observation. However, there do appear to be some copepods that are consistently more or less active than others. In other words, there is variance due to individual differences, but there is not variance due to individual 'drop' responses.
+
+So, let's take this as our base model: `speed_per_sec ~ box + rec_time * day_char + (1|cop_name)`
+Next, we add the copepod and worm genotypes to the model as main effects (no interactions). Do they significantly improve the model?
 
 ```{r}
-lm2 <- lmer(speed_per_sec ~ rec_time * day_char + cop_fam * parasite_fam +
-                (1|cop_name) + (1|box), # add GxG interaction
+lm1 <- lmer(speed_per_sec ~ box + rec_time * day_char + cop_fam + parasite_fam +
+                (1|cop_name), # add cop and parasite fam
             data = filter(bdr, trt == 'infected'))
+anova(lm0.1, lm1)
+```
+
+They do, suggesting that copepod activity is significantly affected by either host genotype, parasite genotype, or both. Parasite genotype seems to explain more variation than host genotype - its sum of squares is almost three times as large.
+
+```{r}
+anova(lm1)
+```
+
+Next, we add the interaction between host and parasite genotype, which was the primary interest of our experiment. It is significant as well, but only marginally, and it appears less explanatory than the main effects (i.e. it has a lower mean square).
+
+```{r}
+lm2 <- lmer(speed_per_sec ~ box + rec_time * day_char + cop_fam * parasite_fam +
+                (1|cop_name), # add GxG interaction
+            data = filter(bdr, trt == 'infected'))
+
 anova(lm1, lm2) # interaction is sig
 ```
 
-Next, I allow host-parasite interactions to vary across days of the experiment. It is significant, suggesting substantial temporal variation in genotype effects.
+It is tempting to stop modelling here, because the results are relatively straightforward. However, I took two additional modelling steps. The first assesses whether copepod reaction to the drop is genotype-dependent. Specifically, I added a three-way interaction between host genotype, parasite genotype, and drop reaction. The goal is to see if genotype combinations respond to our artifical scare in different ways.
 
 ```{r}
-lm3 <- lmer(speed_per_sec ~ rec_time * day_char + cop_fam * parasite_fam * day_char +
-                (1|cop_name) + (1|box), # let GxG combos behave differently over time
+lm3 <- lmer(speed_per_sec ~ box + rec_time * day_char + cop_fam * parasite_fam * rec_time +
+                (1|cop_name), # let GxG combos react to drop differently
             data = filter(bdr, trt == 'infected'))
 anova(lm2, lm3)
 ```
 
-Finally, let host-parasite interactions vary in their response to the drop across days of the experiment. Not significant.
+It is not significant, and we can confirm that by plotting how each genotype combo responds to the 'shock'. The average response is in red, overlaid on the individual reactions, and the average responses look quite comparable.
 
 ```{r}
-lm4 <- lmer(speed_per_sec ~ rec_time * day_char + cop_fam * parasite_fam * day_char * rec_time +
-                (1|cop_name) + (1|box), # let GxG combos react to drop differently on each dpi
-            data = filter(bdr, trt == 'infected'))
-anova(lm3, lm4)
+bdr_avg <- group_by(bdr, rec_time, cop_fam, parasite_fam)%>%
+  summarize(speed_m = mean(speed_per_sec, na.rm=T))%>%
+  mutate(geno_comb = paste0(cop_fam,":",parasite_fam))
+
+ggplot(bdr,
+       aes(x = rec_time, y = speed_per_sec)) +
+  geom_line(aes(group = fname), 
+            alpha = 0.05, color = 'darkgray') +
+  geom_line(data = bdr_avg,
+            aes(group = geno_comb, x = rec_time, y = speed_m),
+            color = 'red') +
+  facet_grid(cop_fam ~ parasite_fam) +
+  labs(y = 'speed') +
+  theme(axis.title.x = element_blank())
 ```
 
-So, there are both genotype main effects and interactions on behavior. The response to the drop does not seem genotype-dependent. There is also substantial variation from one day to the next. Perhaps some of the temporal variation decreases when we consider manipulation in a relative sense. 
+In the next and final modelling step, we allow host-parasite interactions to vary across days of the experiment. In other words, the effects of host and parasite genotypes can vary from day to day. This consumes a huge number of degrees of freedom (5 host genotypes X 5 parasite genotypes x 9 observation days = 225 groups), and thus cuts the data somewhat thin. Instead of jumping to the full genotype x genotype x day interaction, we can use some biological knowledge to group the time periods of the experiment. Worms were uninfective from 5 to 9 dpi, developing infectivity from 11 to 15 dpi, and infective after 15 dpi. We can thus group the days according to worm development. We can check if letting genotype effects vary across these development groups improves the model. I take a stepwise approach, first letting either host genotype or parasite genotype vary with time, and then both.
+
+Starting with copepod genotype, there is a significant interaction with experiment day. We saw this [above](). 
+
+```{r}
+lm4c <- lmer(speed_per_sec ~ box + rec_time * day_char + cop_fam * parasite_fam + cop_fam * devo_period +
+                (1|cop_name), # let host genotype effects vary by day
+            data = filter(bdr, trt == 'infected'))
+lm4p <- lmer(speed_per_sec ~ box + rec_time * day_char + cop_fam * parasite_fam + parasite_fam * devo_period +
+                (1|cop_name), # let parasite genotype effects vary by day
+            data = filter(bdr, trt == 'infected'))
+lm4g <- lmer(speed_per_sec ~ box + rec_time * day_char + cop_fam * parasite_fam +
+               cop_fam * devo_period +
+               parasite_fam * devo_period +
+               cop_fam * parasite_fam * devo_period +
+                (1|cop_name), # let GxG interactions vary by dp
+            data = filter(bdr, trt == 'infected'))
+```
+```{r}
+anova(lm2, lm4c)
+```
+
+The parasite genotype by day interaction was also significant. Interestingly, the magnitude of the effect was similar for host and parasite genotypes, at least judged by the chi square test statistic.
+
+```{r}
+anova(lm2, lm4p)
+```
+
+Finally, we allowed genotype-genotype interactions to vary over time. Despite the huge number of df this eats up, this model was a significant improvement over models with just a parasite genotype x day interaction or just a copepod genotype x day interaction.
+
+```{r}
+anova(lm4c, lm4g)
+anova(lm4p, lm4g)
+```
+
+This suggests genotype effects are time-dependent. And in terms of the variance explained, the genotype by time interactions (the last 3 entries in the ANOVA table below) seem to have a comparable magnitude to the main effects of host and parasite genotype.
+
+```{r}
+anova(lm4g)
+```
+
+Here's an attempt to visualize these effects, starting with parasite genotype effects. Differences among parasite genotype look relatively consistent except for genotype C, which is especially active towards the end of the experiment.
+
+```{r}
+bdr_avg <- filter(bdr, trt == "infected")%>%
+  group_by(devo_period, parasite_fam)%>%
+  summarize(speed_m = mean(speed_per_sec, na.rm=T))
+
+ggplot(bdr_avg, aes(x = devo_period, y = speed_m, color = parasite_fam)) +
+  geom_line(aes(group = parasite_fam)) +
+  labs(title = "Time-dependence of parasite genotype effects", x = 'worm development stage', color = 'parasite genotype', y = 'speed')
+```
+
+Though it doesn't come through in the stats, host genotype effects appear more variable (more line crossing). The variation attributable to host genotype also appears low at the beginning of the experiment compared to the end of the experiment.
+
+```{r}
+bdr_avg <- filter(bdr, trt == "infected")%>%
+  group_by(devo_period, cop_fam)%>%
+  summarize(speed_m = mean(speed_per_sec, na.rm=T))
+
+ggplot(bdr_avg, aes(x = devo_period, y = speed_m, color = cop_fam)) +
+  geom_line(aes(group = cop_fam)) +
+  labs(title = "Time-dependence of host genotype effects", x = 'worm development stage', color = 'host genotype', y = 'speed')
+```
+
+Genotype by genotype interactions were also significant. This is challenging to visualize given the large number of combinations (25 genotype combos x 3 devo times = 75 groups!), but here's an attempt. Hopefully it shows that (i) host genotype effects are time dependent (within a panel there can be simultaneous peaks and dips for several parasite genotypes), that (ii) parasite genotype effects are time dependent (certain colors are not consistently high or low across time), and that host-parasite interactions vary over time (colors, vary in their position from panel to panel).
+
+```{r}
+bdr_avg <- filter(bdr, trt == "infected")%>%
+  group_by(devo_period, cop_fam, parasite_fam)%>%
+  summarize(speed_m = mean(speed_per_sec, na.rm=T))%>%
+  mutate(geno_comb = paste0(cop_fam,":",parasite_fam, ":", devo_period))
+
+ggplot(bdr_avg, aes(x = devo_period, y = speed_m, color = parasite_fam)) +
+  geom_line(aes(group = parasite_fam)) +
+  facet_wrap( ~ cop_fam, ncol = 1) +
+  labs(title = 'host genotype', x = 'days post infection', color = 'parasite genotype', y = 'speed')
+```
+
+We should also make sure we are ignoring too much variation by just pooling the different days of the experiment according to worm developmental stage. Let's fit the same models, but allow genotype to vary by dpi instead of developmental period. This consumes a huge number of degrees of freedom, but in every comparison, allowing genotype effects to vary by day was an improvement over just allowing them to vary by developmental period.
+
+```{r}
+lm5c <- lmer(speed_per_sec ~ box + rec_time * day_char + cop_fam * parasite_fam + cop_fam * day_char +
+                (1|cop_name), # let host genotype effects vary by day
+            data = filter(bdr, trt == 'infected'))
+lm5p <- lmer(speed_per_sec ~ box + rec_time * day_char + cop_fam * parasite_fam + parasite_fam * day_char +
+                (1|cop_name), # let parasite genotype effects vary by day
+            data = filter(bdr, trt == 'infected'))
+lm5g <- lmer(speed_per_sec ~ box + rec_time * day_char + cop_fam * parasite_fam +
+               cop_fam * day_char +
+               parasite_fam * day_char +
+               cop_fam * parasite_fam * day_char +
+                (1|cop_name), # let GxG interactions vary by dp
+            data = filter(bdr, trt == 'infected'))
+```
+```{r}
+anova(lm4c, lm5c)
+anova(lm4p, lm5p)
+anova(lm4g, lm5g)
+```
+
+Since genotype x genotype interactions were time dependent, one additional twist to consider is whether responses to the drop were too. I added a 4-way interaction between host genotype, parasite genotype, day post infection, and drop response, but this did not further improve the model, which supports the idea that drop responses are relatively unaffected by genotype, even when accounting for their time-dependence.
+
+```{r}
+lm6 <- lmer(speed_per_sec ~ box + rec_time * day_char + cop_fam * parasite_fam * day_char * rec_time +
+                (1|cop_name), # let GxG interactions vary by dp
+            data = filter(bdr, trt == 'infected'))
+anova(lm5g, lm6)
+```
+
+So what did we learn from this modeling exercise? Both host genotype, parasite genotype, and their interaction affect copepod behavior. Additionally, these effects seem to vary over the course of the experiment, such that a genotype combination could be comparatively active on one day and relatively inactive the next. The response to our experimental scare tactic, the plate drop, seems time-dependent but not genotype-dependent. 
+
+These were linear mixed models, assuming a Gaussian error distribution, but when we look at the residuals, it is clear they are not normally distributed. 
+
+```{r}
+plot(lm5g)
+```
+
+That is because our response variable, activity, has an overabundance of low (zero) values.
+
+```{r}
+ggplot(data = bdr, aes(x = speed_per_sec)) + geom_histogram(binwidth = 0.2)
+```
+
+This super [FAQ on generalized linear mixed models](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html) hints at two alternatives for this unusual distribution. First, fit hurdle models, in which a model is fit for zero/non-zero points and then fit a second model to the skewed non-zero data (e.g. inverse gamma). Second, fit a model that combines these distributions, i.e. a compound distribution like the Tweedie. 
+
+Let's gives these more sophisticated models a go, and see if the results are the same. They are more computationally intense and take some time to fit.
+
+## More sophisticated (generalized) models
+
+First, we'll do a hurdle where we fit a generalized linear mixed model to whether copepods are moving or not.
+
+```{r}
+# make var for whether cops are moving or not
+bdr <- mutate(bdr, moving = if_else(speed_per_sec > 0.1, 1, 0))
+# first part of hurdle models - takes time!
+h00 <- glmer(moving ~ box + rec_time * day_char + 
+                (1|cop_name),
+            data = filter(bdr, trt == 'infected'),
+            family = binomial)
+h01 <- glmer(moving ~ box + rec_time * day_char + cop_fam + parasite_fam +
+                (1|cop_name),
+            data = filter(bdr, trt == 'infected'),
+            family = binomial)
+h02 <- glmer(moving ~ box + rec_time * day_char + cop_fam * parasite_fam +
+                (1|cop_name),
+            data = filter(bdr, trt == 'infected'),
+            family = binomial)
+h03 <- glmer(moving ~ box + rec_time * day_char + cop_fam * parasite_fam * rec_time + 
+                (1|cop_name),
+            data = filter(bdr, trt == 'infected'),
+            family = binomial)
+# takes too long to fit
+# h04 <- glmer(moving ~ box + rec_time * day_char + cop_fam * parasite_fam * day_char +
+#                 (1|cop_name),
+#             data = filter(bdr, trt == 'infected'),
+#             family = binomial)
+anova(h00, h01, h02, h03) # sig genotype main effects, but not interaction
+```
+
+The model comparison shows that adding genotype main effects improves the model, but adding their interaction does not. The next step in the 'hurdle' is to fit a mixed model with gamma error dist to just the copepods with movements.
+
+```{r}
+# fit for non-zeros
+h10 <- glmer(speed_per_sec ~ box + rec_time * day_char +
+               (1|cop_name),
+            data = filter(bdr, trt == 'infected', moving == 1),
+            family = Gamma(link = 'inverse'))
+h11 <- glmer(speed_per_sec ~ box + rec_time * day_char + cop_fam + parasite_fam +
+               (1|cop_name),
+            data = filter(bdr, trt == 'infected', moving == 1),
+            family = Gamma(link = 'inverse'))
+h12 <- glmer(speed_per_sec ~ box + rec_time * day_char + cop_fam * parasite_fam +
+               (1|cop_name),
+            data = filter(bdr, trt == 'infected', moving == 1),
+            family = Gamma(link = 'inverse'))
+anova(h10, h11, h12) # sig genotype main effects, but not interaction
+```
+
+```{r}
+plot(lm2)
+plot(h12)
+```
+
+Again, the main effects appear quite important, but not the interaction. The hurdle treats the two models as somewhat independent, but they are not - presumably zero values and low values are likely to occur at the same predictor values. A more integrated approach is to fit Compound Poisson Gamma models using the package `cplm`.
+
+```{r}
+library(cplm)
+
+cpm0 <- cpglmm(speed_per_sec ~ box + rec_time * day_char +
+                (1|cop_name), 
+            data = filter(bdr, trt == 'infected'))
+cpm1 <- cpglmm(speed_per_sec ~ box + rec_time * day_char + cop_fam + parasite_fam +
+                (1|cop_name), 
+            data = filter(bdr, trt == 'infected'))
+cpm2 <- cpglmm(speed_per_sec ~ box + rec_time * day_char + cop_fam * parasite_fam +
+                (1|cop_name),
+            data = filter(bdr, trt == 'infected'))
+cpm3 <- cpglmm(speed_per_sec ~ box + rec_time * day_char + cop_fam * parasite_fam * day_char +
+                (1|cop_name),
+            data = filter(bdr, trt == 'infected'))
+anova(cpm0, cpm1, cpm2, cpm3)
+```
+
+These complex models appear consistent with the hurdle models. There is an effect of genotype, but not an interaction. 
+
+Show how these are better than linear models! Residual plot
+
+```{r}
+qplot(x = fitted(cpm3), y = resid(cpm3))
+# resid plots for linear mixed model and for 
+```
+```{r}
+qplot(x = fitted(lm5g), y = resid(lm5g))
+```
+
+
 
 # Manipulation in a relative sense 
 
-Combine uninfecteds, because no diff.
+We can also quantify manipulation not in absolute terms, but relative to an expectation, namely the expected behavior of uninfected copepods. We had two groups of uninfected copepods: unexposed controls and exposed-but-uninfected copepods. Their behavior was very similar, which is consistent with other experiments.
 
 ```{r}
-# behav over time in uninfected copepods
-bdr_avg <- filter(bdr, infected == 0)%>%
-  group_by(cop_fam, day_char)%>%
-  summarize(speed_m = mean(speed_per_sec, na.rm=T),
-            speed_sd = sd(speed_per_sec),
-            n = n())%>%
-  mutate(uci = speed_m + 2 * (speed_sd/sqrt(n)),
-         lci = speed_m - 2 * (speed_sd/sqrt(n)))
-
-ggplot(bdr_avg, aes(x = as.numeric(day_char), y = speed_m, color = cop_fam)) + 
-  geom_line(aes(group = cop_fam), position = position_dodge(width = 0.3)) +
-  #geom_errorbar(aes(ymin = lci, ymax = uci), 
-   #             position = position_dodge(width = 0.3)) +
-  geom_point(position = position_dodge(width = 0.3)) +
-  labs(title = 'uninfected copepods', x ="days post infection",
-       y = 'average speed', color = 'host genotype')
+ggplot(filter(bdr, trt != "infected"), 
+       aes(x = day_char, y = speed_per_sec, color = trt)) +
+  geom_boxplot() +
+  labs(x = "days post infection", y = "speed")
 ```
+
+We will 
 
 Bigger effect size of cop fam than in the infecteds only.
 
