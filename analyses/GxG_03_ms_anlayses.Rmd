@@ -1,0 +1,544 @@
+---
+title: "Analyses in ms"
+author: "Dan Benesh"
+date: "6/24/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+options(stringsAsFactors = FALSE)
+theme_set(new = theme_bw())
+```
+
+# Experiment Background
+
+Many parasites manipulate the behavior of their hosts in ways that seem beneficial. Little is known about genetic variation in this phenotype. Are parasites genetically variable in how much they manipulate host behavior? Do different host genotypes resist manipulation better than others? I infected 5 host strains with 5 parasite strains to quantify the variability in host manipulation due to parasite genes, host genes, and their interactions. The host-parasite system I used was the tapeworm *Schistocephalus solidus* in its copepod first intermediate host.
+
+```{r importdata}
+# import data - averaged within recordings
+bd <- read.csv(file = "../data/behav_manutracked_reduced_dataset.csv", header = TRUE) # manual data
+bdr <- read.csv(file = "../data/behav_autotracked_reduced_dataset.csv", header = TRUE) # auto-tracked data
+infd <- read.csv(file = "../data/GxG_inf.csv", header = TRUE, fileEncoding = "UTF-8-BOM") #excel attached BOM to csv
+```
+
+```{r}
+# take average worm size
+infd <- mutate(infd, proc_size = (proc_size1 + proc_size2)/2)
+```
+```{r}
+# add useful variables to manual data
+bd <- mutate(bd, speed_per_sec = tot_dist/frames_tracked * 0.5,
+       cop_name = substring(fname, 1, 5),
+       day_char = substring(fname, 7, 8),
+       plate_no = substring(fname, 1, 2),
+       rec_time = factor(group, levels = c('before the drop', 'after the drop')))%>%
+  select(-group)
+
+# combine with inf data
+bd <- left_join(bd, select(infd, -proc_size1, -proc_size2, -exposed, -tank, -cerc_multinom, -remarks),
+                by = 'cop_name')
+# better labels to trts
+bd <- mutate(bd, trt = factor(trt, levels = c('unexposed', 'uninfected', 'infected')),
+       trt = factor(trt, labels = c('unexposed, control', 'exposed, uninfected', 'infected')),
+       parasite_fam = factor(parasite_fam, labels = c('A', 'B', 'C', 'D', 'E')),
+       box = factor(box),
+       devo_period = if_else(day_char %in% c("05", "07", "09"), "uninfective", 
+                             if_else(day_char %in% c("11", "13", "15"), "partially infective", "infective")))%>%
+  mutate(devo_period = factor(devo_period, levels = c("uninfective", "partially infective", "infective")))
+```
+```{r}
+# add useful variables to auto data
+bdr <- mutate(bdr, speed_per_sec = tot_dist/frames_tracked * 2,
+       cop_name = substring(fname, 1, 5),
+       day_char = substring(fname, 7, 8),
+       plate_no = substring(fname, 1, 2),
+       rec_time = factor(group, levels = c('before the drop', 'after the drop')))%>%
+  select(-group)
+
+
+# combine with inf data
+bdr <- left_join(bdr, select(infd, -proc_size1, -proc_size2, -exposed, -tank, -cerc_multinom, -remarks),
+                by = 'cop_name')
+# better labels to trts
+bdr <- mutate(bdr, trt = factor(trt, levels = c('unexposed', 'uninfected', 'infected')),
+              trt = factor(trt, labels = c('unexposed, control', 'exposed, uninfected', 'infected')),
+              parasite_fam = factor(parasite_fam, labels = c('A', 'B', 'C', 'D', 'E')),
+              box = factor(box),
+              devo_period = if_else(day_char %in% c("05", "07", "09"), "uninfective", 
+                                    if_else(day_char %in% c("11", "13", "15"), "partially infective", "infective")))%>%
+  mutate(devo_period = factor(devo_period, levels = c("uninfective", "partially infective", "infective")))
+```
+```{r}
+bdr <- mutate(bdr, infection = if_else(infected == 0, "uninfected", "infected"))%>% # make a nice variable for infection
+  mutate(infection = factor(infection, levels = c("uninfected", "infected")))
+```
+```{r}
+bdr <- mutate(bdr, parasite_fam2 = if_else(infected == 0, "uninfected", as.character(parasite_fam))) # re-formulate parasite family factor so all uninfecteds have same value
+```
+```{r}
+bdr <- mutate(bdr, proc2 = proc_size/1000) # rescale to avoid numeric problems
+```
+
+```{r}
+library(cplm)
+```
+
+# Combining controls and exposed-but-uninfected copepods
+
+```{r}
+cpm_uninf1 <- cpglmm(speed_per_sec ~ box + rec_time * day_char + (1|cop_name), 
+                     data = filter(bdr, trt != 'infected', !is.na(trt)))
+cpm_uninf2 <- update(cpm_uninf1, . ~ . + trt)
+
+anova(cpm_uninf1, cpm_uninf2)
+```
+
+# Role of infection - Table 1
+
+
+We'll fit these models using the same approach as with the linear mixed models. First initialize them, and find the best 'base' model.
+
+```{r}
+# initialize models
+cpm_int <- cpglmm(speed_per_sec ~ 1 + (1|cop_name), 
+            data = bdr)
+cpm0 <- update(cpm_int, . ~ . + box + rec_time + day_char) # base model
+cpm01 <- update(cpm0, . ~ . + rec_time * day_char) # time-dep drop resp
+
+anova(cpm_int, cpm0, cpm01)
+```
+
+Then, we assess the role of infection.
+
+```{r}
+cpm1 <- update(cpm01, . ~ . + infection) # infection
+cpm11 <- update(cpm1, . ~ . + infection * rec_time) # drop resp x infection
+cpm12 <- update(cpm11, . ~ . + infection * day_char) # day x inf
+cpm13 <- update(cpm12, . ~ . + infection * day_char * rec_time) # drop x day x inf
+
+anova(cpm01, cpm1, cpm11, cpm12, cpm13)
+```
+
+Next, we examine copepod genotype effects.
+
+```{r}
+cpm2 <- update(cpm12, . ~ . + cop_fam) # cop genotype
+cpm21 <- update(cpm2, . ~ . + cop_fam * infection) # cop geno x infection
+cpm22 <- update(cpm21, . ~ . + cop_fam * infection * rec_time) # cop geno drop resp
+
+anova(cpm12, cpm2, cpm21, cpm22 )
+```
+
+```{r}
+r2_cglmm <- function(null_model, model) {
+  # take in compound poisson mixed model, return marginal and conditional R2, ala Nakagawa et al. 2017
+  # marginal r2 is just fixed effects
+  # condition r2 is fixed and rand effects combined
+  
+  # model call
+  call <- as.character(model@call)[2]
+  
+  # parameter estimates and df
+  fixed_param <- fixef(model)
+  df <- length(fixed_param) - 1
+  
+  # variance due to fixed effects
+  pred <- as.vector(model.matrix(model) %*% fixed_param) # predicteds on basis of just fixed effects
+  varF <- var(pred)
+  
+  
+  # getting the observation-level variance of null model...
+  phiN <- null_model@phi # the dispersion parameter
+  pN <- null_model@p # the index parameter
+  mu <- exp(fixef(null_model) + 0.5 * (VarCorr(null_model)$cop_name[1]))
+  # ...use to estimate dist-specific resid variance from full
+  phiF <- model@phi # the dispersion parameter 
+  pF <- model@p # the index parameter 
+  VarOdF <- phiF * mu^(pF - 2) # the delta method 
+  VarOlF <- log(1 + (phiF * mu^(pF - 2))) # log-normal approximation 
+  
+  # variance due to rand effects
+  var_cop <- VarCorr(model)$cop_name[1]
+  
+  
+  # marginal r2
+  mr2 <- varF/(varF + var_cop + VarOdF)
+  
+  # conditional r2
+  cr2 <- (varF + var_cop)/(varF + var_cop + VarOdF)
+  
+  # output
+  out_frame <- data_frame(call = call, df = df, marg_r2 = round(mr2, 3), cond_r2 = round(cr2,3))
+  return(out_frame)
+}
+```
+
+```{r}
+mod_list <- list(cpm_int, cpm0, cpm01, cpm1, cpm11, cpm12, cpm13, cpm2, cpm21, cpm22)
+if(exists("r2_table")){rm(r2_table)}
+i <- 1
+for(model in mod_list){
+  if(i == 1){
+    r2_table <- r2_cglmm(cpm_int, model)
+  } else {
+    r2_table <- rbind(r2_table, r2_cglmm(cpm_int, model))
+  }
+  i <- i + 1
+}
+
+r2_table <- mutate(r2_table, cop_ind_var_explained = cond_r2 - marg_r2, df_used = df - lag(df))
+r2_table$step <- c("intercept", "base", "base2", "infection", "infection x drop", "infection x day", "infection x day x drop",
+                   "cop genotype", "cop x infection", "cop genotype x drop")
+r2_table <- select(r2_table, step, df_used, marg_r2, cond_r2, cop_ind_var_explained)
+r2_table
+```
+
+
+Means for figures
+
+```{r}
+cpm_figs1 <- update(cpm_int, . ~ . + day_char:trt - 1) # means in Fig S1
+```
+```{r}
+cpm_figs2 <- update(cpm_int, . ~ . + day_char:trt:rec_time - 1) # means in Fig S2
+```
+```{r}
+cpm_fig1 <- update(cpm_int, . ~ . + cop_fam:infection - 1) # means in Fig 1
+```
+
+
+# Variation within infected copepods - Table 1
+
+```{r}
+cpmi_int <- cpglmm(speed_per_sec ~ 1 + (1|cop_name), 
+            data = filter(bdr, infection == 'infected'))
+
+cpmi0 <- update(cpmi_int, . ~ . + box + rec_time + day_char) # base model
+cpmi01 <- update(cpmi0, . ~ . + rec_time * day_char) # time-dep drop resp
+
+anova(cpmi_int, cpmi0, cpmi01 )
+```
+
+```{r}
+cpmi2 <- update(cpmi01, . ~ . + cop_fam) # cop genotype
+cpmi21 <- update(cpmi2, . ~ . + cop_fam * rec_time) # cop geno drop resp
+
+anova(cpmi01, cpmi2, cpmi21 )
+```
+
+```{r}
+cpmi3 <- update(cpmi2, . ~ . + parasite_fam) # worm genotype
+cpmi31 <- update(cpmi3, . ~ . + parasite_fam * rec_time) # worm geno drop resp
+
+anova(cpmi2, cpmi3, cpmi31 )
+```
+
+```{r}
+cpmi4 <- update(cpmi3, . ~ . + cop_fam * parasite_fam) # G x G
+cpmi5 <- update(cpmi4, . ~ . + cop_fam * parasite_fam * day_char) # G x G x time
+
+anova(cpmi3, cpmi4, cpmi5)
+```
+
+```{r}
+mod_list <- list(cpmi_int, cpmi0, cpmi01, cpmi2, cpmi21, cpmi3, cpmi31, cpmi4, cpmi5)
+if(exists("r2_table")){rm(r2_table)}
+i <- 1
+for(model in mod_list){
+  if(i == 1){
+    r2_table <- r2_cglmm(cpmi_int, model)
+  } else {
+    r2_table <- rbind(r2_table, r2_cglmm(cpmi_int, model))
+  }
+  i <- i + 1
+}
+
+r2_table <- mutate(r2_table, cop_ind_var_explained = cond_r2 - marg_r2, df_used = df - lag(df))
+r2_table$step <- c("intercept", "base", "base2", 
+                   "cop genotype", "cop genotype x drop",
+                   "worm genotype", "worm geno x drop", 
+                   "G x G", "G x G x time")
+r2_table <- select(r2_table, step, df_used, marg_r2, cond_r2, cop_ind_var_explained)
+r2_table
+```
+
+
+Means for figs
+
+```{r}
+cpm_fig2a <- update(cpmi_int, . ~ . + cop_fam - 1) # means in Fig 2A
+```
+```{r}
+cpm_fig2b <- update(cpmi_int, . ~ . + parasite_fam - 1) # means in Fig 2B
+```
+```{r}
+cpm_fig2b2 <- update(cpmi_int, . ~ . + parasite_fam + cop_fam) # means in combined version Fig 2B
+```
+```{r}
+cpm_fig2c <- update(cpmi_int, . ~ . + cop_fam:parasite_fam - 1) # means in Fig 2C
+```
+
+
+# Variation within uninfected copepods - cop family explains less variation in uninf than in inf copepods?
+
+```{r}
+cpmu_int <- cpglmm(speed_per_sec ~ 1 + (1|cop_name), 
+            data = filter(bdr, infection != 'infected'))
+
+cpmu0 <- update(cpmu_int, . ~ . + box + rec_time + day_char) # base model
+cpmu01 <- update(cpmu0, . ~ . + rec_time * day_char) # time-dep drop resp
+
+anova(cpmu_int, cpmu0, cpmu01 )
+```
+
+```{r}
+cpmu2 <- update(cpmu01, . ~ . + cop_fam) # cop genotype
+cpmu21 <- update(cpmu2, . ~ . + cop_fam * rec_time) # cop geno drop resp
+
+anova(cpmu01, cpmu2, cpmu21 )
+```
+
+```{r}
+mod_list <- list(cpmu_int, cpmu0, cpmu01, cpmu2, cpmu21)
+if(exists("r2_table")){rm(r2_table)}
+i <- 1
+for(model in mod_list){
+  if(i == 1){
+    r2_table <- r2_cglmm(cpmu_int, model)
+  } else {
+    r2_table <- rbind(r2_table, r2_cglmm(cpmu_int, model))
+  }
+  i <- i + 1
+}
+
+r2_table <- mutate(r2_table, cop_ind_var_explained = cond_r2 - marg_r2, df_used = df - lag(df))
+r2_table$step <- c("intercept", "base", "base2", 
+                   "cop genotype", "cop genotype x drop")
+r2_table <- select(r2_table, step, df_used, marg_r2, cond_r2, cop_ind_var_explained)
+r2_table
+```
+
+
+# Same models, dead excluded
+
+## Infected + uninfected cops
+
+```{r}
+cpmd_int <- cpglmm(speed_per_sec ~ 1 + (1|cop_name), 
+            data = filter(bdr, dead == 0))
+cpmd0 <- update(cpmd_int, . ~ . + box + rec_time + day_char) # base model
+cpmd01 <- update(cpmd0, . ~ . + rec_time * day_char) # time-dep drop resp
+
+anova(cpmd_int, cpmd0, cpmd01)
+```
+
+Then, we assess the role of infection.
+
+```{r}
+cpmd1 <- update(cpmd01, . ~ . + infection) # infection
+cpmd11 <- update(cpmd1, . ~ . + infection * rec_time) # drop resp x infection
+cpmd12 <- update(cpmd11, . ~ . + infection * day_char) # day x inf
+cpmd13 <- update(cpmd12, . ~ . + infection * day_char * rec_time) # day x inf
+anova(cpmd01, cpmd1, cpmd11, cpmd12, cpmd13)
+```
+
+Next, we examine copepod genotype effects.
+
+```{r}
+cpmd2 <- update(cpmd12, . ~ . + cop_fam) # cop genotype
+cpmd21 <- update(cpmd2, . ~ . + cop_fam * infection) # cop geno x infection
+cpmd22 <- update(cpmd21, . ~ . + cop_fam * infection * rec_time) # cop geno drop resp
+
+anova(cpmd12, cpmd2, cpmd21, cpmd22 )
+```
+
+```{r}
+mod_list <- list(cpmd_int, cpmd0, cpmd01, cpmd1, cpmd11, cpmd12, cpmd13, cpmd2, cpmd21, cpmd22)
+if(exists("r2_table")){rm(r2_table)}
+i <- 1
+for(model in mod_list){
+  if(i == 1){
+    r2_table <- r2_cglmm(cpmd_int, model)
+  } else {
+    r2_table <- rbind(r2_table, r2_cglmm(cpmd_int, model))
+  }
+  i <- i + 1
+}
+
+r2_table <- mutate(r2_table, cop_ind_var_explained = cond_r2 - marg_r2, df_used = df - lag(df))
+r2_table$step <- c("intercept", "base", "base2", 
+                   "infection", "infection x drop", "infection x day", "infection x drop x day", 
+                   "cop genotype", "cop x infection", "cop genotype x drop")
+r2_table <- select(r2_table, step, df_used, marg_r2, cond_r2, cop_ind_var_explained)
+r2_table
+```
+
+## Just infecteds
+
+```{r}
+cpmid_int <- cpglmm(speed_per_sec ~ 1 + (1|cop_name), 
+            data = filter(bdr, dead == 0, infection == 'infected'))
+
+cpmid0 <- update(cpmid_int, . ~ . + box + rec_time + day_char) # base model
+cpmid01 <- update(cpmid0, . ~ . + rec_time * day_char) # time-dep drop resp
+
+anova(cpmid_int, cpmid0, cpmid01 )
+```
+
+```{r}
+cpmid2 <- update(cpmid01, . ~ . + cop_fam) # cop genotype
+cpmid21 <- update(cpmid2, . ~ . + cop_fam * rec_time) # cop geno drop resp
+
+anova(cpmid01, cpmid2, cpmid21 )
+```
+
+```{r}
+cpmid3 <- update(cpmid2, . ~ . + parasite_fam) # worm genotype
+cpmid31 <- update(cpmid3, . ~ . + parasite_fam * rec_time) # worm geno drop resp
+
+anova(cpmid2, cpmid3, cpmid31 )
+```
+
+```{r}
+cpmid4 <- update(cpmid3, . ~ . + cop_fam * parasite_fam) # G x G
+cpmid5 <- update(cpmid4, . ~ . + cop_fam * parasite_fam * day_char) # G x G x time
+
+anova(cpmid3, cpmid4, cpmid5)
+```
+
+```{r}
+mod_list <- list(cpmid_int, cpmid0, cpmid01, cpmid2, cpmid21, cpmid3, cpmid31, cpmid4, cpmid5)
+if(exists("r2_table")){rm(r2_table)}
+i <- 1
+for(model in mod_list){
+  if(i == 1){
+    r2_table <- r2_cglmm(cpmi_int, model)
+  } else {
+    r2_table <- rbind(r2_table, r2_cglmm(cpmi_int, model))
+  }
+  i <- i + 1
+}
+
+r2_table <- mutate(r2_table, cop_ind_var_explained = cond_r2 - marg_r2, df_used = df - lag(df))
+r2_table$step <- c("intercept", "base", "base2", 
+                   "cop genotype", "cop genotype x drop",
+                   "worm genotype", "worm geno x drop", 
+                   "G x G", "G x G x time")
+r2_table <- select(r2_table, step, df_used, marg_r2, cond_r2, cop_ind_var_explained)
+r2_table
+```
+
+# Manual data
+
+## Infected + uninfected cops
+
+```{r}
+bd <- mutate(bd, infection = if_else(infected == 0, "uninfected", "infected"), 
+             parasite_fam2 = if_else(infected == 0, "uninfected", as.character(parasite_fam)))%>% # re-formulate parasite family factor so all uninfecteds have same value
+  mutate(infection = factor(infection, levels = c("uninfected", "infected")))
+
+cpmm_int <- cpglmm(speed_per_sec ~ 1 + (1|cop_name), # int only model
+                data = bd)
+cpmm0 <- update(cpmm_int, . ~ . + box + rec_time + day_char) # base model
+cpmm01 <- update(cpmm0, . ~ . + rec_time * day_char) # base model2
+
+anova(cpmm_int, cpmm0, cpmm01) 
+```
+```{r}
+# add infection
+cpmm1 <- update(cpmm01, . ~ . + infection)
+cpmm11 <- update(cpmm1, . ~ . + infection * rec_time) 
+cpmm12 <- update(cpmm11, . ~ . + infection * day_char) 
+cpmm13 <- update(cpmm12, . ~ . + infection * day_char * rec_time) 
+
+anova(cpmm01, cpmm1, cpmm11, cpmm12, cpmm13)
+```
+
+```{r}
+# add cop fam
+cpmm2 <- update(cpmm12, . ~ . + cop_fam) # copepod fam
+cpmm21 <- update(cpmm2, . ~ . + infection * cop_fam) # copepod fam differ by infection
+cpmm22 <- update(cpmm21, . ~ . + infection * cop_fam * rec_time) # copepod fam differ by infection
+
+anova(cpmm12, cpmm2, cpmm21, cpmm22)
+```
+
+```{r}
+mod_list <- list(cpmm_int, cpmm0, cpmm01, cpmm1, cpmm11, cpmm12, cpmm13, cpmm2, cpmm21, cpmm22)
+if(exists("r2_table")){rm(r2_table)}
+i <- 1
+for(model in mod_list){
+  if(i == 1){
+    r2_table <- r2_cglmm(cpmd_int, model)
+  } else {
+    r2_table <- rbind(r2_table, r2_cglmm(cpmd_int, model))
+  }
+  i <- i + 1
+}
+
+r2_table <- mutate(r2_table, cop_ind_var_explained = cond_r2 - marg_r2, df_used = df - lag(df))
+r2_table$step <- c("intercept", "base", "base2", 
+                   "infection", "infection x drop", "infection x day", "infection x drop x day", 
+                   "cop genotype", "cop x infection", "cop genotype x drop")
+r2_table <- select(r2_table, step, df_used, marg_r2, cond_r2, cop_ind_var_explained)
+r2_table
+```
+
+## Just infecteds
+
+```{r}
+cpmim_int <- cpglmm(speed_per_sec ~ 1 + (1|cop_name), # int only model
+                data = filter(bd, infection == "infected"))
+cpmim0 <- update(cpmim_int, . ~ . + box + rec_time + day_char) # base model
+cpmim01 <- update(cpmim0, . ~ . + rec_time * day_char) # base model2
+
+anova(cpmim_int, cpmim0, cpmim01)
+```
+
+```{r}
+cpmim2 <- update(cpmim01, . ~ . + cop_fam) # copepod fam
+cpmim21 <- update(cpmim2, . ~ . + cop_fam * rec_time) # copepod fam x drop
+
+anova(cpmim01, cpmim2, cpmim21)
+```
+
+```{r}
+cpmim3 <- update(cpmim2, . ~ . + parasite_fam) # worm fam
+cpmim31 <- update(cpmim3, . ~ . + parasite_fam * rec_time) # worm fam x drop
+
+anova(cpmim2, cpmim3, cpmim31)
+```
+
+
+```{r}
+cpmim4 <- update(cpmim3, . ~ . + cop_fam * parasite_fam) # GxG
+cpmim5 <- update(cpmim4, . ~ . + cop_fam * parasite_fam * day_char) # time-dependent
+
+anova(cpmim3, cpmim4, cpmim5)
+```
+
+```{r}
+mod_list <- list(cpmim_int, cpmim0, cpmim01, cpmim2, cpmim21, cpmim3, cpmim31, cpmim4, cpmim5)
+if(exists("r2_table")){rm(r2_table)}
+i <- 1
+for(model in mod_list){
+  if(i == 1){
+    r2_table <- r2_cglmm(cpmi_int, model)
+  } else {
+    r2_table <- rbind(r2_table, r2_cglmm(cpmi_int, model))
+  }
+  i <- i + 1
+}
+
+r2_table <- mutate(r2_table, cop_ind_var_explained = cond_r2 - marg_r2, df_used = df - lag(df))
+r2_table$step <- c("intercept", "base", "base2", 
+                   "cop genotype", "cop genotype x drop",
+                   "worm genotype", "worm geno x drop", 
+                   "G x G", "G x G x time")
+r2_table <- select(r2_table, step, df_used, marg_r2, cond_r2, cop_ind_var_explained)
+r2_table
+```
