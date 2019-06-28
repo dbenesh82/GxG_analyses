@@ -14,19 +14,21 @@ I explored different behavioral variables that could be extracted from these rec
 
 # Main results
 
-I found that copepod activity was modified by infection - infected copepods were less active than uninfected copepods.
+I found that copepod activity was modified by infection - infected copepods were less active than uninfected copepods. Moreover, copepod activity, was affected by both host and parasite genotype, but there was not clear evidence for host-parasite genotype interactions. Three observations indicated that host behavior was chiefly determined by parasite genes.
 
-Moreover, copepod activity, was affected by both host and parasite genotype, but there was not clear evidence for host-parasite genotype interactions. Three observations indicated that host behavior was chiefly determined by parasite genes: 1) no combinations of host and parasite genotype were unmanipulated
+*(1)* No combinations of host and parasite genotype were unmanipulated.
 
 ![Genotype x genotype interactions over time](figs/fig2.png)
 
-2) parasitism reduced the variation observed among copepod genotypes, and 
+*(2)* Parasitism reduced the variation observed among copepod genotypes.
 
 ![Activity of copepod genotypes when uninfected and infected](figs/fig1a.png)
 
-3) within infected copepods, parasite genotype had twice as large an effect on behavior as host genotype
+*(3)* Within infected copepods, parasite genotype had twice as large an effect on behavior as host genotype.
 
 ![Activity of infected copepods separated by host or parasite genotype](figs/fig1b.png)
+
+I conclude that the altered behavior of infected copepods primarily represents the action of parasite genes and is an extended parasite phenotype.
 
 # Reference
 
