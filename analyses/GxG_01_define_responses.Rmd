@@ -88,6 +88,14 @@ sum(infd$infected == 1, na.rm=T)
 
 So the infection rate was `r round(sum(infd$infected == 1, na.rm=T) / sum( infd$exposed == 1, na.rm=T), 3) * 100`%.
 
+How many copepods survived until the end of the experiment, 21 days post exposure?
+
+```{r}
+sum(infd$dead == 0, na.rm = T)
+```
+
+Making for an overall survival rate of `r round(sum(infd$dead == 0, na.rm = T)/sum(!is.na(infd$exposed), 3) * 100`%.
+
 We can also do some quality control checks on our infection data. For example, I measured some parasite traits like cercomere presence (an indication of developmental rate) and worm size. We can check to make sure these variables are only recorded from infected copepods, starting with cercomere presence.
 
 It is, though 5 infected copepods are missing cercomere data.
