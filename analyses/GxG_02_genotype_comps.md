@@ -1,4 +1,5 @@
-Genotype x genotype interactions in host manipulation - Analyses
+Genotype x genotype interactions in host manipulation - Exploratory
+analyses
 ================
 Dan Benesh
 
@@ -70,7 +71,7 @@ rather comparable across treatments.
     ## 2 exposed, uninfected      357   121     0.253
     ## 3 infected                 327    86     0.208
 
-Consequently, it is not surprising, that when we make the same plot, but
+Consequently, it is not surprising that when we make the same plot, but
 separate the treatments, we get a similar pattern. The copepods that
 died exhibited somewhat lower activity levels, particularly later in the
 experiment.
@@ -121,16 +122,19 @@ experiment.
 
 Infected copepods are less active than uninfected copepods, regardless
 of days post infection. The worm becomes infective to its fish next host
-at around 11 days post infection. Other [studies](HAMMERSCHmidT) have
-found a conspicuous change in the behavior of infected copepods as worms
-develop from uninfective to infective larvae. Specifically they switch
-from reducing to increasing activity, relative to uninfecteds. However,
-this switch seems to be population-dependent, and it is not observed in
-the parasite population used in this experiment (see [here](HAFER)). In
-any case, the behavioral changes appear to affect copepods’ predation
-susceptibility (see [here]()) and consequently parasite transmission and
-survival probabilities. Thus, the changes are likely to be fitness
-components under selection.
+at around 11 days post infection. Other
+[studies](https://onlinelibrary.wiley.com/doi/full/10.1111/j.1558-5646.2009.00687.x)
+have found a conspicuous change in the behavior of infected copepods as
+worms develop from uninfective to infective larvae. Specifically they
+switch from reducing to increasing activity, relative to uninfecteds.
+However, this switch seems to be population-dependent, and it is not
+observed in the parasite population used in this experiment (see
+[here](https://www.cambridge.org/core/journals/parasitology/article/differences-between-populations-in-host-manipulation-by-the-tapeworm-schistocephalus-solidus-is-there-local-adaptation/DE5AB92FFC502E377579A79DE5938813)).
+In any case, the behavioral changes appear to affect copepods’ predation
+susceptibility (see
+[here](https://www.cambridge.org/core/journals/parasitology/article/suppression-of-predation-on-the-intermediate-host-by-two-trophicallytransmitted-parasites-when-uninfective/FCF95AA802A4E597BADD191ADB530387))
+and consequently parasite transmission and survival probabilities. Thus,
+the changes are likely to be fitness components under selection.
 
 The response to the plate drop looks fairly consistent over time, though
 it is hard to gauge above. I plotted the change in activity in response
@@ -142,10 +146,10 @@ the
 experiment.
 
 ![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
-Modelling (see [here]()) suggested the effect of infection on the drop
-response differed in manual and auto datasets. However, graphically they
-are quite similar, and the difference probably arises due to sampling
-more days in the auto-tracked data.
+Modelling (see [here](GxG_03_ms_anlayses.Rmd)) suggested the effect of
+infection on the drop response differed in manual and auto datasets.
+However, graphically they are quite similar, and the difference probably
+arises due to sampling more days in the auto-tracked data.
 ![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 Our focus in this experiment is parasitic manipulation, i.e. how much
@@ -190,7 +194,7 @@ associated with lower host activity than genotype C) and interactions
 (e.g. some host genotypes show quite different behavior depending on the
 parasite genotype). Judging from these initial plots, it looks like
 parasite genotype has a clear effect, host genotype less so, and there
-are interactions. In the last three plots, I noted that confidence
+might be interactions. In the last three plots, I noted that confidence
 intervals were underestimated, and this is because I pooled together
 multiple observations from the same copepod across the experiment.
 
@@ -273,10 +277,10 @@ effect. That was the simplest model, and then I allowed the copepod
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Letting the drop response vary by day post infection is an improvement.
-As we say above, the response to the drop tends to decrease later in the
-experiment, see [here](LINK). However, modelling copepod-specific
-responses did not improve the model. We can visualize this by taking a
-random sample of copepods and comparing how they responded to the
+As we saw above, the response to the drop tends to decrease later in the
+experiment. However, modelling copepod-specific drop responses did not
+improve the model. We can visualize this by taking a random sample of
+copepods and comparing how they responded to the
 drop.
 
 ![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
@@ -319,10 +323,9 @@ is almost three times as large.
     ## parasite_fam       4 121.06  30.266  7.3347
     ## rec_time:day_char  8 115.43  14.429  3.4967
 
-Next, we add the interaction between host and parasite genotype, which
-was the primary interest of our experiment. It is significant as well,
-but only marginally, and it appears less explanatory than the main
-effects (i.e. it has a lower mean square).
+Next, we add the interaction between host and parasite genotype. It is
+significant as well, but only marginally, and it appears less
+explanatory than the main effects (i.e. it has a lower mean square).
 
     ## Data: filter(bdr, trt == "infected")
     ## Models:
@@ -335,6 +338,16 @@ effects (i.e. it has a lower mean square).
     ## lm2 46 29832 30146 -14870    29740 28.535     16    0.02727 *
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+    ## Analysis of Variance Table
+    ##                      Df Sum Sq Mean Sq F value
+    ## box                   2  47.32  23.660  5.7341
+    ## rec_time              1 107.13 107.131 25.9636
+    ## day_char              8 834.44 104.305 25.2787
+    ## cop_fam               4  51.06  12.766  3.0938
+    ## parasite_fam          4 124.52  31.129  7.5442
+    ## rec_time:day_char     8 115.43  14.429  3.4969
+    ## cop_fam:parasite_fam 16 113.84   7.115  1.7243
 
 It is tempting to stop modelling here, because the results are
 relatively straightforward. However, I took two additional modelling
@@ -377,7 +390,7 @@ the model. I take a stepwise approach, first letting either host
 genotype or parasite genotype vary with time, and then both.
 
 Starting with copepod genotype, there is a significant interaction with
-experiment day. We saw this [above]().
+experiment day.
 
     ## Data: filter(bdr, trt == "infected")
     ## Models:
@@ -485,7 +498,7 @@ panel).
 
 ![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
 
-We should also make sure we are ignoring too much variation by just
+We should also make sure we are not ignoring important variation by just
 pooling the different days of the experiment according to worm
 developmental stage. Let’s fit the same models, but allow genotype to
 vary by dpi instead of developmental period. This consumes a huge number
@@ -971,7 +984,8 @@ sizes.
 # The variance explained by different predictors
 
 To examine how important different effects are in the model, I calculate
-R<sup>2</sup> values for each model, according to these [suggestions]().
+R<sup>2</sup> values for each model, according to these
+[suggestions](https://royalsocietypublishing.org/doi/full/10.1098/rsif.2017.0213?url_ver=Z39.88-2003&rfr_id=ori:rid:crossref.org&rfr_dat=cr_pub%3dpubmed).
 I calculate two versions of R<sup>2</sup>, marginal and conditional
 R<sup>2</sup>. Marginal R<sup>2</sup> is the variance explained by just
 the fixed effects, while conditiona R<sup>2</sup> is the variance
@@ -983,23 +997,23 @@ We’ll start by looking at the models in which both uninfected and
 infected copepods were included. For every model-building step, we
 calculate the R<sup>2</sup> and df used. By comparing the change in
 R<sup>2</sup> as we add predictors, we can get a feeling for how
-important they are, how much information they add.
+important they are, how much information they
+add.
 
-    ## # A tibble: 8 x 5
-    ##   step                           df_used marg_r2 cond_r2 cop_ind_var_expla~
-    ##   <chr>                            <dbl>   <dbl>   <dbl>              <dbl>
-    ## 1 intercept                           NA   0       0.379              0.379
-    ## 2 base                                19   0.038   0.399              0.361
-    ## 3 infection                           10   0.168   0.407              0.239
-    ## 4 copepod genotype                     4   0.176   0.408              0.232
-    ## 5 copepod genotype x infection         4   0.178   0.408              0.23 
-    ## 6 worm genotype                        4   0.184   0.409              0.225
-    ## 7 host x parasite genotype inte~      16   0.188   0.412              0.224
-    ## 8 time-dependent genotype x gen~     224   0.206   0.43               0.224
+| step                                            | df\_used | marg\_r2 | cond\_r2 | cop\_ind\_var\_explained |
+| :---------------------------------------------- | -------: | -------: | -------: | -----------------------: |
+| intercept                                       |       NA |    0.000 |    0.379 |                    0.379 |
+| base                                            |       19 |    0.038 |    0.399 |                    0.361 |
+| infection                                       |       10 |    0.168 |    0.407 |                    0.239 |
+| copepod genotype                                |        4 |    0.176 |    0.408 |                    0.232 |
+| copepod genotype x infection                    |        4 |    0.178 |    0.408 |                    0.230 |
+| worm genotype                                   |        4 |    0.184 |    0.409 |                    0.225 |
+| host x parasite genotype interaction            |       16 |    0.188 |    0.412 |                    0.224 |
+| time-dependent genotype x genotype interactions |      224 |    0.206 |    0.430 |                    0.224 |
 
 The base model only explains about 4% of the variation in copepod
 activity. Adding infection has a strong effect, explaining an additional
-13%. Adding infection as caused a steep drop in the variation
+13%. Adding infection also caused a steep drop in the variation
 attributable to copepod individual - almost half of the variation
 between copepods can be attributed to infection. Next, we added copepod
 genotype, which only explains an additional 1% of the variation.
@@ -1024,16 +1038,15 @@ Let’s compare these results to the models just on the infected copepods,
 in which we are explaining the variance just in infected copepod
 behavior.
 
-    ## # A tibble: 7 x 5
-    ##   step                           df_used marg_r2 cond_r2 cop_ind_var_expla~
-    ##   <chr>                            <dbl>   <dbl>   <dbl>              <dbl>
-    ## 1 intercept                           NA   0       0.242              0.242
-    ## 2 base                                19   0.035   0.266              0.231
-    ## 3 copepod genotype                     4   0.042   0.269              0.227
-    ## 4 worm genotype                        4   0.06    0.27               0.21 
-    ## 5 host x parasite genotype inte~      16   0.077   0.278              0.201
-    ## 6 genotype-dependent drop respo~      24   0.079   0.279              0.2  
-    ## 7 time-dependent genotype x gen~     168   0.124   0.323              0.199
+| step                                            | df\_used | marg\_r2 | cond\_r2 | cop\_ind\_var\_explained |
+| :---------------------------------------------- | -------: | -------: | -------: | -----------------------: |
+| intercept                                       |       NA |    0.000 |    0.242 |                    0.242 |
+| base                                            |       19 |    0.035 |    0.266 |                    0.231 |
+| copepod genotype                                |        4 |    0.042 |    0.269 |                    0.227 |
+| worm genotype                                   |        4 |    0.060 |    0.270 |                    0.210 |
+| host x parasite genotype interaction            |       16 |    0.077 |    0.278 |                    0.201 |
+| genotype-dependent drop response                |       24 |    0.079 |    0.279 |                    0.200 |
+| time-dependent genotype x genotype interactions |      168 |    0.124 |    0.323 |                    0.199 |
 
 First off, the highest conditional R<sup>2</sup> (0.32) is lower than
 for the previous set of models (0.43). This again demonstrates the
@@ -1058,7 +1071,7 @@ infected copepods exhibit less variation in behavior, relative to
 uninfected copepods. Thus, it is worthwhile to examine whether variation
 in copepod behavior differs between infected and uninfected.
 
-# Does variance differ among genotypes?
+# Does behavioral variance depend on infection? On genotypes?
 
 To start, I make two comparable models (the base model), but restrict
 the data to either infected or uninfected copepods. When we look at the
@@ -1067,13 +1080,13 @@ predictors in the model with uninfecteds (0.35, first row) than
 infecteds (0.27, second row). This fits with the idea that more variance
 can be explained when there is just more variance to begin with,
 i.e. there is more variance in uninfecteds than infecteds because they
-are more active on average.
+are more active on
+average.
 
-    ## # A tibble: 2 x 4
-    ##   call                                                   df marg_r2 cond_r2
-    ##   <chr>                                               <dbl>   <dbl>   <dbl>
-    ## 1 speed_per_sec ~ box + rec_time * day_char + (1 | c~    19   0.069   0.346
-    ## 2 speed_per_sec ~ box + rec_time * day_char + (1 | c~    19   0.035   0.266
+| call                                                              | df | marg\_r2 | cond\_r2 |
+| :---------------------------------------------------------------- | -: | -------: | -------: |
+| speed\_per\_sec \~ box + rec\_time \* day\_char + (1 | cop\_name) | 19 |    0.069 |    0.346 |
+| speed\_per\_sec \~ box + rec\_time \* day\_char + (1 | cop\_name) | 19 |    0.035 |    0.266 |
 
 This pattern is hard to see when we plot the behavior of every
 individual copepod over the experiment, but there is a hint that the red
@@ -1113,227 +1126,6 @@ in infected copepods probably explains the differences in the effect
 sizes (changes in R<sup>2</sup>) between infected-only models and
 infected-and-uninfected models.
 
-# Model summaries
-
-Now we have done plenty of modelling. Let’s summarize these model
-comparisons in one place for future reference (manuscript table).
-
-### Uninfected and infected models
-
-We re-make the model comparisons using the full dataset (both uninfected
-and infected copepods), starting with establishing the initial ‘base’
-model.
-
-    ## Data: bdr
-    ## Models:
-    ## lmu_int: speed_per_sec ~ 1 + (1 | cop_name)
-    ## lmu0: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char
-    ## lmu01: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu01:     rec_time:day_char
-    ##         Df   AIC   BIC logLik deviance   Chisq Chi Df Pr(>Chisq)    
-    ## lmu_int  3 79845 79868 -39919    79839                              
-    ## lmu0    14 79344 79452 -39658    79316 522.788     11  < 2.2e-16 ***
-    ## lmu01   22 79329 79499 -39643    79285  30.711      8  0.0001582 ***
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Then, we assess the role of infection.
-
-    ## Data: bdr
-    ## Models:
-    ## lmu01: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu01:     rec_time:day_char
-    ## lmu1: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu1:     infection + rec_time:day_char
-    ## lmu11: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu11:     infection + rec_time:day_char + rec_time:infection
-    ## lmu12: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu12:     infection + rec_time:day_char + rec_time:infection + day_char:infection
-    ## lmu13: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu13:     infection + rec_time:day_char + rec_time:infection + day_char:infection + 
-    ## lmu13:     rec_time:day_char:infection
-    ##       Df   AIC   BIC logLik deviance   Chisq Chi Df Pr(>Chisq)    
-    ## lmu01 22 79329 79499 -39643    79285                              
-    ## lmu1  23 78970 79147 -39462    78924 361.226      1  < 2.2e-16 ***
-    ## lmu11 24 78909 79094 -39430    78861  63.312      1  1.765e-15 ***
-    ## lmu12 32 78761 79008 -39349    78697 163.308      8  < 2.2e-16 ***
-    ## lmu13 40 78766 79074 -39343    78686  11.576      8     0.1711    
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Next, we examine copepod genotype effects, and then…
-
-    ## Data: bdr
-    ## Models:
-    ## lmu12: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu12:     infection + rec_time:day_char + rec_time:infection + day_char:infection
-    ## lmu2: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu2:     infection + cop_fam + rec_time:day_char + rec_time:infection + 
-    ## lmu2:     day_char:infection
-    ## lmu21: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu21:     infection + cop_fam + rec_time:day_char + rec_time:infection + 
-    ## lmu21:     day_char:infection + infection:cop_fam
-    ## lmu22: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu22:     infection + cop_fam + rec_time:day_char + rec_time:infection + 
-    ## lmu22:     day_char:infection + infection:cop_fam + rec_time:cop_fam + 
-    ## lmu22:     rec_time:infection:cop_fam
-    ##       Df   AIC   BIC logLik deviance   Chisq Chi Df Pr(>Chisq)    
-    ## lmu12 32 78761 79008 -39349    78697                              
-    ## lmu2  36 78736 79014 -39332    78664 32.9544      4   1.22e-06 ***
-    ## lmu21 40 78737 79046 -39329    78657  6.9958      4     0.1361    
-    ## lmu22 48 78741 79111 -39322    78645 12.4147      8     0.1336    
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-…parasite genotype effects.
-
-    ## Data: bdr
-    ## Models:
-    ## lmu21: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu21:     infection + cop_fam + rec_time:day_char + rec_time:infection + 
-    ## lmu21:     day_char:infection + infection:cop_fam
-    ## lmu3: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu3:     infection + cop_fam + parasite_fam2 + rec_time:day_char + 
-    ## lmu3:     rec_time:infection + day_char:infection + infection:cop_fam
-    ## lmu31: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu31:     infection + cop_fam + parasite_fam2 + rec_time:day_char + 
-    ## lmu31:     rec_time:infection + day_char:infection + infection:cop_fam + 
-    ## lmu31:     rec_time:parasite_fam2
-    ##       Df   AIC   BIC logLik deviance   Chisq Chi Df Pr(>Chisq)    
-    ## lmu21 40 78737 79046 -39329    78657                              
-    ## lmu3  44 78720 79060 -39316    78632 25.3594      4   4.26e-05 ***
-    ## lmu31 48 78725 79095 -39314    78629  3.3123      4      0.507    
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Finally, we examine the interaction between host and parasite genotype.
-
-    ## Data: bdr
-    ## Models:
-    ## lmu3: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu3:     infection + cop_fam + parasite_fam2 + rec_time:day_char + 
-    ## lmu3:     rec_time:infection + day_char:infection + infection:cop_fam
-    ## lmu4: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu4:     infection + cop_fam + parasite_fam2 + rec_time:day_char + 
-    ## lmu4:     rec_time:infection + day_char:infection + infection:cop_fam + 
-    ## lmu4:     infection:parasite_fam2 + cop_fam:parasite_fam2 + infection:cop_fam:parasite_fam2
-    ## lmu41: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lmu41:     infection + cop_fam + parasite_fam2 + rec_time:day_char + 
-    ## lmu41:     rec_time:infection + day_char:infection + infection:cop_fam + 
-    ## lmu41:     infection:parasite_fam2 + cop_fam:parasite_fam2 + infection:cop_fam:parasite_fam2 + 
-    ## lmu41:     day_char:infection:cop_fam:parasite_fam2
-    ##        Df   AIC   BIC logLik deviance   Chisq Chi Df Pr(>Chisq)    
-    ## lmu3   44 78720 79060 -39316    78632                              
-    ## lmu4   60 78737 79200 -39308    78617  15.134     16     0.5149    
-    ## lmu41 284 78607 80798 -39019    78039 578.324    224     <2e-16 ***
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Here are some measures of model fit, R<sup>2</sup> for all these models.
-
-    ## # A tibble: 14 x 3
-    ##       df marg_r2 cond_r2
-    ##    <dbl>   <dbl>   <dbl>
-    ##  1     0   0       0.379
-    ##  2    11   0.037   0.398
-    ##  3    19   0.038   0.399
-    ##  4    20   0.159   0.398
-    ##  5    21   0.161   0.4  
-    ##  6    29   0.168   0.407
-    ##  7    37   0.168   0.407
-    ##  8    33   0.176   0.408
-    ##  9    37   0.178   0.408
-    ## 10    45   0.178   0.409
-    ## 11    41   0.184   0.409
-    ## 12    45   0.184   0.409
-    ## 13    57   0.188   0.412
-    ## 14   281   0.206   0.43
-
-### Just infecteds
-
-Now we take the same approach with just infecteds. First establish a
-base model.
-
-    ## Data: filter(bdr, trt == "infected")
-    ## Models:
-    ## lm_int: speed_per_sec ~ 1 + (1 | cop_name)
-    ## lm0: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char
-    ## lm01: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lm01:     rec_time:day_char
-    ##        Df   AIC   BIC logLik deviance   Chisq Chi Df Pr(>Chisq)    
-    ## lm_int  3 30076 30096 -15035    30070                              
-    ## lm0    14 29865 29960 -14918    29837 233.133     11  < 2.2e-16 ***
-    ## lm01   22 29853 30003 -14904    29809  27.987      8  0.0004767 ***
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Then, check copepod genotype effects, and also…
-
-    ## Data: filter(bdr, trt == "infected")
-    ## Models:
-    ## lm01: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lm01:     rec_time:day_char
-    ## lm2: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lm2:     cop_fam + rec_time:day_char
-    ## lm21: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lm21:     cop_fam + rec_time:day_char + rec_time:cop_fam
-    ##      Df   AIC   BIC logLik deviance   Chisq Chi Df Pr(>Chisq)  
-    ## lm01 22 29853 30003 -14904    29809                            
-    ## lm2  26 29849 30027 -14899    29797 11.4346      4    0.02209 *
-    ## lm21 30 29853 30058 -14896    29793  4.3345      4    0.36262  
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-…worm genotype effects….
-
-    ## Data: filter(bdr, trt == "infected")
-    ## Models:
-    ## lm2: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lm2:     cop_fam + rec_time:day_char
-    ## lm3: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lm3:     cop_fam + parasite_fam + rec_time:day_char
-    ## lm31: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lm31:     cop_fam + parasite_fam + rec_time:day_char + rec_time:parasite_fam
-    ##      Df   AIC   BIC logLik deviance   Chisq Chi Df Pr(>Chisq)    
-    ## lm2  26 29849 30027 -14899    29797                              
-    ## lm3  30 29828 30033 -14884    29768 29.0626      4  7.592e-06 ***
-    ## lm31 34 29831 30064 -14882    29763  4.8213      4     0.3061    
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-…and finally genotype x genotype interactions.
-
-    ## Data: filter(bdr, trt == "infected")
-    ## Models:
-    ## lm3: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lm3:     cop_fam + parasite_fam + rec_time:day_char
-    ## lm4: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lm4:     cop_fam + parasite_fam + rec_time:day_char + cop_fam:parasite_fam
-    ## lm41: speed_per_sec ~ (1 | cop_name) + box + rec_time + day_char + 
-    ## lm41:     cop_fam + parasite_fam + rec_time:day_char + cop_fam:parasite_fam + 
-    ## lm41:     day_char:parasite_fam + day_char:cop_fam + day_char:cop_fam:parasite_fam
-    ##       Df   AIC   BIC logLik deviance   Chisq Chi Df Pr(>Chisq)    
-    ## lm3   30 29828 30033 -14884    29768                              
-    ## lm4   46 29832 30146 -14870    29740  28.535     16    0.02727 *  
-    ## lm41 238 29737 31362 -14630    29261 478.735    192    < 2e-16 ***
-    ## ---
-    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Here are the R<sup>2</sup> values for these models.
-
-    ## # A tibble: 9 x 3
-    ##      df marg_r2 cond_r2
-    ##   <dbl>   <dbl>   <dbl>
-    ## 1     0   0       0.242
-    ## 2    11   0.032   0.264
-    ## 3    19   0.035   0.266
-    ## 4    23   0.042   0.269
-    ## 5    27   0.042   0.269
-    ## 6    27   0.06    0.27 
-    ## 7    31   0.061   0.27 
-    ## 8    43   0.077   0.278
-    ## 9   235   0.124   0.323
-
 # Other fitness proxies
 
 In the experiment, we measured three other worm traits: infection rate,
@@ -1341,7 +1133,7 @@ worm development, and worm growth. In each of these traits, we can look
 for host x parasite genotype interactions and then examine whether
 manipulation was correlated with any of these traits.
 
-### Infection
+### Infection rate
 
 To determine what factors affect copepod infection, we fit a series of
 GLM models with a binomial error distribution. Both host and parasite
@@ -1369,7 +1161,7 @@ These main effects can be seen here. There is variation along the x
 line crossing, which would indicate
 interactions.
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-87-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-76-1.png)<!-- -->
 
 ### Copepod survival
 
@@ -1414,7 +1206,7 @@ Also note how parasite genotype had little impact on infection - there
 is not consistent separation of lines in the left
 panel.
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-90-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-79-1.png)<!-- -->
 
 ### Development of the cercomere
 
@@ -1444,7 +1236,7 @@ One worm genotype in particular developed faster than the others.
 Copepod genotype had no effect on how fast worms
 developed.
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-92-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-81-1.png)<!-- -->
 
 We can also check whether copepods harboring fast developing worms
 behaved differently. The behavior of infected copepods does not seem
@@ -1452,7 +1244,7 @@ obviously related to worm development, though perhaps fast-developing
 worms were more active at the beginning of the experiment (5 to 9
 dpi).
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-93-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-82-1.png)<!-- -->
 
 To check this, we can add cercomere presence to a model. We’ll start
 with the most complex model, the one including time-dependent genotype
@@ -1491,10 +1283,10 @@ variation in infected copepod behavior.
 
 The effect is weak, but it is in the direction consistent with a
 trade-off. Faster development is associated with lower manipulation
-(less difference to uninfecteds). That is consistent with other
-studies.
+(less difference to
+uninfecteds).
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-96-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-85-1.png)<!-- -->
 
 ### Procercoid size
 
@@ -1505,8 +1297,10 @@ models, except now we are using standard GLMs with a Gaussian error
 distribution. Also, we included copepod length as a covariate, which we
 measured when recording worm size.
 
-Two things significantly improved the model: worms are larger in larger
-copepods and parasite genotypes differ in their growth.
+Copepod and parasite genotypes affected parasite size. The host genotype
+effect is slightly misleading, because some host genotypes tended to be
+larger than others and copepod length was positively associate with
+parasite size.
 
     ## Analysis of Deviance Table
     ## 
@@ -1527,25 +1321,24 @@ copepods and parasite genotypes differ in their growth.
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Host genotype did not have an effect, though this is slightly
-misleading, because some host genotypes tended to be larger than others.
 Although copepod length and copepod genotype are confounded, length
 seems to better explain parasite growth than copepod genotype. That is,
 host genotype effect does not seem to have an effect beyond that of
 copepod
 length.
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-98-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-87-1.png)<!-- -->
 
-Parasite genotype, by contrast, had a clear effect on worm
-size.
+Parasite genotype, by contrast, had a clear effect on worm size, after
+controlling for copepod
+length.
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-99-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-88-1.png)<!-- -->
 
 Parasite growth was not determined by genotype x genotype
 interactions.
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-100-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-89-1.png)<!-- -->
 
 To explore whether worm growth is related to copepod behavior, I added
 worm size to the full model. Again, there is overlap among predictors,
@@ -1575,21 +1368,20 @@ However, this effect is not time-dependent.
 
 The effect is relatively strong, explaining about 1% of the variation.
 
-    ## # A tibble: 2 x 4
-    ##   step             df marg_r2 cond_r2
-    ##   <chr>         <dbl>   <dbl>   <dbl>
-    ## 1 full model      235   0.126   0.309
-    ## 2 add worm size   236   0.134   0.309
+| step          |  df | marg\_r2 | cond\_r2 |
+| :------------ | --: | -------: | -------: |
+| full model    | 235 |    0.126 |    0.309 |
+| add worm size | 236 |    0.134 |    0.309 |
 
 Worms grow larger in more active copepods. Neatly, the effects of
 parasite genotype and parasite size are not confounded. Some genotypes
 are more active than others, regardless of how large the worms
 grow.
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-103-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-92-1.png)<!-- -->
 
 Elevated copepod activity was associated with both faster parasite
-development and larger parasite size. Are these effects are independent?
+development and larger parasite size. Are these effects independent?
 Since procercoid size had the larger effect, we first add procercoid
 size to a full model, and then we add cercomer presence to see if it
 explains additional variation. The result is significant.
@@ -1618,7 +1410,7 @@ they have faster-developing and larger-growing worms, though the effect
 of development appears on some days and not
 others.
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-105-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-94-1.png)<!-- -->
 
 ### Genetic correlations
 
@@ -1664,10 +1456,10 @@ low and inconsistent (negative for infection and development, positive
 for size). Here are what those relationships look
 like.
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-110-1.png)<!-- -->
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-111-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-99-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-100-1.png)<!-- -->
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-112-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-101-1.png)<!-- -->
 
 In these three plots, there is nothing suggestive of a genetic
 correlation between behavior and other fitness proxies.
@@ -1678,7 +1470,7 @@ also grew to a large size. This genetic correlation has been observed in
 previous studies (Hammerschmidt and Kurtz 2005, Benesh
 2010).
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-113-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-102-1.png)<!-- -->
 
 #### Host genotypes
 
@@ -1719,30 +1511,34 @@ The largest correlation between a behavior and non-behavior variable was
 for infection rate. More active genotypes had lower infection
 rates.
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-118-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-107-1.png)<!-- -->
 
 Among the non-behavior traits, survival rate when infected and
 uninfected was positively correlated, suggesting genetic effects on
 survival are not dependent on
 infection.
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-119-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-108-1.png)<!-- -->
 
 These genetic correlations need to be read with caution, as they are
 based on just 5 data points and we are averaging over substantial
-variation, such as that between days. However, some patterns are
-consistent with previous analyses.
+variation, such as that between days.
 
 I am reluctant to extend this approach to genotype combinations, i.e. to
 see if trait correlations depend on both host and parasite genotype
-together. That is because genotype x genotype interactions appear weak;
-they were not significant for parasite infection, development, or
-growth. However, it may be useful for examining the biological
-significance of genotype x genotype x time interactions. That is, are
-certain genotype combinations that are more active at a certain time
-also involve more developed worms?
+together, because genotype x genotype interactions appear weak. They
+were not significant for parasite infection, development, or growth.
+However, it may be useful for examining the biological significance of
+genotype x genotype x time interactions. That is, are certain genotype
+combinations that are more active at a certain time associated with more
+developed or larger worms?
 
 #### Trait correlations across genotype combinations
+
+Here is the correlation matrix among copepod activity (split by time)
+and the four other fitness proxies. None of the correlations appear
+particularly high, with the exception of the mean activities at
+different times of the experiment.
 
     ##                behav_overall behav_early behav_mid behav_late
     ## behav_overall          1.000       0.772     0.724      0.717
@@ -1763,6 +1559,11 @@ also involve more developed worms?
     ## proc_size_avg           0.178    -0.114         1.000        -0.112
     ## prop_surv_inf           0.340     0.025        -0.112         1.000
 
+In the manuscript, these correlations are related to some hypotheses
+about why the behavior of genotype combinations varies over time. For
+example, if there is a tradeoff between activity early and late in the
+experiment. This correlation is not significant.
+
     ## 
     ##  Spearman's rank correlation rho
     ## 
@@ -1772,6 +1573,11 @@ also involve more developed worms?
     ## sample estimates:
     ##       rho 
     ## 0.3369231
+
+Another hypothesis is that behavior correlates with parasite
+development, since it was the main temporal process in the experiment.
+Behavior early, late, or overall, did not correlate with whether or not
+worms had cercomeres.
 
     ## 
     ##  Spearman's rank correlation rho
@@ -1803,12 +1609,12 @@ also involve more developed worms?
     ##        rho 
     ## -0.0138809
 
-# Check robustness of results
+# Robustness of results
 
 We would like to be certain that our results are robust. Thus, we next
-check whether the models return qualitatively under two conditions: 1)
-when excluding dead copepods, and 2) when running the same models on the
-smaller, manually-tracked dataset.
+check whether the models return qualitatively similar results under two
+conditions: 1) when excluding dead copepods, and 2) when running the
+same models on the smaller, manually-tracked dataset.
 
 ### Rerun excluding dead
 
@@ -1861,12 +1667,14 @@ copepods was marginally significant now, while it was not previously.
 
 Until now, we have used auto-tracked data, working under the assumption
 that auto and manually-tracked data would yield the same results because
-they were correlated. Let’s explicitly examine this by re-fitting the
-same models to the manually-tracked data. This dataset is smaller,
-because fewer uninfected copepods were tracked and fewer days of
-recordings were processed (no data for 19 and 21 dpi). However, the
-smaller sample size may be compensated for by higher accuracy, given
-that the auto-tracker was known to make mistakes (hopefully at random).
+they were
+[correlated](https://github.com/dbenesh82/automatic_copepod_tracker).
+Let’s explicitly examine this by re-fitting the same models to the
+manually-tracked data. This dataset is smaller, because fewer uninfected
+copepods were tracked and fewer days of recordings were processed (no
+data for 19 and 21 dpi). However, the smaller sample size may be
+compensated for by higher accuracy, given that the auto-tracker was
+known to make mistakes (hopefully at random).
 
 The results appear similar. Infection, host genotype, parasite genotype,
 and time-dependent genotype x genotype interactions were all
@@ -1911,54 +1719,73 @@ infected and uninfected copepods was marginally significant as well.
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 However, when we plot how copepod genotype effects vary with infection,
-there is not and obvious
+there is not an obvious
 pattern.
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-126-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-115-1.png)<!-- -->
 
 Let’s look at effect sizes for the manually-tracked dataset. Overall,
 the total variance explained (conditional R<sup>2</sup>) was larger than
 with the auto-tracked data, probably because there was less random noise
-in this dataset. In general the effect sizes seem comparable.
+in this dataset. The effect sizes of predictors looks
+consistent.
 
-    ## # A tibble: 8 x 5
-    ##   step                           df_used marg_r2 cond_r2 cop_ind_var_expla~
-    ##   <chr>                            <dbl>   <dbl>   <dbl>              <dbl>
-    ## 1 intercept                           NA   0       0.412              0.412
-    ## 2 base                                15   0.043   0.44               0.397
-    ## 3 infection                            8   0.223   0.452              0.229
-    ## 4 copepod genotype                     4   0.23    0.453              0.223
-    ## 5 copepod genotype x infection         4   0.233   0.453              0.22 
-    ## 6 worm genotype                        4   0.243   0.454              0.211
-    ## 7 host x parasite genotype inte~      16   0.249   0.457              0.208
-    ## 8 time-dependent genotype x gen~     168   0.268   0.476              0.208
+| step                                            | df\_used | marg\_r2 | cond\_r2 | cop\_ind\_var\_explained |
+| :---------------------------------------------- | -------: | -------: | -------: | -----------------------: |
+| intercept                                       |       NA |    0.000 |    0.412 |                    0.412 |
+| base                                            |       15 |    0.043 |    0.440 |                    0.397 |
+| infection                                       |        8 |    0.223 |    0.452 |                    0.229 |
+| copepod genotype                                |        4 |    0.230 |    0.453 |                    0.223 |
+| copepod genotype x infection                    |        4 |    0.233 |    0.453 |                    0.220 |
+| worm genotype                                   |        4 |    0.243 |    0.454 |                    0.211 |
+| host x parasite genotype interaction            |       16 |    0.249 |    0.457 |                    0.208 |
+| time-dependent genotype x genotype interactions |      168 |    0.268 |    0.476 |                    0.208 |
 
 We can put the effect sizes side by side in a table. Indeed, the effect
 sizes are very comparable, though infection seems to have a larger
 effect in the manual data. I assume this is due to the lower variation
-overall in the manual data (less random noise).
+overall in the manual data (less random
+noise).
 
-    ## # A tibble: 8 x 5
-    ##   step                 marg_r2_manual marg_r2_auto var_exp_man var_exp_auto
-    ##   <chr>                         <dbl>        <dbl>       <dbl>        <dbl>
-    ## 1 intercept                     0            0        NA           NA      
-    ## 2 base                          0.043        0.038     0.043        0.038  
-    ## 3 infection                     0.223        0.168     0.18         0.13   
-    ## 4 copepod genotype              0.23         0.176     0.007        0.00800
-    ## 5 copepod genotype x ~          0.233        0.178     0.003        0.002  
-    ## 6 worm genotype                 0.243        0.184     0.01000      0.006  
-    ## 7 host x parasite gen~          0.249        0.188     0.006        0.004  
-    ## 8 time-dependent geno~          0.268        0.206     0.019        0.0180
+| step                                            | marg\_r2\_manual | marg\_r2\_auto | var\_exp\_man | var\_exp\_auto |
+| :---------------------------------------------- | ---------------: | -------------: | ------------: | -------------: |
+| intercept                                       |            0.000 |          0.000 |            NA |             NA |
+| base                                            |            0.043 |          0.038 |         0.043 |          0.038 |
+| infection                                       |            0.223 |          0.168 |         0.180 |          0.130 |
+| copepod genotype                                |            0.230 |          0.176 |         0.007 |          0.008 |
+| copepod genotype x infection                    |            0.233 |          0.178 |         0.003 |          0.002 |
+| worm genotype                                   |            0.243 |          0.184 |         0.010 |          0.006 |
+| host x parasite genotype interaction            |            0.249 |          0.188 |         0.006 |          0.004 |
+| time-dependent genotype x genotype interactions |            0.268 |          0.206 |         0.019 |          0.018 |
 
 When we plot behavior over time, the means seem to fluctuate less in the
 manual data. However, the stats do not support this, as the variance
 explained by genotype x time interactions was about the same in the two
 datasets.
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-129-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-118-1.png)<!-- -->
 
-![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-130-1.png)<!-- -->
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-119-1.png)<!-- -->
 
 Analyses on reduced datasets, excluding dead copepods or using
-manually-tracked data, did not change the results. Thus, I chose to use
-the full, auto-tracked dataset.
+manually-tracked data, did not change the results. Thus, I chose to
+present the full, auto-tracked data in the manuscript.
+
+# More complex models
+
+I have been modelling copepod activity. This variable is positive and
+continuous, but it has an overabundance of zero
+values.
+
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-120-1.png)<!-- -->
+
+Consequently, the residual plots from linear mixed models that I have
+fitted in this notebook (which assume normally distributed residuals) do
+not look
+great.
+
+![](GxG_02_genotype_comps_files/figure-gfm/unnamed-chunk-121-1.png)<!-- -->
+
+Consequently, I repeated the same model-building approach using compound
+Poisson Gamma models (Tweedie) in another
+[notebook](GxG_03_ms_anlayses.Rmd).
