@@ -1,0 +1,529 @@
+---
+title: "Making figures"
+author: "Dan Benesh"
+output: html_document
+---
+```{r setup, include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(RColorBrewer)
+library(cplm)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+options(stringsAsFactors = FALSE)
+theme_set(new = theme_bw())
+```
+
+```{r}
+load(file = "GxG_03_cplm_mods.RData")
+```
+
+```{r importdata}
+# import data - averaged within recordings
+bd <- read.csv(file = "../data/behav_manutracked_reduced_dataset.csv", header = TRUE) # manual data
+bdr <- read.csv(file = "../data/behav_autotracked_reduced_dataset.csv", header = TRUE) # auto-tracked data
+infd <- read.csv(file = "../data/GxG_inf.csv", header = TRUE, fileEncoding = "UTF-8-BOM") #excel attached BOM to csv
+```
+
+
+```{r}
+# take average worm size
+infd <- mutate(infd, proc_size = (proc_size1 + proc_size2)/2)
+```
+```{r}
+# add useful variables to manual data
+bd <- mutate(bd, speed_per_sec = tot_dist/frames_tracked * 0.5,
+       cop_name = substring(fname, 1, 5),
+       day_char = substring(fname, 7, 8),
+       plate_no = substring(fname, 1, 2),
+       rec_time = factor(group, levels = c('before the drop', 'after the drop')))%>%
+  mutate(rec_time = factor(rec_time, labels = c("pre-drop", "post-drop")))%>%
+  select(-group)
+
+# combine with inf data
+bd <- left_join(bd, select(infd, -proc_size1, -proc_size2, -exposed, -tank, -cerc_multinom, -remarks),
+                by = 'cop_name')
+# better labels to trts
+bd <- mutate(bd, trt = factor(trt, levels = c('unexposed', 'uninfected', 'infected')),
+       trt = factor(trt, labels = c('unexposed, control', 'exposed, uninfected', 'infected')),
+       parasite_fam = factor(parasite_fam, labels = c('A', 'B', 'C', 'D', 'E')),
+       box = factor(box),
+       devo_period = if_else(day_char %in% c("05", "07", "09"), "uninfective",
+                             if_else(day_char %in% c("11", "13", "15"), "partially infective", "infective")),
+       infection = if_else(infected == 0, "uninfected", "infected"))%>%
+  mutate(devo_period = factor(devo_period, levels = c("uninfective", "partially infective", "infective")),
+         infection = factor(infection, levels = c("uninfected", "infected")))
+```
+```{r}
+# add useful variables to auto data
+bdr <- mutate(bdr, speed_per_sec = tot_dist/frames_tracked * 2,
+       cop_name = substring(fname, 1, 5),
+       day_char = substring(fname, 7, 8),
+       plate_no = substring(fname, 1, 2),
+       rec_time = factor(group, levels = c('before the drop', 'after the drop')))%>%
+  mutate(rec_time = factor(rec_time, labels = c("pre-drop", "post-drop")))%>%
+  select(-group)
+
+
+# combine with inf data
+bdr <- left_join(bdr, select(infd, -proc_size1, -proc_size2, -exposed, -tank, -cerc_multinom, -remarks),
+                by = 'cop_name')
+# better labels to trts
+bdr <- mutate(bdr, trt = factor(trt, levels = c('unexposed', 'uninfected', 'infected')),
+              trt = factor(trt, labels = c('unexposed, control', 'exposed, uninfected', 'infected')),
+              parasite_fam = factor(parasite_fam, labels = c('A', 'B', 'C', 'D', 'E')),
+              box = factor(box),
+              devo_period = if_else(day_char %in% c("05", "07", "09"), "uninfective", 
+                                    if_else(day_char %in% c("11", "13", "15"), "partially infective", "infective")),
+              infection = if_else(infected == 0, "uninfected", "infected"))%>%
+  mutate(devo_period = factor(devo_period, levels = c("uninfective", "partially infective", "infective")),
+         infection = factor(infection, levels = c("uninfected", "infected")))
+```
+
+
+
+# Fig S1
+
+```{r}
+bdr_avg <- bdr_avg <- filter(bdr, !is.na(speed_per_sec))%>%
+  group_by(trt, day_char)%>%
+  summarize(speed_m = mean(speed_per_sec),
+            upq = quantile(speed_per_sec, 0.75),
+            loq = quantile(speed_per_sec, 0.25),
+            speed_sd = sd(speed_per_sec),
+            n = n())
+
+mod_avgs <- as.data.frame(summary(cpm_figs1)@coefs)
+names(mod_avgs) <- c('mod_mean', 'mod_se', 't_val')
+mod_avgs$day_char <- substr(x = row.names(mod_avgs), start = 1, stop = regexpr(":", row.names(mod_avgs)) - 1 )
+mod_avgs$trt <- substr(x = row.names(mod_avgs), start = regexpr(":", row.names(mod_avgs)) + 1, stop = nchar(row.names(mod_avgs)) )
+mod_avgs <- mutate(mod_avgs, trt = gsub("trt", "", trt),
+                   day_char = gsub("day_char", "", day_char),
+                   uppCI = mod_mean + 1.96 * mod_se,
+                   lowCI = mod_mean - 1.96 * mod_se)%>%
+  mutate(mod_mean2 = exp(mod_mean),
+         uppCI2 = exp(uppCI),
+         lowCI2 = exp(lowCI))
+
+bdr_avg <- left_join(bdr_avg, select(mod_avgs, day_char, trt, mod_mean2, uppCI2, lowCI2))
+bdr_avg <- mutate(ungroup(bdr_avg), trt = factor(trt, levels = c('unexposed, control', 'exposed, uninfected', 'infected')))
+
+mypal <- brewer.pal(name = "Paired", 3)
+
+dodge <- position_dodge(width = 0.5)
+s1<-ggplot(bdr_avg, aes(x = day_char, y = mod_mean2, color = trt)) +
+  geom_line(aes(group = trt), position = dodge) +
+  geom_pointrange(aes(ymax = uppCI2, ymin = lowCI2),
+                  position = dodge, size = 0.5) +
+  geom_pointrange(aes(ymin = loq, ymax = upq), position = dodge, linetype = "dotted") +
+  labs(x = "days post infection", y = "activity", color = NULL ) +
+  scale_color_manual(values = mypal) +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        legend.position = "top",
+        legend.background = element_blank())
+s1
+ggsave("../../ms_files2/figs/figS1.svg", plot = s1, device = 'svg')
+       #units = 'mm', width = 85, height = 85)
+ggsave("../../ms_files2/figs/figS1.png", plot = s1, device = 'png')
+```
+
+# Fig S2
+
+```{r}
+bdr_avg <- filter(bdr, !is.na(speed_per_sec))%>%
+  group_by(rec_time, day_char, trt)%>%
+  summarize(speed_m = median(speed_per_sec),
+            upq = quantile(speed_per_sec, 0.75),
+            loq = quantile(speed_per_sec, 0.25),
+            speed_sd = sd(speed_per_sec),
+            n = n())
+
+mod_avgs <- as.data.frame(summary(cpm_figs2)@coefs)
+names(mod_avgs) <- c('mod_mean', 'mod_se', 't_val')
+
+lx <- gregexpr(":", row.names(mod_avgs))
+fir_stop <- unlist(lapply(lx, function(x){x[1]}))
+sec_stop <- unlist(lapply(lx, function(x){x[2]}))
+
+mod_avgs$day_char <- substr(x = row.names(mod_avgs), start = 1, stop = fir_stop - 1 )
+mod_avgs$trt <- substr(x = row.names(mod_avgs), start = fir_stop + 1, stop = sec_stop - 1 )
+mod_avgs$rec_time <- substr(x = row.names(mod_avgs), start = sec_stop + 1, stop = nchar(row.names(mod_avgs)) )
+
+mod_avgs <- mutate(mod_avgs, trt = gsub("trt", "", trt),
+                   day_char = gsub("day_char", "", day_char),
+                   rec_time = gsub("rec_time", "", rec_time),
+                   uppCI = mod_mean + 1.96 * mod_se,
+                   lowCI = mod_mean - 1.96 * mod_se)%>%
+  mutate(mod_mean2 = exp(mod_mean),
+         uppCI2 = exp(uppCI),
+         lowCI2 = exp(lowCI),
+         rec_time = factor(rec_time, levels = c("before the drop", "after the drop")))%>%
+  mutate(rec_time = factor(rec_time, labels = c("pre-drop", "post-drop")))
+
+
+bdr_avg <- left_join(bdr_avg, select(mod_avgs, day_char, rec_time, trt, mod_mean2, uppCI2, lowCI2))
+bdr_avg <- mutate(ungroup(bdr_avg), trt = factor(trt, levels = c('unexposed, control', 'exposed, uninfected', 'infected')),
+                  rec_time = factor(rec_time, levels = c("pre-drop", "post-drop")))
+
+mypal <- brewer.pal(name = "Paired", 3)
+
+dodge <- position_dodge(width = 0.33)
+s2 <- ggplot(bdr_avg, aes(x = rec_time, y = mod_mean2, color = trt)) +
+  geom_line(aes(group = trt), position = dodge) +
+  geom_linerange(aes(ymin = loq, ymax = upq), 
+                  position = dodge, linetype = "dotted") + #IQR
+  geom_linerange(aes(ymax = uppCI2, ymin = lowCI2),
+                  position = dodge) + #95 CI
+  geom_point(position = dodge, size = 0.8) +
+  labs(y = "activity", color = NULL ) +
+  facet_wrap(~day_char, nrow = 3) +
+  scale_color_manual(values = mypal) +
+  scale_y_continuous(expand = expand_scale(add = 0)) +
+  #scale_x_discrete(expand = expand_scale(add = 0.4)) +
+  theme(legend.position = 'top',
+        panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        axis.title.x = element_blank())
+
+s2
+ggsave("../../ms_files2/figs/figS2.svg", plot = s2, device = 'svg')
+       #units = 'mm', width = 85, height = 85)
+ggsave("../../ms_files2/figs/figS2.png", plot = s2, device = 'png')
+```
+
+# Fig 1A
+
+```{r}
+bdr_avg <- filter(bdr, !is.na(speed_per_sec))%>%
+  group_by(cop_fam, infection)%>%
+  summarize(speed_m = median(speed_per_sec, na.rm=T),
+            upq = quantile(speed_per_sec, 0.75),
+            loq = quantile(speed_per_sec, 0.25))
+
+
+mod_avgs <- as.data.frame(summary(cpm_fig1)@coefs)
+names(mod_avgs) <- c('mod_mean', 'mod_se', 't_val')
+mod_avgs$cop_fam <- substr(x = row.names(mod_avgs), start = 1, stop = regexpr(":", row.names(mod_avgs)) - 1 )
+mod_avgs$infection <- substr(x = row.names(mod_avgs), start = regexpr(":", row.names(mod_avgs)) + 1, stop = nchar(row.names(mod_avgs)) )
+mod_avgs <- mutate(mod_avgs, cop_fam = gsub("cop_fam", "", cop_fam),
+                   infection = gsub("infection", "", infection),
+                   uppCI = mod_mean + 1.96 * mod_se,
+                   lowCI = mod_mean - 1.96 * mod_se)%>%
+  mutate(mod_mean2 = exp(mod_mean),
+         uppCI2 = exp(uppCI),
+         lowCI2 = exp(lowCI))
+
+bdr_avg <- left_join(bdr_avg, select(mod_avgs, infection, cop_fam, mod_mean2, uppCI2, lowCI2))
+bdr_avg <- mutate(ungroup(bdr_avg), infection = factor(infection, levels = c("uninfected", "infected")))
+
+
+cf_order <- filter(bdr_avg, infection == 'uninfected' )%>%
+  arrange(mod_mean2)
+bdr_avg <- ungroup(bdr_avg)%>%
+  mutate(cop_fam = factor(cop_fam, levels = cf_order$cop_fam))
+
+mypal <- brewer.pal(5, "Set1")
+dodge <- position_dodge(width = 0.4)
+f1a<-ggplot(bdr_avg, aes(x = infection, y = mod_mean2, color = cop_fam)) +
+  geom_line(aes(group = cop_fam), position = dodge) +
+  geom_linerange(aes(ymin = loq, ymax = upq), position = dodge, linetype = "dotted") + #IQR
+  geom_linerange(aes(ymax = uppCI2, ymin = lowCI2), position = dodge, size = 1) + # 95CI
+  geom_point(position = dodge, size = 2) + 
+  labs(color = 'host genotype', y = "activity") +
+  guides(color = FALSE) +
+  scale_color_manual(values = mypal) +
+  scale_x_discrete(expand = expand_scale(add = 0.4)) +
+  scale_y_continuous(expand = expand_scale(add = 0.1)) +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        axis.title.x = element_blank())
+f1a
+ggsave("../../ms_files2/figs/fig1a.svg", plot = f1a, device = 'svg', units = 'in', width = 3.3, height = 2.6)
+ggsave("../../ms_files2/figs/fig1a.png", plot = f1a, device = 'png', units = 'in', width = 3.3, height = 2.6)
+```  
+
+# Fig 1a - deads excluded
+
+```{r}
+bdr_avg <- filter(bdr, !is.na(speed_per_sec), dead == 0)%>%
+  group_by(cop_fam, infection)%>%
+  summarize(speed_m = median(speed_per_sec, na.rm=T),
+            upq = quantile(speed_per_sec, 0.75),
+            loq = quantile(speed_per_sec, 0.25))
+
+
+# mod_avgs <- as.data.frame(summary(cpm_fig1)@coefs)
+# names(mod_avgs) <- c('mod_mean', 'mod_se', 't_val')
+# mod_avgs$cop_fam <- substr(x = row.names(mod_avgs), start = 1, stop = regexpr(":", row.names(mod_avgs)) - 1 )
+# mod_avgs$infection <- substr(x = row.names(mod_avgs), start = regexpr(":", row.names(mod_avgs)) + 1, stop = nchar(row.names(mod_avgs)) )
+# mod_avgs <- mutate(mod_avgs, cop_fam = gsub("cop_fam", "", cop_fam),
+#                    infection = gsub("infection", "", infection),
+#                    uppCI = mod_mean + 1.96 * mod_se,
+#                    lowCI = mod_mean - 1.96 * mod_se)%>%
+#   mutate(mod_mean2 = exp(mod_mean),
+#          uppCI2 = exp(uppCI),
+#          lowCI2 = exp(lowCI))
+# 
+# bdr_avg <- left_join(bdr_avg, select(mod_avgs, infection, cop_fam, mod_mean2, uppCI2, lowCI2))
+bdr_avg <- mutate(ungroup(bdr_avg), infection = factor(infection, levels = c("uninfected", "infected")))
+
+# cf_order <- filter(bdr_avg, infection == 'uninfected' )%>%
+#   arrange(speed_m)
+# bdr_avg <- ungroup(bdr_avg)%>%
+#   mutate(cop_fam = factor(cop_fam, levels = cf_order$cop_fam))
+
+mypal <- brewer.pal(5, "Set1")
+dodge <- position_dodge(width = 0.2)
+ggplot(bdr_avg, aes(x = infection, y = speed_m, color = cop_fam)) +
+  geom_line(aes(group = cop_fam), position = dodge) +
+  # geom_pointrange(aes(ymax = uppCI2, ymin = lowCI2),
+  #                 position = dodge, size = 0.75) +
+  geom_pointrange(aes(ymin = loq, ymax = upq), position = dodge, linetype = "dotted") +
+  labs(color = 'Host genotype', y = "Activity") +
+  #guides(color = FALSE) +
+  scale_color_manual(values = mypal) +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        axis.title.x = element_blank())
+```  
+
+# Fig 1a - manual data
+
+In the full auto-tracked data the infection by cop family interaction was not significant. In the manual data, it was marginally significant.
+
+```{r}
+bd_avg <- filter(bd, !is.na(speed_per_sec))%>%
+  group_by(cop_fam, infection)%>%
+  summarize(speed_m = median(speed_per_sec, na.rm=T),
+            upq = quantile(speed_per_sec, 0.75),
+            loq = quantile(speed_per_sec, 0.25))
+
+
+# mod_avgs <- as.data.frame(summary(cpm_fig1)@coefs)
+# names(mod_avgs) <- c('mod_mean', 'mod_se', 't_val')
+# mod_avgs$cop_fam <- substr(x = row.names(mod_avgs), start = 1, stop = regexpr(":", row.names(mod_avgs)) - 1 )
+# mod_avgs$infection <- substr(x = row.names(mod_avgs), start = regexpr(":", row.names(mod_avgs)) + 1, stop = nchar(row.names(mod_avgs)) )
+# mod_avgs <- mutate(mod_avgs, cop_fam = gsub("cop_fam", "", cop_fam),
+#                    infection = gsub("infection", "", infection),
+#                    uppCI = mod_mean + 1.96 * mod_se,
+#                    lowCI = mod_mean - 1.96 * mod_se)%>%
+#   mutate(mod_mean2 = exp(mod_mean),
+#          uppCI2 = exp(uppCI),
+#          lowCI2 = exp(lowCI))
+# 
+# bd_avg <- left_join(bd_avg, select(mod_avgs, infection, cop_fam, mod_mean2, uppCI2, lowCI2))
+bd_avg <- mutate(ungroup(bd_avg), infection = factor(infection, levels = c("uninfected", "infected")))
+
+# cf_order <- filter(bd_avg, infection == 'uninfected' )%>%
+#   arrange(speed_m)
+# bd_avg <- ungroup(bd_avg)%>%
+#   mutate(cop_fam = factor(cop_fam, levels = cf_order$cop_fam))
+
+mypal <- brewer.pal(5, "Set1")
+dodge <- position_dodge(width = 0.2)
+ggplot(bd_avg, aes(x = infection, y = speed_m, color = cop_fam)) +
+  geom_line(aes(group = cop_fam), position = dodge) +
+  geom_pointrange(aes(ymin = loq, ymax = upq), position = dodge, linetype = "dotted") +
+  labs(color = 'Host genotype', y = "Activity") +
+  guides(color = FALSE) +
+  scale_color_manual(values = mypal) +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        axis.title.x = element_blank())
+```  
+
+# Fig 1B - prelim
+
+```{r}
+bdr_avg_cop <- filter(bdr, infection == 'infected')%>%
+  group_by(cop_fam)%>%
+  summarize(speed_m = median(speed_per_sec, na.rm=T),
+            upq = quantile(speed_per_sec, 0.75),
+            loq = quantile(speed_per_sec, 0.25))
+
+
+mod_avgs <- as.data.frame(summary(cpm_fig2a)@coefs)
+names(mod_avgs) <- c('mod_mean', 'mod_se', 't_val')
+mod_avgs$cop_fam <- row.names(mod_avgs)
+mod_avgs <- mutate(mod_avgs, cop_fam = gsub("cop_fam", "", cop_fam),
+                   uppCI = mod_mean + 1.96 * mod_se,
+                   lowCI = mod_mean - 1.96 * mod_se)%>%
+  mutate(mod_mean2 = exp(mod_mean),
+         uppCI2 = exp(uppCI),
+         lowCI2 = exp(lowCI))
+
+bdr_avg_cop <- left_join(bdr_avg_cop, select(mod_avgs, cop_fam, mod_mean2, uppCI2, lowCI2))
+
+cf_order2 <- bdr_avg_cop%>%
+  arrange(mod_mean2)
+bdr_avg_cop <- ungroup(bdr_avg_cop)%>%
+  mutate(cop_fam = factor(cop_fam, levels = cf_order2$cop_fam))
+
+f1b<-ggplot(bdr_avg_cop, aes(x = cop_fam, y = mod_mean2)) +
+  geom_pointrange(aes(ymax = uppCI2, ymin = lowCI2),
+                  position = dodge, size = 0.75) +
+  geom_pointrange(aes(ymin = loq, ymax = upq), position = dodge, linetype = "dotted") +
+  labs(x = "host genotype", y = "Activity") +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
+  scale_y_continuous(limits = c(0,4.01))
+f1b
+
+```
+
+# Fig 1B - prelim
+
+```{r}
+bdr_avg_par <- filter(bdr, infection == 'infected')%>%
+  group_by(parasite_fam)%>%
+  summarize(speed_m = median(speed_per_sec, na.rm=T),
+            upq = quantile(speed_per_sec, 0.75),
+            loq = quantile(speed_per_sec, 0.25))
+
+mod_avgs <- as.data.frame(summary(cpm_fig2b)@coefs)
+names(mod_avgs) <- c('mod_mean', 'mod_se', 't_val')
+mod_avgs$parasite_fam <- row.names(mod_avgs)
+mod_avgs <- mutate(mod_avgs, parasite_fam = gsub("parasite_fam", "", parasite_fam),
+                   uppCI = mod_mean + 1.96 * mod_se,
+                   lowCI = mod_mean - 1.96 * mod_se)%>%
+  mutate(mod_mean2 = exp(mod_mean),
+         uppCI2 = exp(uppCI),
+         lowCI2 = exp(lowCI))
+
+bdr_avg_par <- left_join(bdr_avg_par, select(mod_avgs, parasite_fam, mod_mean2, uppCI2, lowCI2))
+
+
+pf_order <- bdr_avg_par%>%
+  arrange(mod_mean2)
+bdr_avg_par <- ungroup(bdr_avg_par)%>%
+  mutate(parasite_fam = factor(parasite_fam, levels = pf_order$parasite_fam))
+
+
+ggplot(bdr_avg_par, aes(x = parasite_fam, y = mod_mean2)) +
+  geom_pointrange(aes(ymax = uppCI2, ymin = lowCI2),
+                  position = dodge, size = 0.75) +
+  geom_pointrange(aes(ymin = loq, ymax = upq), position = dodge, linetype = "dotted") +
+  labs(x = "parasite genotype", y = "activity") +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        axis.text.x = element_blank(), axis.ticks.x = element_blank()) +
+  scale_y_continuous(limits = c(0,4.01))
+```
+
+# Fig 1B
+
+```{r}
+bdr_avg_cop$genotype <- "host genotype"
+bdr_avg_par$genotype <- "parasite genotype"
+bdr_avg_cop <- select(bdr_avg_cop, family = cop_fam, everything())
+bdr_avg_par <- select(bdr_avg_par, family = parasite_fam, everything())
+bdr_avg <- rbind(bdr_avg_cop, bdr_avg_par)
+```
+
+```{r}
+dodge <- position_dodge(width = 0.5)
+f1b<-ggplot(bdr_avg, aes(x = genotype, y = mod_mean2, shape = genotype, color = family)) +
+  geom_pointrange(aes(ymax = uppCI2, ymin = lowCI2),
+                  position = dodge, size = 0.75) +
+  #geom_pointrange(aes(ymin = loq, ymax = upq), position = dodge, linetype = "dotted") +
+  scale_color_manual(values = rep("black", length(bdr_avg$family))) +
+  guides(color = FALSE, shape = FALSE) +
+  labs(y = "activity") +
+  scale_x_discrete(expand = expand_scale(add = 0.4)) +
+  scale_y_continuous(expand = expand_scale(add = 0.03)) +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        axis.title.x = element_blank())
+
+f1b
+ggsave("../../ms_files2/figs/fig1b.svg", plot = f1b, device = 'svg', units = 'in', width = 3.3, height = 2.6)
+ggsave("../../ms_files2/figs/fig1b.png", plot = f1b, device = 'png', units = 'in', width = 3.3, height = 2.6)
+```
+
+
+
+# Fig 1C
+
+```{r}
+bdr_avg <- filter(bdr, infection == 'infected')%>%
+  group_by(cop_fam, parasite_fam)%>%
+  summarize(speed_m = median(speed_per_sec, na.rm=T),
+            upq = quantile(speed_per_sec, 0.75),
+            loq = quantile(speed_per_sec, 0.25))
+
+mod_avgs <- as.data.frame(summary(cpm_fig2c)@coefs)
+names(mod_avgs) <- c('mod_mean', 'mod_se', 't_val')
+mod_avgs$cop_fam <- substr(x = row.names(mod_avgs), start = 1, stop = regexpr(":", row.names(mod_avgs)) - 1 )
+mod_avgs$parasite_fam <- substr(x = row.names(mod_avgs), start = regexpr(":", row.names(mod_avgs)) + 1, stop = nchar(row.names(mod_avgs)) )
+mod_avgs <- mutate(mod_avgs, parasite_fam = gsub("parasite_fam", "", parasite_fam),
+                   cop_fam = gsub("cop_fam", "", cop_fam),
+                   uppCI = mod_mean + 1.96 * mod_se,
+                   lowCI = mod_mean - 1.96 * mod_se)%>%
+  mutate(mod_mean2 = exp(mod_mean),
+         uppCI2 = exp(uppCI),
+         lowCI2 = exp(lowCI))
+
+bdr_avg <- left_join(bdr_avg, select(mod_avgs, cop_fam, parasite_fam, mod_mean2, uppCI2, lowCI2))
+
+bdr_avg <- ungroup(bdr_avg)%>%
+  mutate(cop_fam = factor(cop_fam, levels = cf_order$cop_fam),
+         parasite_fam = factor(parasite_fam, levels = pf_order$parasite_fam))
+
+
+dodge <- position_dodge(width = 0.5)
+f1c<-ggplot(bdr_avg, aes(x = parasite_fam, y = mod_mean2, color = cop_fam)) +
+  geom_line(aes(group = cop_fam), position = dodge) +
+  geom_linerange(aes(ymin = loq, ymax = upq), position = dodge, linetype = "dotted") + #IQR
+  geom_linerange(aes(ymax = uppCI2, ymin = lowCI2), position = dodge, size = 1) + # 95CI
+  geom_point(position = dodge, size = 2) + 
+  # geom_pointrange(aes(ymax = uppCI2, ymin = lowCI2),
+  #                 position = dodge, size = 0.75) +
+  # geom_pointrange(aes(ymin = loq, ymax = upq), position = dodge, linetype = "dotted") +
+  labs(x = 'parasite genotype', y = "activity", color = "host genotype") +
+  guides(color = FALSE) +
+  scale_color_manual(values = mypal) +
+  scale_x_discrete(expand = expand_scale(add = 0.4)) +
+  scale_y_continuous(expand = expand_scale(add = 0.1)) +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_blank(),
+        axis.text.x = element_blank())
+
+f1c
+ggsave("../../ms_files2/figs/fig1c.svg", plot = f1c, device = 'svg', units = 'in', width = 7, height = 2.6)
+ggsave("../../ms_files2/figs/fig1c.png", plot = f1c, device = 'png', units = 'in', width = 7, height = 2.6)
+```
+
+# Fig 2
+
+```{r}
+bdr <- mutate(bdr, parasite_fam2 = if_else(infected == 0, "uninfected", as.character(parasite_fam))) # re-formulate parasite family factor so all uninfecteds have same value
+
+bdr_avg <- bdr%>%
+  group_by(day_char, infection, cop_fam, parasite_fam2)%>%
+  summarize(speed_m = median(speed_per_sec, na.rm=T))%>%
+  mutate(geno_comb = paste0(infection, ":", cop_fam,":",parasite_fam2))
+bdr_avg <- ungroup(bdr_avg)%>%
+  mutate(cop_fam = factor(cop_fam, levels = cf_order$cop_fam))
+
+mypal2 <- brewer.pal(5, "Dark2")
+
+f2<-ggplot(bdr_avg, aes(x = day_char, y = speed_m, linetype = infection, color = parasite_fam2)) +
+  geom_line(aes(group = geno_comb)) +
+  labs(linetype = NULL, x = 'days post infection', y = 'median activity') +
+  scale_color_manual(values = c(mypal2, "black")) +
+  scale_linetype_manual(values = c("solid", "dashed")) +
+  guides(color = FALSE) +
+  facet_wrap(~cop_fam, ncol = 3) +
+  theme(legend.position = c(0.8, 0.15),
+        legend.background = element_rect(colour = "black"),
+        legend.text = element_text(size = 12),
+        strip.background = element_blank(),
+        strip.text = element_blank())
+f2
+ggsave("../../ms_files2/figs/fig2.svg", plot = f2, device = 'svg')
+ggsave("../../ms_files2/figs/fig2.png", plot = f2, device = 'png')
+
+```
+
