@@ -1,0 +1,1679 @@
+"cop_name","block","exposed","date_exposed","infection","trt","cop_geno","parasite_geno","cerc_d9","dead","days_surv","cop_length","proc_size"
+"01_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"survived 21 dpi",16,NA,NA
+"01_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"survived 21 dpi",20,NA,NA
+"01_1C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"survived 21 dpi",16,NA,NA
+"01_1D","1","unexposed","24_08_2010","uninfected","unexposed, control","I","A",NA,"died during experiment",21,NA,NA
+"01_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"01_2B","1","exposed","24_08_2010","infected","infected","I","A",0,"survived 21 dpi",14,NA,NA
+"01_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"01_2D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"survived 21 dpi",21,NA,NA
+"01_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"01_3B","1","exposed","24_08_2010",NA,NA,"I","A",NA,"survived 21 dpi",6,NA,NA
+"01_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"01_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"01_4A","1","exposed","24_08_2010","infected","infected","I","A",0,"died during experiment",21,0.718872,26666
+"01_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"01_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"01_4D","1","exposed","24_08_2010","infected","infected","I","A",0,"died during experiment",21,0.808478,26714
+"01_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"01_5B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"survived 21 dpi",10,NA,NA
+"01_5C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"01_5D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"survived 21 dpi",8,NA,NA
+"01_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"survived 21 dpi",21,NA,NA
+"01_6B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"01_6C","1","unexposed","24_08_2010","uninfected","unexposed, control","I","A",NA,"died during experiment",21,NA,NA
+"01_6D","1","exposed","24_08_2010","infected","infected","I","A",0,"died during experiment",21,0.71466,24356
+"02_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"02_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"02_1C","1","unexposed","24_08_2010","uninfected","unexposed, control","I","B",NA,"died during experiment",21,NA,NA
+"02_1D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"02_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"02_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",10,NA,NA
+"02_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"02_2D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",10,NA,NA
+"02_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"02_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"02_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"02_3D","1","exposed","24_08_2010",NA,NA,"I","B",NA,"survived 21 dpi",4,NA,NA
+"02_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"02_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"02_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"02_4D","1","exposed","24_08_2010",NA,NA,"I","B",NA,"survived 21 dpi",4,NA,NA
+"02_5A","1","exposed","24_08_2010","infected","infected","I","B",0,"died during experiment",21,0.700928,26086.5
+"02_5B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",20,NA,NA
+"02_5C","1","exposed","24_08_2010","infected","infected","I","B",0,"survived 21 dpi",16,NA,NA
+"02_5D","1","unexposed","24_08_2010","uninfected","unexposed, control","I","B",NA,"survived 21 dpi",21,NA,NA
+"02_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"02_6B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"02_6C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",18,NA,NA
+"02_6D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",20,NA,NA
+"03_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"03_1B","1","exposed","24_08_2010",NA,NA,"I","C",NA,"survived 21 dpi",6,NA,NA
+"03_1C","1","unexposed","24_08_2010","uninfected","unexposed, control","I","C",NA,"died during experiment",21,NA,NA
+"03_1D","1","exposed","24_08_2010","infected","infected","I","C",0,"died during experiment",21,0.749252,28101
+"03_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"03_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",14,NA,NA
+"03_2C","1","exposed","24_08_2010","infected","infected","I","C",0,"died during experiment",21,0.729484,19758
+"03_2D","1","exposed","24_08_2010","infected","infected","I","C",0,"died during experiment",21,0.722268,31900
+"03_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"03_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"03_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"03_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"03_4A","1","exposed","24_08_2010","infected","infected","I","C",0,"died during experiment",21,0.837048,24882.5
+"03_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",12,NA,NA
+"03_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"03_4D","1","unexposed","24_08_2010","uninfected","unexposed, control","I","C",NA,"died during experiment",21,NA,NA
+"03_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"03_5B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"03_5C","1","exposed","24_08_2010",NA,NA,"I","C",NA,"survived 21 dpi",4,NA,NA
+"03_5D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"03_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"03_6B","1","exposed","24_08_2010","infected","infected","I","C",0,"survived 21 dpi",18,NA,NA
+"03_6C","1","exposed","24_08_2010","infected","infected","I","C",0,"died during experiment",21,0.712854,27484
+"03_6D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"04_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"04_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",10,NA,NA
+"04_1C","1","exposed","24_08_2010","infected","infected","I","D",0,"died during experiment",21,0.859938,30250.5
+"04_1D","1","exposed","24_08_2010","infected","infected","I","D",0,"died during experiment",21,0.732934,28234
+"04_2A","1","unexposed","24_08_2010","uninfected","unexposed, control","I","D",NA,"died during experiment",21,NA,NA
+"04_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",16,NA,NA
+"04_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"04_2D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"04_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",18,NA,NA
+"04_3B","1","exposed","24_08_2010",NA,NA,"I","D",NA,"survived 21 dpi",4,NA,NA
+"04_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"04_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",16,NA,NA
+"04_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",16,NA,NA
+"04_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"04_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",18,NA,NA
+"04_4D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"04_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"04_5B","1","exposed","24_08_2010","infected","infected","I","D",0,"survived 21 dpi",18,NA,NA
+"04_5C","1","exposed","24_08_2010","infected","infected","I","D",0,"survived 21 dpi",20,NA,NA
+"04_5D","1","unexposed","24_08_2010","uninfected","unexposed, control","I","D",NA,"died during experiment",21,NA,NA
+"04_6A","1","exposed","24_08_2010","infected","infected","I","D",0,"died during experiment",21,0.73993,26399
+"04_6B","1","exposed","24_08_2010","infected","infected","I","D",0,"died during experiment",21,0.747818,29535.5
+"04_6C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"04_6D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"05_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","E",NA,"survived 21 dpi",21,NA,NA
+"05_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","E",NA,"survived 21 dpi",16,NA,NA
+"05_1C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","E",NA,"survived 21 dpi",10,NA,NA
+"05_1D","1","unexposed","24_08_2010","uninfected","unexposed, control","I","E",NA,"died during experiment",21,NA,NA
+"05_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"05_2B","1","exposed","24_08_2010",NA,NA,"I","E",NA,"survived 21 dpi",6,NA,NA
+"05_2C","1","exposed","24_08_2010","infected","infected","I","E",0,"survived 21 dpi",20,NA,NA
+"05_2D","1","exposed","24_08_2010","infected","infected","I","E",0,"died during experiment",21,0.748324,27535
+"05_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","E",NA,"survived 21 dpi",20,NA,NA
+"05_3B","1","exposed","24_08_2010","infected","infected","I","E",0,"died during experiment",21,0.765648,30840.5
+"05_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"05_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","E",NA,"survived 21 dpi",14,NA,NA
+"05_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","E",NA,"survived 21 dpi",10,NA,NA
+"05_4B","1","exposed","24_08_2010","infected","infected","I","E",1,"died during experiment",21,0.73775,29377
+"05_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"05_4D","1","unexposed","24_08_2010","uninfected","unexposed, control","I","E",NA,"died during experiment",21,NA,NA
+"05_5A","1","exposed","24_08_2010",NA,NA,"I","E",NA,"survived 21 dpi",6,NA,NA
+"05_5B","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"05_5C","1","exposed","24_08_2010","infected","infected","I","E",0,"died during experiment",21,0.822982,24337.5
+"05_5D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"05_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","E",NA,"survived 21 dpi",18,NA,NA
+"05_6B","1","exposed","24_08_2010","infected","infected","I","E",1,"died during experiment",21,0.816032,29130
+"05_6C","1","exposed","24_08_2010","infected","infected","I","E",0,"died during experiment",21,0.722136,25497.5
+"05_6D","1","exposed","24_08_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"06_1A","1","unexposed","24_08_2010","uninfected","unexposed, control","II","A",NA,"died during experiment",21,NA,NA
+"06_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"survived 21 dpi",20,NA,NA
+"06_1C","1","exposed","24_08_2010","infected","infected","II","A",0,"died during experiment",21,0.721692,26086
+"06_1D","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"survived 21 dpi",12,NA,NA
+"06_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"06_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"06_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"06_2D","1","exposed","24_08_2010","infected","infected","II","A",0,"died during experiment",21,0.725782,23718
+"06_3A","1","exposed","24_08_2010","infected","infected","II","A",0,"died during experiment",21,0.698596,25373.5
+"06_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"survived 21 dpi",21,NA,NA
+"06_3C","1","exposed","24_08_2010","infected","infected","II","A",0,"died during experiment",21,0.716464,23252.5
+"06_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"survived 21 dpi",20,NA,NA
+"06_4A","1","exposed","24_08_2010","infected","infected","II","A",0,"died during experiment",21,0.706952,22982.5
+"06_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"06_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"survived 21 dpi",18,NA,NA
+"06_4D","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"06_5A","1","exposed","24_08_2010","infected","infected","II","A",0,"died during experiment",21,0.738024,25852
+"06_5B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"06_5C","1","exposed","24_08_2010","infected","infected","II","A",0,"died during experiment",21,0.746298,27113
+"06_5D","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"06_6A","1","unexposed","24_08_2010","uninfected","unexposed, control","II","A",NA,"died during experiment",21,NA,NA
+"06_6B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"06_6C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"06_6D","1","exposed","24_08_2010","infected","infected","II","A",0,"died during experiment",21,0.735392,26265
+"07_1A","1","exposed","24_08_2010","infected","infected","II","B",0,"died during experiment",21,0.704738,23551.5
+"07_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"07_1C","1","exposed","24_08_2010",NA,NA,"II","B",NA,"survived 21 dpi",4,NA,NA
+"07_1D","1","exposed","24_08_2010","infected","infected","II","B",0,"died during experiment",21,0.746268,22021
+"07_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"07_2B","1","exposed","24_08_2010","infected","infected","II","B",0,"died during experiment",21,0.739756,23895.5
+"07_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"07_2D","1","exposed","24_08_2010","infected","infected","II","B",0,"died during experiment",21,0.738206,24043.5
+"07_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"07_3B","1","unexposed","24_08_2010","uninfected","unexposed, control","II","B",NA,"died during experiment",21,NA,NA
+"07_3C","1","exposed","24_08_2010","infected","infected","II","B",0,"died during experiment",21,0.720644,26288
+"07_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"07_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"07_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"07_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","B",NA,"survived 21 dpi",14,NA,NA
+"07_4D","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"07_5A","1","exposed","24_08_2010",NA,NA,"II","B",NA,"survived 21 dpi",4,NA,NA
+"07_5B","1","exposed","24_08_2010","infected","infected","II","B",0,"died during experiment",21,0.712522,23660.5
+"07_5C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"07_5D","1","unexposed","24_08_2010","uninfected","unexposed, control","II","B",NA,"survived 21 dpi",10,NA,NA
+"07_6A","1","exposed","24_08_2010","infected","infected","II","B",0,"died during experiment",21,0.727266,21054
+"07_6B","1","exposed","24_08_2010","infected","infected","II","B",0,"died during experiment",21,0.776252,32509
+"07_6C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"07_6D","1","exposed","24_08_2010","infected","infected","II","B",0,"died during experiment",21,0.710752,24897
+"08_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"08_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",10,NA,NA
+"08_1C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"08_1D","1","unexposed","24_08_2010","uninfected","unexposed, control","II","C",NA,"survived 21 dpi",14,NA,NA
+"08_2A","1","exposed","24_08_2010","infected","infected","II","C",0,"died during experiment",21,0.72303,33177
+"08_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",20,NA,NA
+"08_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"08_2D","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"08_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"08_3B","1","exposed","24_08_2010","infected","infected","II","C",1,"survived 21 dpi",16,NA,NA
+"08_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"08_3D","1","exposed","24_08_2010","infected","infected","II","C",0,"died during experiment",21,0.721138,29768.5
+"08_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"08_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"08_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"08_4D","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"08_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"08_5B","1","exposed","24_08_2010","infected","infected","II","C",1,"died during experiment",21,0.722178,27074
+"08_5C","1","exposed","24_08_2010","infected","infected","II","C",0,"died during experiment",21,0.708402,22965.5
+"08_5D","1","exposed","24_08_2010","infected","infected","II","C",1,"died during experiment",21,0.70818,22115.5
+"08_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"08_6B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"08_6C","1","unexposed","24_08_2010","uninfected","unexposed, control","II","C",NA,"died during experiment",21,NA,NA
+"08_6D","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"09_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","D",NA,"died during experiment",21,NA,NA
+"09_1B","1","exposed","24_08_2010","infected","infected","II","D",0,"died during experiment",21,0.737656,25626
+"09_1C","1","unexposed","24_08_2010","uninfected","unexposed, control","II","D",NA,"died during experiment",21,NA,NA
+"09_1D","1","exposed","24_08_2010","infected","infected","II","D",0,"survived 21 dpi",21,NA,NA
+"09_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","D",NA,"survived 21 dpi",16,NA,NA
+"09_2B","1","exposed","24_08_2010","infected","infected","II","D",0,"died during experiment",21,0.737222,24109.5
+"09_2C","1","exposed","24_08_2010",NA,NA,"II","D",NA,"survived 21 dpi",4,NA,NA
+"09_2D","1","exposed","24_08_2010","infected","infected","II","D",0,"died during experiment",21,0.733052,31853
+"09_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","D",NA,"died during experiment",21,NA,NA
+"09_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","D",NA,"died during experiment",21,NA,NA
+"09_3C","1","exposed","24_08_2010",NA,NA,"II","D",NA,"survived 21 dpi",4,NA,NA
+"09_3D","1","exposed","24_08_2010","infected","infected","II","D",0,"died during experiment",21,0.723862,30818
+"09_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","D",NA,"died during experiment",21,NA,NA
+"09_4B","1","exposed","24_08_2010","infected","infected","II","D",0,"survived 21 dpi",20,NA,NA
+"09_4C","1","exposed","24_08_2010","infected","infected","II","D",NA,"survived 21 dpi",9,NA,NA
+"09_4D","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","D",NA,"died during experiment",21,NA,NA
+"09_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","D",NA,"died during experiment",21,NA,NA
+"09_5B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","D",NA,"died during experiment",21,NA,NA
+"09_5C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","D",NA,"died during experiment",21,NA,NA
+"09_5D","1","exposed","24_08_2010","infected","infected","II","D",0,"died during experiment",21,0.73637,32768.5
+"09_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","D",NA,"survived 21 dpi",21,NA,NA
+"09_6B","1","unexposed","24_08_2010","uninfected","unexposed, control","II","D",NA,"survived 21 dpi",18,NA,NA
+"09_6C","1","exposed","24_08_2010","infected","infected","II","D",0,"died during experiment",21,0.711966,26640
+"09_6D","1","exposed","24_08_2010","infected","infected","II","D",0,"died during experiment",21,0.7127,23611.5
+"10_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"10_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"10_1C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"10_1D","1","unexposed","24_08_2010","uninfected","unexposed, control","II","E",NA,"died during experiment",21,NA,NA
+"10_2A","1","exposed","24_08_2010","infected","infected","II","E",0,"died during experiment",21,0.702738,25329
+"10_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"10_2C","1","exposed","24_08_2010","infected","infected","II","E",0,"died during experiment",21,0.71412,23778.5
+"10_2D","1","exposed","24_08_2010","infected","infected","II","E",0,"died during experiment",21,0.731488,20596.5
+"10_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"10_3B","1","exposed","24_08_2010","infected","infected","II","E",0,"died during experiment",21,0.7272,25009
+"10_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"10_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"10_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"survived 21 dpi",12,NA,NA
+"10_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"survived 21 dpi",20,NA,NA
+"10_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"survived 21 dpi",21,NA,NA
+"10_4D","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"10_5A","1","exposed","24_08_2010",NA,NA,"II","E",NA,"survived 21 dpi",4,NA,NA
+"10_5B","1","exposed","24_08_2010",NA,NA,"II","E",NA,"survived 21 dpi",4,NA,NA
+"10_5C","1","exposed","24_08_2010","infected","infected","II","E",1,"died during experiment",21,0.740606,24860.5
+"10_5D","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"10_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"10_6B","1","unexposed","24_08_2010","uninfected","unexposed, control","II","E",NA,"survived 21 dpi",12,NA,NA
+"10_6C","1","exposed","24_08_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"10_6D","1","exposed","24_08_2010","infected","infected","II","E",1,"died during experiment",21,0.741332,33800.5
+"11_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",16,NA,NA
+"11_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"11_1C","1","exposed","24_08_2010","infected","infected","III","A",0,"survived 21 dpi",14,NA,NA
+"11_1D","1","exposed","24_08_2010","infected","infected","III","A",0,"died during experiment",21,0.766386,30220
+"11_2A","1","exposed","24_08_2010","infected","infected","III","A",0,"survived 21 dpi",12,NA,NA
+"11_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",12,NA,NA
+"11_2C","1","unexposed","24_08_2010","uninfected","unexposed, control","III","A",NA,"died during experiment",21,NA,NA
+"11_2D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"11_3A","1","exposed","24_08_2010",NA,NA,"III","A",NA,"survived 21 dpi",4,NA,NA
+"11_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"11_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",16,NA,NA
+"11_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",16,NA,NA
+"11_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"11_4B","1","unexposed","24_08_2010","uninfected","unexposed, control","III","A",NA,"survived 21 dpi",21,NA,NA
+"11_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"11_4D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",18,NA,NA
+"11_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"11_5B","1","exposed","24_08_2010","infected","infected","III","A",0,"died during experiment",21,0.728594,22885.5
+"11_5C","1","exposed","24_08_2010",NA,NA,"III","A",NA,"survived 21 dpi",4,NA,NA
+"11_5D","1","exposed","24_08_2010","infected","infected","III","A",NA,"survived 21 dpi",9,NA,NA
+"11_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",10,NA,NA
+"11_6B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"11_6C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"11_6D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"12_1A","1","exposed","24_08_2010",NA,NA,"III","B",NA,"survived 21 dpi",4,NA,NA
+"12_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",20,NA,NA
+"12_1C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",21,NA,NA
+"12_1D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"12_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"12_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"12_2C","1","exposed","24_08_2010",NA,NA,"III","B",NA,NA,NA,NA,NA
+"12_2D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"12_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",12,NA,NA
+"12_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"12_3C","1","unexposed","24_08_2010","uninfected","unexposed, control","III","B",NA,"died during experiment",21,NA,NA
+"12_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",20,NA,NA
+"12_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"12_4B","1","unexposed","24_08_2010","uninfected","unexposed, control","III","B",NA,"died during experiment",21,NA,NA
+"12_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"12_4D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"12_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",21,NA,NA
+"12_5B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"12_5C","1","exposed","24_08_2010",NA,NA,"III","B",NA,"survived 21 dpi",4,NA,NA
+"12_5D","1","exposed","24_08_2010","infected","infected","III","B",0,"survived 21 dpi",20,NA,NA
+"12_6A","1","exposed","24_08_2010",NA,NA,"III","B",NA,"survived 21 dpi",4,NA,NA
+"12_6B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",20,NA,NA
+"12_6C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"12_6D","1","exposed","24_08_2010","infected","infected","III","B",1,"died during experiment",21,0.754138,26350.5
+"13_1A","1","exposed","24_08_2010","infected","infected","III","C",1,"survived 21 dpi",18,NA,NA
+"13_1B","1","exposed","24_08_2010","infected","infected","III","C",0,"survived 21 dpi",20,NA,NA
+"13_1C","1","unexposed","24_08_2010","uninfected","unexposed, control","III","C",NA,"died during experiment",21,NA,NA
+"13_1D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",14,NA,NA
+"13_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",20,NA,NA
+"13_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"13_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",18,NA,NA
+"13_2D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",16,NA,NA
+"13_3A","1","exposed","24_08_2010",NA,NA,"III","C",NA,"survived 21 dpi",4,NA,NA
+"13_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",14,NA,NA
+"13_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"13_3D","1","exposed","24_08_2010","infected","infected","III","C",0,"died during experiment",21,0.766042,26170
+"13_4A","1","unexposed","24_08_2010","uninfected","unexposed, control","III","C",NA,"died during experiment",21,NA,NA
+"13_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",16,NA,NA
+"13_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"13_4D","1","exposed","24_08_2010",NA,NA,"III","C",NA,"survived 21 dpi",4,NA,NA
+"13_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"13_5B","1","exposed","24_08_2010","infected","infected","III","C",0,"survived 21 dpi",20,NA,NA
+"13_5C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",16,NA,NA
+"13_5D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",18,NA,NA
+"13_6A","1","exposed","24_08_2010","infected","infected","III","C",0,"died during experiment",21,0.74723,25473.5
+"13_6B","1","exposed","24_08_2010",NA,NA,"III","C",NA,"survived 21 dpi",4,NA,NA
+"13_6C","1","exposed","24_08_2010",NA,NA,"III","C",NA,"survived 21 dpi",4,NA,NA
+"13_6D","1","exposed","24_08_2010","infected","infected","III","C",0,"died during experiment",21,0.723362,27936
+"14_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"14_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"14_1C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",10,NA,NA
+"14_1D","1","exposed","24_08_2010","infected","infected","III","D",0,"survived 21 dpi",10,NA,NA
+"14_2A","1","unexposed","24_08_2010","uninfected","unexposed, control","III","D",NA,"survived 21 dpi",18,NA,NA
+"14_2B","1","exposed","24_08_2010","infected","infected","III","D",0,"died during experiment",21,0.720056,27459.5
+"14_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"14_2D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",20,NA,NA
+"14_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",20,NA,NA
+"14_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"14_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",20,NA,NA
+"14_3D","1","exposed","24_08_2010","infected","infected","III","D",0,"survived 21 dpi",20,NA,NA
+"14_4A","1","exposed","24_08_2010","infected","infected","III","D",0,"survived 21 dpi",18,NA,NA
+"14_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",20,NA,NA
+"14_4C","1","exposed","24_08_2010",NA,NA,"III","D",NA,"survived 21 dpi",4,NA,NA
+"14_4D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",16,NA,NA
+"14_5A","1","exposed","24_08_2010",NA,NA,"III","D",NA,"survived 21 dpi",4,NA,NA
+"14_5B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"14_5C","1","exposed","24_08_2010","infected","infected","III","D",0,"died during experiment",21,0.716,29182
+"14_5D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",16,NA,NA
+"14_6A","1","unexposed","24_08_2010",NA,"unexposed, control","III","D",NA,"survived 21 dpi",4,NA,NA
+"14_6B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",16,NA,NA
+"14_6C","1","exposed","24_08_2010","infected","infected","III","D",0,"died during experiment",21,0.730024,28982.5
+"14_6D","1","exposed","24_08_2010",NA,NA,"III","D",NA,"survived 21 dpi",4,NA,NA
+"15_1A","1","unexposed","24_08_2010","uninfected","unexposed, control","III","E",NA,"survived 21 dpi",16,NA,NA
+"15_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",18,NA,NA
+"15_1C","1","exposed","24_08_2010","infected","infected","III","E",1,"survived 21 dpi",12,NA,NA
+"15_1D","1","exposed","24_08_2010",NA,NA,"III","E",NA,"survived 21 dpi",4,NA,NA
+"15_2A","1","exposed","24_08_2010","infected","infected","III","E",1,"survived 21 dpi",21,NA,NA
+"15_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",20,NA,NA
+"15_2C","1","exposed","24_08_2010","infected","infected","III","E",1,"died during experiment",21,0.757852,26996.5
+"15_2D","1","exposed","24_08_2010","infected","infected","III","E",1,"survived 21 dpi",14,NA,NA
+"15_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"15_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"15_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"15_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",20,NA,NA
+"15_4A","1","unexposed","24_08_2010","uninfected","unexposed, control","III","E",NA,"survived 21 dpi",12,NA,NA
+"15_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"15_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"15_4D","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",12,NA,NA
+"15_5A","1","exposed","24_08_2010",NA,NA,"III","E",NA,"survived 21 dpi",4,NA,NA
+"15_5B","1","exposed","24_08_2010","infected","infected","III","E",1,"died during experiment",21,0.756638,28137.5
+"15_5C","1","exposed","24_08_2010",NA,NA,"III","E",NA,"survived 21 dpi",4,NA,NA
+"15_5D","1","exposed","24_08_2010","infected","infected","III","E",0,"died during experiment",21,0.736492,25955
+"15_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",18,NA,NA
+"15_6B","1","exposed","24_08_2010",NA,NA,"III","E",NA,"survived 21 dpi",4,NA,NA
+"15_6C","1","exposed","24_08_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"15_6D","1","exposed","24_08_2010","infected","infected","III","E",1,"survived 21 dpi",21,NA,NA
+"16_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","A",NA,"survived 21 dpi",20,NA,NA
+"16_4B","1","exposed","24_08_2010","infected","infected","IV","A",1,"survived 21 dpi",18,NA,NA
+"16_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"16_4D","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"16_5A","1","unexposed","24_08_2010","uninfected","unexposed, control","IV","A",NA,"died during experiment",21,NA,NA
+"16_5B","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","A",NA,"survived 21 dpi",18,NA,NA
+"16_5C","1","exposed","24_08_2010",NA,NA,"IV","A",NA,"survived 21 dpi",4,NA,NA
+"16_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","A",NA,"survived 21 dpi",18,NA,NA
+"16_6B","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"16_6C","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"17_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",16,NA,NA
+"17_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",20,NA,NA
+"17_1C","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"17_1D","1","exposed","24_08_2010","infected","infected","IV","B",1,"survived 21 dpi",14,NA,NA
+"17_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"17_2B","1","unexposed","24_08_2010","uninfected","unexposed, control","IV","B",NA,"died during experiment",21,NA,NA
+"17_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"17_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"17_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"17_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",12,NA,NA
+"18_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"18_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",10,NA,NA
+"18_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",12,NA,NA
+"18_4D","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"18_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",16,NA,NA
+"18_5B","1","unexposed","24_08_2010","uninfected","unexposed, control","IV","C",NA,"survived 21 dpi",16,NA,NA
+"18_5C","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"18_5D","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",20,NA,NA
+"18_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",14,NA,NA
+"18_6B","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",10,NA,NA
+"18_6C","1","exposed","24_08_2010","infected","infected","IV","C",0,"died during experiment",21,0.829218,27224
+"19_1A","1","exposed","24_08_2010","infected","infected","IV","D",0,"died during experiment",21,0.748484,26057.5
+"19_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","D",NA,"survived 21 dpi",10,NA,NA
+"19_1C","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","D",NA,"survived 21 dpi",16,NA,NA
+"19_1D","1","exposed","24_08_2010","infected","infected","IV","D",0,"died during experiment",21,0.766602,30589
+"19_2A","1","unexposed","24_08_2010","uninfected","unexposed, control","IV","D",NA,"survived 21 dpi",14,NA,NA
+"19_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","D",NA,"survived 21 dpi",20,NA,NA
+"19_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","D",NA,"survived 21 dpi",16,NA,NA
+"19_3A","1","exposed","24_08_2010","infected","infected","IV","D",0,"died during experiment",21,0.74776,33314
+"19_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","D",NA,"survived 21 dpi",21,NA,NA
+"19_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","D",NA,"survived 21 dpi",14,NA,NA
+"20_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"20_4B","1","unexposed","24_08_2010","uninfected","unexposed, control","IV","E",NA,"survived 21 dpi",10,NA,NA
+"20_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"20_4D","1","exposed","24_08_2010",NA,NA,"IV","E",NA,"survived 21 dpi",4,NA,NA
+"20_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"20_5B","1","exposed","24_08_2010","infected","infected","IV","E",0,"died during experiment",21,NA,NA
+"20_5C","1","exposed","24_08_2010","uninfected","exposed, uninfected","IV","E",NA,"survived 21 dpi",10,NA,NA
+"20_5D","1","exposed","24_08_2010","infected","infected","IV","E",0,"survived 21 dpi",10,NA,NA
+"20_6A","1","exposed","24_08_2010","infected","infected","IV","E",1,"survived 21 dpi",12,NA,NA
+"20_6B","1","exposed","24_08_2010","infected","infected","IV","E",1,"survived 21 dpi",16,NA,NA
+"20_6C","1","exposed","24_08_2010",NA,NA,"IV","E",NA,"survived 21 dpi",4,NA,NA
+"21_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"survived 21 dpi",18,NA,NA
+"21_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"survived 21 dpi",20,NA,NA
+"21_1C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"21_1D","1","exposed","24_08_2010","infected","infected","V","A",0,"died during experiment",21,0.740726,23189.5
+"21_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"21_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"21_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"21_2D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"21_3A","1","unexposed","24_08_2010","uninfected","unexposed, control","V","A",NA,"died during experiment",21,NA,NA
+"21_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"survived 21 dpi",18,NA,NA
+"21_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"21_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"survived 21 dpi",18,NA,NA
+"21_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"21_4B","1","exposed","24_08_2010","infected","infected","V","A",0,"died during experiment",21,0.705374,24723.5
+"21_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"21_4D","1","unexposed","24_08_2010","uninfected","unexposed, control","V","A",NA,"died during experiment",21,NA,NA
+"21_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"survived 21 dpi",16,NA,NA
+"21_5B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"survived 21 dpi",10,NA,NA
+"21_5C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"21_5D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"21_6A","1","exposed","24_08_2010","infected","infected","V","A",0,"died during experiment",21,0.721344,28546
+"21_6B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"21_6C","1","exposed","24_08_2010","infected","infected","V","A",0,"survived 21 dpi",14,NA,NA
+"21_6D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","A",NA,"survived 21 dpi",18,NA,NA
+"22_1A","1","exposed","24_08_2010","infected","infected","V","B",0,"survived 21 dpi",21,NA,NA
+"22_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"22_1C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"22_1D","1","unexposed","24_08_2010","uninfected","unexposed, control","V","B",NA,"survived 21 dpi",20,NA,NA
+"22_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"22_2B","1","exposed","24_08_2010","infected","infected","V","B",0,"died during experiment",21,0.71466,22589
+"22_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"22_2D","1","exposed","24_08_2010","infected","infected","V","B",0,"died during experiment",21,0.730602,25264.5
+"22_3A","1","exposed","24_08_2010","infected","infected","V","B",0,"survived 21 dpi",16,NA,NA
+"22_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"22_3C","1","exposed","24_08_2010",NA,NA,"V","B",NA,"survived 21 dpi",4,NA,NA
+"22_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"22_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"22_4B","1","exposed","24_08_2010","infected","infected","V","B",0,"died during experiment",21,0.68492,25659
+"22_4C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"survived 21 dpi",18,NA,NA
+"22_4D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"22_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"22_5B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"22_5C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"22_5D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"22_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","B",NA,"survived 21 dpi",16,NA,NA
+"22_6B","1","exposed","24_08_2010","infected","infected","V","B",0,"died during experiment",21,NA,NA
+"22_6C","1","exposed","24_08_2010","infected","infected","V","B",0,"died during experiment",21,0.731782,25080.5
+"22_6D","1","unexposed","24_08_2010","uninfected","unexposed, control","V","B",NA,"died during experiment",21,NA,NA
+"23_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"23_1B","1","exposed","24_08_2010","infected","infected","V","C",0,"died during experiment",21,0.742722,28262
+"23_1C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"23_1D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"23_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"23_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"survived 21 dpi",18,NA,NA
+"23_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"survived 21 dpi",21,NA,NA
+"23_2D","1","unexposed","24_08_2010","uninfected","unexposed, control","V","C",NA,"died during experiment",21,NA,NA
+"23_3A","1","exposed","24_08_2010","infected","infected","V","C",1,"died during experiment",21,0.728234,24340
+"23_3B","1","exposed","24_08_2010","infected","infected","V","C",0,"died during experiment",21,0.734302,25733
+"23_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"23_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"23_4A","1","unexposed","24_08_2010","uninfected","unexposed, control","V","C",NA,"survived 21 dpi",18,NA,NA
+"23_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"23_4C","1","exposed","24_08_2010","infected","infected","V","C",0,"died during experiment",21,NA,23850.5
+"23_4D","1","exposed","24_08_2010","infected","infected","V","C",0,"died during experiment",21,0.72007,23250.5
+"23_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"survived 21 dpi",20,NA,NA
+"23_5B","1","exposed","24_08_2010","infected","infected","V","C",0,"died during experiment",21,NA,25258.5
+"23_5C","1","exposed","24_08_2010","infected","infected","V","C",0,"died during experiment",21,0.718248,24918
+"23_5D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"23_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"23_6B","1","exposed","24_08_2010","infected","infected","V","C",0,"survived 21 dpi",21,NA,NA
+"23_6C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"23_6D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"24_1A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"24_1B","1","exposed","24_08_2010","infected","infected","V","D",0,"died during experiment",21,0.70342,27445.5
+"24_1C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"24_1D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"24_2A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"24_2B","1","exposed","24_08_2010","infected","infected","V","D",0,"died during experiment",21,0.71309,28341.5
+"24_2C","1","exposed","24_08_2010","infected","infected","V","D",0,"died during experiment",21,0.71465,27586
+"24_2D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"24_3A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"24_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"24_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"24_3D","1","unexposed","24_08_2010","uninfected","unexposed, control","V","D",NA,"died during experiment",21,NA,NA
+"24_4A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"24_4B","1","exposed","24_08_2010",NA,NA,"V","D",NA,"survived 21 dpi",8,NA,NA
+"24_4C","1","exposed","24_08_2010","infected","infected","V","D",0,"died during experiment",21,0.738,26257.5
+"24_4D","1","unexposed","24_08_2010","uninfected","unexposed, control","V","D",NA,"died during experiment",21,NA,NA
+"24_5A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"24_5B","1","exposed","24_08_2010","infected","infected","V","D",0,"survived 21 dpi",16,NA,NA
+"24_5C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"24_5D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"24_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"24_6B","1","exposed","24_08_2010","infected","infected","V","D",0,"died during experiment",21,0.713712,27019.5
+"24_6C","1","exposed","24_08_2010","infected","infected","V","D",0,"died during experiment",21,0.726064,28997
+"24_6D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"25_1A","1","unexposed","24_08_2010","uninfected","unexposed, control","V","E",NA,"died during experiment",21,NA,NA
+"25_1B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"25_1C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"25_1D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"25_2A","1","exposed","24_08_2010","infected","infected","V","E",1,"died during experiment",21,0.738458,24407
+"25_2B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"25_2C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"25_2D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"25_3A","1","exposed","24_08_2010","infected","infected","V","E",1,"died during experiment",21,0.713224,33273
+"25_3B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"25_3C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"25_3D","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"25_4A","1","unexposed","24_08_2010","uninfected","unexposed, control","V","E",NA,"died during experiment",21,NA,NA
+"25_4B","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","E",NA,"survived 21 dpi",20,NA,NA
+"25_4C","1","exposed","24_08_2010","infected","infected","V","E",1,"died during experiment",21,0.750362,24726
+"25_4D","1","exposed","24_08_2010","infected","infected","V","E",0,"died during experiment",21,0.756002,27098
+"25_5A","1","exposed","24_08_2010","infected","infected","V","E",0,"died during experiment",21,0.719222,29846.5
+"25_5B","1","exposed","24_08_2010","infected","infected","V","E",0,"died during experiment",21,0.722496,23128
+"25_5C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","E",NA,"survived 21 dpi",18,NA,NA
+"25_5D","1","exposed","24_08_2010","infected","infected","V","E",1,"died during experiment",21,0.707112,27098
+"25_6A","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"25_6B","1","exposed","24_08_2010","infected","infected","V","E",1,"died during experiment",21,0.730306,23509.5
+"25_6C","1","exposed","24_08_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"25_6D","1","exposed","24_08_2010","infected","infected","V","E",1,"died during experiment",21,0.721804,26612.5
+"26_1A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"26_1B","2","exposed","25_10_2010","infected","infected","I","A",0,"survived 21 dpi",12,NA,NA
+"26_1C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"26_1D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"26_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","A",NA,"survived 21 dpi",18,NA,NA
+"26_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","A",NA,"survived 21 dpi",6,NA,NA
+"26_2C","2","exposed","25_10_2010","infected","infected","I","A",0,"died during experiment",21,0.75632,19933
+"26_2D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"26_3A","2","unexposed","25_10_2010","uninfected","unexposed, control","I","A",NA,"died during experiment",21,NA,NA
+"26_3B","2","exposed","25_10_2010","infected","infected","I","A",0,"died during experiment",21,0.75591,24113.5
+"26_3C","2","exposed","25_10_2010","infected","infected","I","A",0,"survived 21 dpi",16,NA,NA
+"26_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"26_4A","2","exposed","25_10_2010","infected","infected","I","A",0,"died during experiment",21,0.772078,31291
+"26_4B","2","unexposed","25_10_2010","uninfected","unexposed, control","I","A",NA,"died during experiment",21,NA,NA
+"26_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"26_4D","2","exposed","25_10_2010","infected","infected","I","A",0,"died during experiment",21,0.764336,31050
+"26_5A","2","exposed","25_10_2010","infected","infected","I","A",0,"died during experiment",21,0.764212,27210
+"26_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"26_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"26_5D","2","exposed","25_10_2010","infected","infected","I","A",0,"died during experiment",21,0.795834,31705.5
+"26_6A","2","exposed","25_10_2010","infected","infected","I","A",0,"died during experiment",21,0.836338,25009
+"26_6B","2","exposed","25_10_2010","infected","infected","I","A",0,"died during experiment",21,0.781426,26396.5
+"26_6C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"26_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"27_1A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"27_1B","2","exposed","25_10_2010","infected","infected","I","B",0,"died during experiment",21,0.746096,20981
+"27_1C","2","exposed","25_10_2010","infected","infected","I","B",0,"died during experiment",21,0.753302,21095.5
+"27_1D","2","exposed","25_10_2010","infected","infected","I","B",0,"died during experiment",21,0.752558,26844
+"27_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"27_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"27_2C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"27_2D","2","unexposed","25_10_2010","uninfected","unexposed, control","I","B",NA,"survived 21 dpi",20,NA,NA
+"27_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"27_3B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"27_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"27_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"27_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"27_4B","2","exposed","25_10_2010","infected","infected","I","B",NA,"survived 21 dpi",16,NA,NA
+"27_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"27_4D","2","exposed","25_10_2010","infected","infected","I","B",1,"died during experiment",21,0.742326,27595
+"27_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"27_5B","2","exposed","25_10_2010","infected","infected","I","B",0,"died during experiment",21,0.832454,27574
+"27_5C","2","unexposed","25_10_2010","uninfected","unexposed, control","I","B",NA,"survived 21 dpi",18,NA,NA
+"27_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"27_6A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",18,NA,NA
+"27_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"27_6C","2","exposed","25_10_2010","infected","infected","I","B",0,"survived 21 dpi",20,NA,NA
+"27_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"28_1A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"28_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"28_1C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",6,NA,NA
+"28_1D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"28_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",21,NA,NA
+"28_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"28_2C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",6,NA,NA
+"28_2D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"28_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",6,NA,NA
+"28_3B","2","unexposed","25_10_2010","uninfected","unexposed, control","I","B",NA,"survived 21 dpi",20,NA,NA
+"28_3C","2","exposed","25_10_2010","infected","infected","I","B",0,"died during experiment",21,0.803376,24918.5
+"28_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"28_4A","2","unexposed","25_10_2010","uninfected","unexposed, control","I","B",NA,"died during experiment",21,NA,NA
+"28_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"28_4C","2","exposed","25_10_2010",NA,NA,"I","B",NA,NA,NA,NA,NA
+"28_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"28_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"28_5B","2","exposed","25_10_2010","infected","infected","I","B",1,"died during experiment",21,0.752792,26483.5
+"28_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",16,NA,NA
+"28_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"28_6A","2","exposed","25_10_2010","infected","infected","I","B",1,"died during experiment",21,0.761682,24444.5
+"28_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",20,NA,NA
+"28_6C","2","exposed","25_10_2010","infected","infected","I","B",0,"died during experiment",21,0.749092,23771.5
+"28_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"29_1A","2","exposed","25_10_2010","infected","infected","I","D",0,"died during experiment",21,0.74781,28905.5
+"29_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",6,NA,NA
+"29_1C","2","exposed","25_10_2010","infected","infected","I","D",1,"died during experiment",21,0.7428,29012.5
+"29_1D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"29_2A","2","exposed","25_10_2010","infected","infected","I","D",1,"died during experiment",21,0.766024,31751.5
+"29_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"29_2C","2","exposed","25_10_2010","infected","infected","I","D",0,"died during experiment",21,0.752216,27715.5
+"29_2D","2","exposed","25_10_2010","infected","infected","I","D",0,"died during experiment",21,0.75382,32189.5
+"29_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"29_3B","2","unexposed","25_10_2010","uninfected","unexposed, control","I","D",NA,"died during experiment",21,NA,NA
+"29_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",6,NA,NA
+"29_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"29_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",20,NA,NA
+"29_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"29_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",6,NA,NA
+"29_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",6,NA,NA
+"29_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"29_5B","2","unexposed","25_10_2010","uninfected","unexposed, control","I","D",NA,"died during experiment",21,NA,NA
+"29_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",12,NA,NA
+"29_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",6,NA,NA
+"29_6A","2","exposed","25_10_2010","infected","infected","I","D",0,"died during experiment",21,0.845302,29628.5
+"29_6B","2","exposed","25_10_2010","infected","infected","I","D",0,"died during experiment",21,0.742388,25240.5
+"29_6C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"29_6D","2","exposed","25_10_2010","infected","infected","I","D",0,"died during experiment",21,0.844192,25781.5
+"30_1A","2","exposed","25_10_2010","infected","infected","I","E",0,"died during experiment",21,0.825652,30418.5
+"30_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"30_1C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","E",NA,"survived 21 dpi",6,NA,NA
+"30_1D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"30_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","E",NA,"survived 21 dpi",7,NA,NA
+"30_2B","2","exposed","25_10_2010","infected","infected","I","E",1,"died during experiment",21,0.7204,29016.5
+"30_2C","2","unexposed","25_10_2010","uninfected","unexposed, control","I","E",NA,"survived 21 dpi",6,NA,NA
+"30_2D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"30_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"30_3B","2","exposed","25_10_2010","infected","infected","I","E",1,"died during experiment",21,0.73129,29010.5
+"30_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"30_3D","2","exposed","25_10_2010","infected","infected","I","E",0,"died during experiment",21,0.7674,26900.5
+"30_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"30_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","E",NA,"survived 21 dpi",10,NA,NA
+"30_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"30_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","E",NA,"survived 21 dpi",21,NA,NA
+"30_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"30_5B","2","exposed","25_10_2010","infected","infected","I","E",1,"died during experiment",21,0.763866,29153.5
+"30_5C","2","unexposed","25_10_2010","uninfected","unexposed, control","I","E",NA,"died during experiment",21,NA,NA
+"30_5D","2","exposed","25_10_2010","infected","infected","I","E",1,"died during experiment",21,0.761642,28581
+"30_6A","2","exposed","25_10_2010","infected","infected","I","E",1,"died during experiment",21,0.729872,29217.5
+"30_6B","2","exposed","25_10_2010","infected","infected","I","E",0,"died during experiment",21,0.730118,24132
+"30_6C","2","exposed","25_10_2010","infected","infected","I","E",0,"died during experiment",21,0.726396,25023
+"30_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","I","E",NA,"died during experiment",21,NA,NA
+"31_1A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"survived 21 dpi",6,NA,NA
+"31_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"31_1C","2","exposed","25_10_2010","infected","infected","II","A",0,"died during experiment",21,0.745078,26879.5
+"31_1D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"31_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"survived 21 dpi",6,NA,NA
+"31_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"31_2C","2","exposed","25_10_2010","infected","infected","II","A",0,"died during experiment",21,0.737086,25926
+"31_2D","2","exposed","25_10_2010","infected","infected","II","A",0,"died during experiment",21,0.743034,26154.5
+"31_3A","2","unexposed","25_10_2010","uninfected","unexposed, control","II","A",NA,"died during experiment",21,NA,NA
+"31_3B","2","exposed","25_10_2010","infected","infected","II","A",0,"died during experiment",21,0.729854,20123
+"31_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"survived 21 dpi",14,NA,NA
+"31_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"survived 21 dpi",20,NA,NA
+"31_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"31_4B","2","unexposed","25_10_2010","uninfected","unexposed, control","II","A",NA,"died during experiment",21,NA,NA
+"31_4C","2","exposed","25_10_2010","infected","infected","II","A",1,"died during experiment",21,0.738718,25754
+"31_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"31_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"31_5B","2","exposed","25_10_2010","infected","infected","II","A",0,"died during experiment",21,0.729342,21655
+"31_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"31_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"31_6A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"31_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"31_6C","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"survived 21 dpi",14,NA,NA
+"31_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","A",NA,"died during experiment",21,NA,NA
+"32_1A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"32_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"32_1C","2","exposed","25_10_2010","infected","infected","II","B",1,"died during experiment",21,0.72008,27229.5
+"32_1D","2","unexposed","25_10_2010","uninfected","unexposed, control","II","B",NA,"died during experiment",21,NA,NA
+"32_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"survived 21 dpi",21,NA,NA
+"32_2B","2","exposed","25_10_2010","infected","infected","II","B",0,"died during experiment",21,0.747048,25548.5
+"32_2C","2","exposed","25_10_2010","infected","infected","II","B",0,"survived 21 dpi",18,NA,NA
+"32_2D","2","exposed","25_10_2010","infected","infected","II","B",0,"survived 21 dpi",21,NA,NA
+"32_3A","2","exposed","25_10_2010","infected","infected","II","B",0,"died during experiment",21,NA,22799.5
+"32_3B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"survived 21 dpi",12,NA,NA
+"32_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"32_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"survived 21 dpi",18,NA,NA
+"32_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"32_4B","2","exposed","25_10_2010","infected","infected","II","B",1,"survived 21 dpi",12,NA,NA
+"32_4C","2","unexposed","25_10_2010","uninfected","unexposed, control","II","B",NA,"survived 21 dpi",20,NA,NA
+"32_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"32_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"32_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"survived 21 dpi",10,NA,NA
+"32_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"32_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"32_6A","2","exposed","25_10_2010","infected","infected","II","B",1,"died during experiment",21,0.741288,25527.5
+"32_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"32_6C","2","exposed","25_10_2010","infected","infected","II","B",1,"survived 21 dpi",20,NA,NA
+"32_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","B",NA,"died during experiment",21,NA,NA
+"33_1A","3","unexposed","26_10_2010","uninfected","unexposed, control","II","C",NA,"survived 21 dpi",21,NA,NA
+"33_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"33_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"33_1D","3","exposed","26_10_2010","infected","infected","II","C",0,"survived 21 dpi",20,NA,NA
+"33_2A","3","exposed","26_10_2010","infected","infected","II","C",0,"died during experiment",21,0.705694,30999.5
+"33_2B","3","exposed","26_10_2010","infected","infected","II","C",0,"died during experiment",21,0.73694,22344.5
+"33_2C","3","exposed","26_10_2010","infected","infected","II","C",0,"died during experiment",21,0.733412,28083
+"33_2D","3","exposed","26_10_2010","infected","infected","II","C",0,"died during experiment",21,0.726452,24238.5
+"33_3A","3","exposed","26_10_2010","infected","infected","II","C",0,"died during experiment",21,0.737144,23483.5
+"33_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"33_3C","3","exposed","26_10_2010","infected","infected","II","C",0,"died during experiment",21,0.724894,30202
+"33_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"33_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"33_4B","3","exposed","26_10_2010","infected","infected","II","C",0,"survived 21 dpi",14,NA,NA
+"33_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"33_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"33_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"33_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",10,NA,NA
+"33_5C","3","unexposed","26_10_2010","uninfected","unexposed, control","II","C",NA,"died during experiment",21,NA,NA
+"33_5D","3","exposed","26_10_2010","infected","infected","II","C",0,"died during experiment",21,0.665516,18869.5
+"33_6A","3","exposed","26_10_2010","infected","infected","II","C",0,"died during experiment",21,0.74196,25113.5
+"33_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",20,NA,NA
+"33_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"33_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",20,NA,NA
+"34_1A","2","exposed","25_10_2010","infected","infected","II","D",0,"died during experiment",21,0.735358,22010.5
+"34_1B","2","exposed","25_10_2010","infected","infected","II","D",0,"died during experiment",21,0.735332,26983.5
+"34_1C","2","exposed","25_10_2010","infected","infected","II","D",0,"died during experiment",21,0.731662,28136.5
+"34_1D","2","exposed","25_10_2010","infected","infected","II","D",0,"died during experiment",21,0.732702,25655.5
+"34_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","D",NA,"survived 21 dpi",20,NA,NA
+"34_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","D",NA,"survived 21 dpi",20,NA,NA
+"34_2C","2","exposed","25_10_2010","infected","infected","II","D",0,"died during experiment",21,0.729284,24819
+"34_2D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","D",NA,"survived 21 dpi",10,NA,NA
+"34_3A","2","unexposed","25_10_2010","uninfected","unexposed, control","II","D",NA,"survived 21 dpi",12,NA,NA
+"34_3B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","D",NA,"survived 21 dpi",8,NA,NA
+"34_3C","2","exposed","25_10_2010","infected","infected","II","D",0,"died during experiment",21,0.730492,26513
+"34_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","D",NA,"survived 21 dpi",10,NA,NA
+"34_4A","2","exposed","25_10_2010","infected","infected","II","D",0,"died during experiment",21,0.73724,22321.5
+"34_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","D",NA,"died during experiment",21,NA,NA
+"34_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","D",NA,"survived 21 dpi",21,NA,NA
+"34_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","D",NA,"died during experiment",21,NA,NA
+"34_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","D",NA,"survived 21 dpi",20,NA,NA
+"34_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","D",NA,"died during experiment",21,NA,NA
+"34_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","D",NA,"survived 21 dpi",21,NA,NA
+"34_5D","2","unexposed","25_10_2010","uninfected","unexposed, control","II","D",NA,"died during experiment",21,NA,NA
+"34_6A","2","exposed","25_10_2010","infected","infected","II","D",1,"survived 21 dpi",21,NA,NA
+"34_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","D",NA,"died during experiment",21,NA,NA
+"34_6C","2","exposed","25_10_2010","infected","infected","II","D",0,"died during experiment",21,0.732712,28769
+"34_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","D",NA,"died during experiment",21,NA,NA
+"35_1A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"35_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","E",NA,"survived 21 dpi",20,NA,NA
+"35_1C","2","exposed","25_10_2010","infected","infected","II","E",1,"died during experiment",21,0.7454,31815
+"35_1D","2","unexposed","25_10_2010","uninfected","unexposed, control","II","E",NA,NA,NA,NA,NA
+"35_2A","2","exposed","25_10_2010","infected","infected","II","E",0,"died during experiment",21,0.73077,22156.5
+"35_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"35_2C","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","E",NA,"survived 21 dpi",10,NA,NA
+"35_2D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","E",NA,"survived 21 dpi",14,NA,NA
+"35_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"35_3B","2","exposed","25_10_2010","infected","infected","II","E",0,"survived 21 dpi",14,NA,NA
+"35_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"35_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"35_4A","2","exposed","25_10_2010","infected","infected","II","E",1,"died during experiment",21,0.733084,28382
+"35_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"35_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"35_4D","2","exposed","25_10_2010","infected","infected","II","E",0,"died during experiment",21,0.73313,26594.5
+"35_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","II","E",NA,"died during experiment",21,NA,NA
+"35_5B","2","exposed","25_10_2010","infected","infected","II","E",1,"died during experiment",21,0.73724,26988
+"35_5C","2","unexposed","25_10_2010","uninfected","unexposed, control","II","E",NA,"died during experiment",21,NA,NA
+"35_5D","2","exposed","25_10_2010","infected","infected","II","E",0,"died during experiment",21,0.746474,NA
+"35_6A","2","exposed","25_10_2010","infected","infected","II","E",0,"died during experiment",21,0.713574,27980
+"35_6B","2","exposed","25_10_2010","infected","infected","II","E",0,"died during experiment",21,0.745036,27803.5
+"35_6C","2","exposed","25_10_2010","infected","infected","II","E",1,"died during experiment",21,0.728094,26212
+"35_6D","2","exposed","25_10_2010","infected","infected","II","E",1,"died during experiment",21,0.70807,27438.5
+"36_1A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"36_1B","2","exposed","25_10_2010","infected","infected","III","A",1,"survived 21 dpi",12,NA,NA
+"36_1C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",21,NA,NA
+"36_1D","2","exposed","25_10_2010","infected","infected","III","A",0,"died during experiment",21,0.76648,24222
+"36_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"36_2B","2","exposed","25_10_2010","infected","infected","III","A",0,"survived 21 dpi",21,NA,NA
+"36_2C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",14,NA,NA
+"36_2D","2","unexposed","25_10_2010","uninfected","unexposed, control","III","A",NA,"survived 21 dpi",20,NA,NA
+"36_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"36_3B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"36_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"36_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",21,NA,NA
+"36_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"36_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"36_4C","2","exposed","25_10_2010","infected","infected","III","A",1,"died during experiment",21,0.745688,26250.5
+"36_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"36_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"36_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"36_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"36_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",21,NA,NA
+"36_6A","2","unexposed","25_10_2010","uninfected","unexposed, control","III","A",NA,"died during experiment",21,NA,NA
+"36_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",21,NA,NA
+"36_6C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"36_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"37_1A","2","exposed","25_10_2010","infected","infected","III","B",0,"survived 21 dpi",14,NA,NA
+"37_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",8,NA,NA
+"37_1C","2","unexposed","25_10_2010","uninfected","unexposed, control","III","B",NA,"died during experiment",21,NA,NA
+"37_1D","2","exposed","25_10_2010","infected","infected","III","B",1,"died during experiment",21,0.72516,27418
+"37_2A","2","exposed","25_10_2010","infected","infected","III","B",0,"died during experiment",21,0.773618,25354
+"37_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"37_2C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",6,NA,NA
+"37_2D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"37_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"37_3B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",20,NA,NA
+"37_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"37_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",6,NA,NA
+"37_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",12,NA,NA
+"37_4B","2","exposed","25_10_2010","infected","infected","III","B",0,"died during experiment",21,0.748288,20052.5
+"37_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"37_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",21,NA,NA
+"37_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"37_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"37_5C","2","exposed","25_10_2010","infected","infected","III","B",1,"died during experiment",21,0.774028,23324.5
+"37_5D","2","unexposed","25_10_2010","uninfected","unexposed, control","III","B",NA,"survived 21 dpi",14,NA,NA
+"37_6A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",16,NA,NA
+"37_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",21,NA,NA
+"37_6C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",8,NA,NA
+"37_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",7,NA,NA
+"38_1A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",18,NA,NA
+"38_1B","2","exposed","25_10_2010","infected","infected","III","A",0,"died during experiment",21,0.745558,28594.5
+"38_1C","2","exposed","25_10_2010","infected","infected","III","A",0,"died during experiment",21,0.783544,22944.5
+"38_1D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"38_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",12,NA,NA
+"38_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",21,NA,NA
+"38_2C","2","unexposed","25_10_2010","uninfected","unexposed, control","III","A",NA,"survived 21 dpi",20,NA,NA
+"38_2D","2","exposed","25_10_2010","infected","infected","III","A",0,"died during experiment",21,0.75813,25546.5
+"38_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"38_3B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",21,NA,NA
+"38_3C","2","exposed","25_10_2010","infected","infected","III","A",0,"survived 21 dpi",21,NA,NA
+"38_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",21,NA,NA
+"38_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"38_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",20,NA,NA
+"38_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",20,NA,NA
+"38_4D","2","exposed","25_10_2010","infected","infected","III","A",0,"survived 21 dpi",14,NA,NA
+"38_5A","2","unexposed","25_10_2010","uninfected","unexposed, control","III","A",NA,"died during experiment",21,NA,NA
+"38_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"38_5C","2","exposed","25_10_2010","infected","infected","III","A",0,"died during experiment",21,0.696558,24584
+"38_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",10,NA,NA
+"38_6A","2","exposed","25_10_2010","infected","infected","III","A",1,"died during experiment",21,0.764254,26504
+"38_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"38_6C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"38_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"39_1A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"39_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",18,NA,NA
+"39_1C","2","unexposed","25_10_2010","uninfected","unexposed, control","III","D",NA,"died during experiment",21,NA,NA
+"39_1D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"39_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",21,NA,NA
+"39_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",16,NA,NA
+"39_2C","2","exposed","25_10_2010","infected","infected","III","D",0,"died during experiment",21,0.74663,25414
+"39_2D","2","exposed","25_10_2010","infected","infected","III","D",0,"died during experiment",21,0.733632,27072.5
+"39_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"39_3B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",18,NA,NA
+"39_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"39_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"39_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"39_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",21,NA,NA
+"39_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",16,NA,NA
+"39_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",21,NA,NA
+"39_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",6,NA,NA
+"39_5B","2","exposed","25_10_2010","infected","infected","III","D",1,"died during experiment",21,0.748292,28627
+"39_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"39_5D","2","exposed","25_10_2010","infected","infected","III","D",0,"died during experiment",21,0.76578,33234.5
+"39_6A","2","unexposed","25_10_2010","uninfected","unexposed, control","III","D",NA,"survived 21 dpi",20,NA,NA
+"39_6B","2","exposed","25_10_2010","infected","infected","III","D",0,"died during experiment",21,0.753892,30009.5
+"39_6C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"39_6D","2","exposed","25_10_2010","infected","infected","III","D",1,"died during experiment",21,0.747754,30700.5
+"40_1A","2","exposed","25_10_2010","infected","infected","III","E",1,"died during experiment",21,0.73198,28327
+"40_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"40_1C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",21,NA,NA
+"40_1D","2","exposed","25_10_2010","infected","infected","III","E",1,"died during experiment",21,0.720646,29745.5
+"40_2A","2","exposed","25_10_2010","infected","infected","III","E",0,"survived 21 dpi",20,NA,NA
+"40_2B","2","unexposed","25_10_2010","uninfected","unexposed, control","III","E",NA,"died during experiment",21,NA,NA
+"40_2C","2","exposed","25_10_2010","infected","infected","III","E",1,"died during experiment",21,0.739418,30546
+"40_2D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"40_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"40_3B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",21,NA,NA
+"40_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"40_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",14,NA,NA
+"40_4A","2","exposed","25_10_2010","infected","infected","III","E",1,"died during experiment",21,0.76312,26610.5
+"40_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",21,NA,NA
+"40_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"40_4D","2","unexposed","25_10_2010","uninfected","unexposed, control","III","E",NA,"died during experiment",21,NA,NA
+"40_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",6,NA,NA
+"40_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"40_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",18,NA,NA
+"40_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"40_6A","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",21,NA,NA
+"40_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"40_6C","2","exposed","25_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",12,NA,NA
+"40_6D","2","exposed","25_10_2010","infected","infected","III","E",1,"died during experiment",21,0.699374,25231.5
+"41_1A","2","unexposed","25_10_2010","uninfected","unexposed, control","IV","A",NA,"died during experiment",21,NA,NA
+"41_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_1C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_1D","2","exposed","25_10_2010","infected","infected","IV","A",0,"died during experiment",21,0.829218,30627.5
+"41_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_2C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_2D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_3A","2","exposed","25_10_2010","infected","infected","IV","A",0,"survived 21 dpi",10,NA,NA
+"41_3B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_5C","2","exposed","25_10_2010","infected","infected","IV","A",0,"died during experiment",21,0.819878,23453.5
+"41_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_6A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"41_6C","2","exposed","25_10_2010","infected","infected","IV","A",0,"died during experiment",21,0.83869,28409
+"41_6D","2","unexposed","25_10_2010","uninfected","unexposed, control","IV","A",NA,"died during experiment",21,NA,NA
+"42_1A","2","exposed","25_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.78258,28741
+"42_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"42_1C","2","exposed","25_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.76285,23655
+"42_1D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",20,NA,NA
+"42_2A","2","exposed","25_10_2010","infected","infected","IV","B",1,"died during experiment",21,0.805884,28303.5
+"42_2B","2","exposed","25_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.790144,21145
+"42_2C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"42_2D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"42_3A","2","unexposed","25_10_2010","uninfected","unexposed, control","IV","B",NA,"died during experiment",21,NA,NA
+"42_3B","2","exposed","25_10_2010","infected","infected","IV","B",1,"died during experiment",21,0.759894,25842
+"42_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"42_3D","2","exposed","25_10_2010","infected","infected","IV","B",1,"died during experiment",21,0.783398,27708.5
+"42_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"42_4B","2","unexposed","25_10_2010","uninfected","unexposed, control","IV","B",NA,"died during experiment",21,NA,NA
+"42_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"42_4D","2","exposed","25_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.793116,31537
+"42_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"42_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"42_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"42_5D","2","exposed","25_10_2010","infected","infected","IV","B",1,"died during experiment",21,0.828324,27602
+"42_6A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"42_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"42_6C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"42_6D","2","exposed","25_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.82411,29510
+"43_1A","2","exposed","25_10_2010","infected","infected","IV","D",0,"survived 21 dpi",20,NA,NA
+"43_1B","2","exposed","25_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.759352,29210
+"43_1C","2","exposed","25_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.817728,29550.5
+"43_1D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"survived 21 dpi",6,NA,NA
+"43_2A","2","exposed","25_10_2010","infected","infected","IV","D",0,"survived 21 dpi",14,NA,NA
+"43_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"43_2C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"43_2D","2","exposed","25_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.848528,27622.5
+"43_3A","2","exposed","25_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.82411,28905
+"43_3B","2","unexposed","25_10_2010","uninfected","unexposed, control","IV","D",NA,"died during experiment",21,NA,NA
+"43_3C","2","exposed","25_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.830788,28936.5
+"43_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"43_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"43_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"43_4C","2","exposed","25_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.83722,30806
+"43_4D","2","exposed","25_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.817812,30387
+"43_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"43_5B","2","exposed","25_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.800542,28376.5
+"43_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"43_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"43_6A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"43_6B","2","unexposed","25_10_2010","uninfected","unexposed, control","IV","D",NA,"died during experiment",21,NA,NA
+"43_6C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"43_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_1A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_1B","2","unexposed","25_10_2010","uninfected","unexposed, control","IV","D",NA,"died during experiment",21,NA,NA
+"44_1C","2","exposed","25_10_2010","infected","infected","IV","D",0,"survived 21 dpi",12,NA,NA
+"44_1D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_2B","2","exposed","25_10_2010","infected","infected","IV","D",1,"died during experiment",21,0.78927,31875.5
+"44_2C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_2D","2","exposed","25_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.778024,32369
+"44_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_3B","2","exposed","25_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.798724,28854.5
+"44_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_4A","2","exposed","25_10_2010","infected","infected","IV","D",0,"survived 21 dpi",12,NA,NA
+"44_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_4C","2","unexposed","25_10_2010","uninfected","unexposed, control","IV","D",NA,"died during experiment",21,NA,NA
+"44_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"survived 21 dpi",18,NA,NA
+"44_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_5D","2","exposed","25_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.84703,32977.5
+"44_6A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_6C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"44_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"45_1A","2","unexposed","25_10_2010","uninfected","unexposed, control","IV","E",NA,"died during experiment",21,NA,NA
+"45_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_1C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_1D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"survived 21 dpi",7,NA,NA
+"45_2C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_2D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_3B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"survived 21 dpi",7,NA,NA
+"45_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"survived 21 dpi",10,NA,NA
+"45_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_6A","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"45_6C","2","exposed","25_10_2010","infected","infected","IV","E",1,"survived 21 dpi",18,NA,NA
+"45_6D","2","unexposed","25_10_2010","uninfected","unexposed, control","IV","E",NA,"died during experiment",21,NA,NA
+"46_1A","2","unexposed","25_10_2010","uninfected","unexposed, control","V","A",NA,"died during experiment",21,NA,NA
+"46_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_1C","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"survived 21 dpi",8,NA,NA
+"46_1D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_2C","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_2D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"survived 21 dpi",10,NA,NA
+"46_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_3B","2","exposed","25_10_2010","infected","infected","V","A",0,"died during experiment",21,0.717008,24136.5
+"46_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_3D","2","exposed","25_10_2010","infected","infected","V","A",NA,"died during experiment",21,0.752538,24892
+"46_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_5C","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"survived 21 dpi",20,NA,NA
+"46_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_6A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_6C","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"46_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"47_1A","2","exposed","25_10_2010","infected","infected","V","B",1,"died during experiment",21,0.757058,24113
+"47_1B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"47_1C","2","exposed","25_10_2010","infected","infected","V","B",0,"died during experiment",21,0.737418,26516
+"47_2A","2","exposed","25_10_2010","infected","infected","V","B",0,"died during experiment",21,0.759922,27997
+"47_2B","2","unexposed","25_10_2010","uninfected","unexposed, control","V","B",NA,"died during experiment",21,NA,NA
+"47_2C","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"47_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"47_3B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"47_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"survived 21 dpi",8,NA,NA
+"47_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"survived 21 dpi",7,NA,NA
+"47_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"47_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"47_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"47_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"47_5C","2","exposed","25_10_2010","infected","infected","V","B",1,"died during experiment",21,0.735808,24371.5
+"47_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"47_6A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"47_6B","2","exposed","25_10_2010","infected","infected","V","B",1,"died during experiment",21,0.738018,24529
+"47_6C","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"47_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"48_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"48_2A","3","exposed","26_10_2010","infected","infected","V","C",0,"died during experiment",21,0.745214,24840.5
+"48_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"48_4A","3","exposed","26_10_2010","infected","infected","V","C",0,"died during experiment",21,0.730988,23247
+"48_4B","3","exposed","26_10_2010","infected","infected","V","C",0,"died during experiment",21,0.74679,22949.5
+"48_4C","3","exposed","26_10_2010","infected","infected","V","C",0,"died during experiment",21,0.750916,24885.5
+"48_4D","3","unexposed","26_10_2010","uninfected","unexposed, control","V","C",NA,"died during experiment",21,NA,NA
+"48_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"48_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"48_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"48_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"48_6A","3","exposed","26_10_2010","infected","infected","V","C",0,"died during experiment",21,0.743854,24623.5
+"48_6B","3","exposed","26_10_2010","infected","infected","V","C",0,"died during experiment",21,0.734816,NA
+"48_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"48_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","C",NA,"died during experiment",21,NA,NA
+"49_1A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"49_1B","2","exposed","25_10_2010","infected","infected","V","D",0,"died during experiment",21,0.748866,29528
+"49_1C","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"49_1D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"49_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"49_2B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"49_2C","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"49_2D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"49_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","D",NA,"survived 21 dpi",21,NA,NA
+"49_3B","2","unexposed","25_10_2010","uninfected","unexposed, control","V","D",NA,"died during experiment",21,NA,NA
+"49_3C","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"49_3D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"49_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"49_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"49_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","D",NA,"died during experiment",21,NA,NA
+"49_6A","2","exposed","25_10_2010","infected","infected","V","D",0,"died during experiment",21,NA,NA
+"50_1A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"50_2A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"50_3A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"50_4A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"50_4B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"50_4C","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"50_4D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"50_5A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"50_5B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","E",NA,"survived 21 dpi",10,NA,NA
+"50_5C","2","unexposed","25_10_2010","uninfected","unexposed, control","V","E",NA,"died during experiment",21,NA,NA
+"50_5D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"50_6A","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"50_6B","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"50_6C","2","exposed","25_10_2010","infected","infected","V","E",0,"died during experiment",21,0.72229,29648
+"50_6D","2","exposed","25_10_2010","uninfected","exposed, uninfected","V","E",NA,"died during experiment",21,NA,NA
+"51_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,NA,NA,NA,NA
+"51_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_1D","3","exposed","26_10_2010","infected","infected","I","A",0,"died during experiment",21,0.866058,29712.5
+"51_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"survived 21 dpi",18,NA,NA
+"51_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_3D","3","unexposed","26_10_2010","uninfected","unexposed, control","I","A",NA,"died during experiment",21,NA,NA
+"51_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_4B","3","exposed","26_10_2010","infected","infected","I","A",0,"died during experiment",21,0.827586,24791
+"51_4C","3","unexposed","26_10_2010","uninfected","unexposed, control","I","A",NA,"died during experiment",21,NA,NA
+"51_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_5B","3","exposed","26_10_2010","infected","infected","I","A",0,"died during experiment",21,0.79712,27788.5
+"51_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"survived 21 dpi",6,NA,NA
+"51_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"survived 21 dpi",14,NA,NA
+"51_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","A",NA,"died during experiment",21,NA,NA
+"51_6D","3","exposed","26_10_2010","infected","infected","I","A",0,"survived 21 dpi",18,NA,NA
+"52_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"52_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"52_1C","3","exposed","26_10_2010","infected","infected","I","B",0,"died during experiment",21,0.850096,28107
+"52_1D","3","unexposed","26_10_2010","uninfected","unexposed, control","I","B",NA,"died during experiment",21,NA,NA
+"52_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"52_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"52_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"52_2D","3","exposed","26_10_2010","infected","infected","I","B",1,"died during experiment",21,0.737956,25656.5
+"52_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"52_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"52_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"52_3D","3","exposed","26_10_2010","infected","infected","I","B",0,"died during experiment",21,0.836768,25494
+"52_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",8,NA,NA
+"52_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",18,NA,NA
+"52_4C","3","exposed","26_10_2010","infected","infected","I","B",0,"survived 21 dpi",21,NA,NA
+"52_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",21,NA,NA
+"52_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",10,NA,NA
+"52_5B","3","exposed","26_10_2010","infected","infected","I","B",0,"survived 21 dpi",14,NA,NA
+"52_5C","3","unexposed","26_10_2010","uninfected","unexposed, control","I","B",NA,"died during experiment",21,NA,NA
+"52_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"survived 21 dpi",12,NA,NA
+"52_6A","3","exposed","26_10_2010","infected","infected","I","B",0,"died during experiment",21,0.767672,24968.5
+"52_6B","3","exposed","26_10_2010","infected","infected","I","B",0,"died during experiment",21,0.730814,23788
+"52_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","B",NA,"died during experiment",21,NA,NA
+"52_6D","3","exposed","26_10_2010","infected","infected","I","B",0,"died during experiment",21,0.73402,22141.5
+"53_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",14,NA,NA
+"53_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",10,NA,NA
+"53_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"53_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"53_2A","3","unexposed","26_10_2010","uninfected","unexposed, control","I","C",NA,"died during experiment",21,NA,NA
+"53_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",14,NA,NA
+"53_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",18,NA,NA
+"53_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",10,NA,NA
+"53_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"53_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"53_3C","3","exposed","26_10_2010","infected","infected","I","C",0,"died during experiment",21,0.746686,27434
+"53_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",8,NA,NA
+"53_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"53_4B","3","exposed","26_10_2010","infected","infected","I","C",0,"survived 21 dpi",21,NA,NA
+"53_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"53_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"53_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"53_5B","3","unexposed","26_10_2010","uninfected","unexposed, control","I","C",NA,"died during experiment",21,NA,NA
+"53_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"53_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",20,NA,NA
+"53_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"53_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"53_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"53_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"54_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",12,NA,NA
+"54_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"54_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"54_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"54_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"54_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"54_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"54_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"54_3A","3","unexposed","26_10_2010","uninfected","unexposed, control","I","C",NA,"survived 21 dpi",6,NA,NA
+"54_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"54_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"54_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"54_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",20,NA,NA
+"54_4B","3","unexposed","26_10_2010","uninfected","unexposed, control","I","C",NA,"survived 21 dpi",20,NA,NA
+"54_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"54_4D","3","exposed","26_10_2010","infected","infected","I","C",0,"died during experiment",21,0.86404,26916
+"54_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",20,NA,NA
+"54_5B","3","exposed","26_10_2010","infected","infected","I","C",0,"survived 21 dpi",18,NA,NA
+"54_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",14,NA,NA
+"54_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",20,NA,NA
+"54_6A","3","exposed","26_10_2010","infected","infected","I","C",0,"died during experiment",21,0.741248,22935.5
+"54_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"died during experiment",21,NA,NA
+"54_6C","3","exposed","26_10_2010","infected","infected","I","C",0,"died during experiment",21,0.754718,26828
+"54_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","C",NA,"survived 21 dpi",7,NA,NA
+"55_1A","3","unexposed","26_10_2010","uninfected","unexposed, control","I","D",NA,"survived 21 dpi",14,NA,NA
+"55_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"55_1C","3","exposed","26_10_2010","infected","infected","I","D",0,"died during experiment",21,0.737404,32954.5
+"55_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",6,NA,NA
+"55_2A","3","exposed","26_10_2010","infected","infected","I","D",0,"died during experiment",21,0.83128,27554.5
+"55_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"55_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",20,NA,NA
+"55_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"55_3A","3","exposed","26_10_2010","infected","infected","I","D",0,"died during experiment",21,0.771298,31150.5
+"55_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","D",NA,"survived 21 dpi",20,NA,NA
+"55_3C","3","exposed","26_10_2010","infected","infected","I","D",1,"died during experiment",21,0.73684,32078.5
+"55_3D","3","exposed","26_10_2010","infected","infected","I","D",0,"survived 21 dpi",21,NA,NA
+"55_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"55_4B","3","exposed","26_10_2010","infected","infected","I","D",0,"died during experiment",21,NA,NA
+"55_4C","3","unexposed","26_10_2010","uninfected","unexposed, control","I","D",NA,"died during experiment",21,NA,NA
+"55_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"55_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"55_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"55_5C","3","exposed","26_10_2010","infected","infected","I","D",0,"died during experiment",21,0.854824,31602
+"55_5D","3","exposed","26_10_2010","infected","infected","I","D",0,"died during experiment",21,0.803932,29125.5
+"55_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","I","D",NA,"died during experiment",21,NA,NA
+"55_6B","3","exposed","26_10_2010","infected","infected","I","D",0,"died during experiment",21,0.7356,29793
+"55_6C","3","exposed","26_10_2010","infected","infected","I","D",0,"survived 21 dpi",18,NA,NA
+"55_6D","3","exposed","26_10_2010","infected","infected","I","D",0,"died during experiment",21,0.891616,30100
+"56_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",21,NA,NA
+"56_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",20,NA,NA
+"56_1C","3","exposed","26_10_2010","infected","infected","II","C",1,"survived 21 dpi",14,NA,NA
+"56_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"56_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",6,NA,NA
+"56_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"56_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",18,NA,NA
+"56_2D","3","unexposed","26_10_2010","uninfected","unexposed, control","II","C",NA,"survived 21 dpi",18,NA,NA
+"56_3A","3","exposed","26_10_2010","infected","infected","II","C",0,"died during experiment",21,0.74656,29191
+"56_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",18,NA,NA
+"56_3C","3","exposed","26_10_2010","infected","infected","II","C",0,"survived 21 dpi",20,NA,NA
+"56_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",20,NA,NA
+"56_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"56_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",18,NA,NA
+"56_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",12,NA,NA
+"56_4D","3","unexposed","26_10_2010","uninfected","unexposed, control","II","C",NA,"died during experiment",21,NA,NA
+"56_5A","3","exposed","26_10_2010","infected","infected","II","C",0,"survived 21 dpi",20,NA,NA
+"56_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"survived 21 dpi",20,NA,NA
+"56_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"56_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"56_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"56_6B","3","exposed","26_10_2010","infected","infected","II","C",0,"died during experiment",21,0.760932,27099.5
+"56_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"56_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","II","C",NA,"died during experiment",21,NA,NA
+"57_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",6,NA,NA
+"57_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",12,NA,NA
+"57_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",14,NA,NA
+"57_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",10,NA,NA
+"57_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",6,NA,NA
+"57_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",21,NA,NA
+"57_2C","3","unexposed","26_10_2010","uninfected","unexposed, control","III","A",NA,"survived 21 dpi",6,NA,NA
+"57_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",20,NA,NA
+"57_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",20,NA,NA
+"57_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",18,NA,NA
+"57_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",6,NA,NA
+"57_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",18,NA,NA
+"57_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",18,NA,NA
+"57_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",18,NA,NA
+"57_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",7,NA,NA
+"57_4D","3","exposed","26_10_2010","infected","infected","III","A",0,"survived 21 dpi",20,NA,NA
+"57_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"survived 21 dpi",14,NA,NA
+"57_5B","3","exposed","26_10_2010","infected","infected","III","A",0,"died during experiment",21,0.75077,24322
+"57_5C","3","unexposed","26_10_2010","uninfected","unexposed, control","III","A",NA,"survived 21 dpi",6,NA,NA
+"57_5D","3","exposed","26_10_2010","infected","infected","III","A",0,"survived 21 dpi",14,NA,NA
+"57_6A","3","exposed","26_10_2010","infected","infected","III","A",0,"died during experiment",21,0.746132,24712
+"57_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"57_6C","3","exposed","26_10_2010","infected","infected","III","A",1,"died during experiment",21,0.757968,25726.5
+"57_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","A",NA,"died during experiment",21,NA,NA
+"58_1A","3","exposed","26_10_2010","infected","infected","III","B",0,"died during experiment",21,0.745696,26346.5
+"58_1B","3","unexposed","26_10_2010","uninfected","unexposed, control","III","B",NA,"survived 21 dpi",12,NA,NA
+"58_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",18,NA,NA
+"58_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",20,NA,NA
+"58_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",12,NA,NA
+"58_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"58_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",20,NA,NA
+"58_2D","3","exposed","26_10_2010","infected","infected","III","B",0,"died during experiment",21,0.749982,24934
+"58_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"58_3B","3","exposed","26_10_2010","infected","infected","III","B",0,"survived 21 dpi",21,NA,NA
+"58_3C","3","exposed","26_10_2010","infected","infected","III","B",0,"died during experiment",21,0.746716,24798
+"58_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"58_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",6,NA,NA
+"58_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",21,NA,NA
+"58_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"58_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"58_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",20,NA,NA
+"58_5B","3","unexposed","26_10_2010","uninfected","unexposed, control","III","B",NA,"died during experiment",21,NA,NA
+"58_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",6,NA,NA
+"58_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"58_6A","3","exposed","26_10_2010","infected","infected","III","B",0,"survived 21 dpi",14,NA,NA
+"58_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",6,NA,NA
+"58_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"58_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"59_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",12,NA,NA
+"59_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",12,NA,NA
+"59_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",6,NA,NA
+"59_1D","3","unexposed","26_10_2010","uninfected","unexposed, control","III","B",NA,"survived 21 dpi",20,NA,NA
+"59_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",10,NA,NA
+"59_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",12,NA,NA
+"59_2C","3","exposed","26_10_2010","infected","infected","III","B",0,"died during experiment",21,0.741688,20393.5
+"59_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",18,NA,NA
+"59_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",18,NA,NA
+"59_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"59_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"59_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",14,NA,NA
+"59_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"59_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",20,NA,NA
+"59_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"59_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"59_5A","3","exposed","26_10_2010","infected","infected","III","B",0,"survived 21 dpi",21,NA,NA
+"59_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",6,NA,NA
+"59_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",20,NA,NA
+"59_5D","3","unexposed","26_10_2010","uninfected","unexposed, control","III","B",NA,"survived 21 dpi",21,NA,NA
+"59_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",6,NA,NA
+"59_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",21,NA,NA
+"59_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"died during experiment",21,NA,NA
+"59_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","B",NA,"survived 21 dpi",6,NA,NA
+"60_1A","3","exposed","26_10_2010","infected","infected","III","C",0,"died during experiment",21,0.75235,24453
+"60_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"60_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"60_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",12,NA,NA
+"60_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"60_2B","3","unexposed","26_10_2010","uninfected","unexposed, control","III","C",NA,"died during experiment",21,NA,NA
+"60_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",18,NA,NA
+"60_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",14,NA,NA
+"60_3A","3","exposed","26_10_2010","infected","infected","III","C",0,"survived 21 dpi",18,NA,NA
+"60_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"60_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"60_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"60_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",20,NA,NA
+"60_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",12,NA,NA
+"60_4C","3","unexposed","26_10_2010","uninfected","unexposed, control","III","C",NA,"survived 21 dpi",14,NA,NA
+"60_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",21,NA,NA
+"60_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",6,NA,NA
+"60_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"60_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",6,NA,NA
+"60_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",12,NA,NA
+"60_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",21,NA,NA
+"60_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",6,NA,NA
+"60_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",6,NA,NA
+"60_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",8,NA,NA
+"61_1A","3","exposed","26_10_2010","infected","infected","III","C",0,"died during experiment",21,0.723594,26664
+"61_1B","3","unexposed","26_10_2010","uninfected","unexposed, control","III","C",NA,"died during experiment",21,NA,NA
+"61_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",18,NA,NA
+"61_1D","3","exposed","26_10_2010","infected","infected","III","C",0,"died during experiment",21,NA,NA
+"61_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",12,NA,NA
+"61_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",6,NA,NA
+"61_2C","3","exposed","26_10_2010","infected","infected","III","C",0,"died during experiment",21,0.720414,29150.5
+"61_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",18,NA,NA
+"61_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",8,NA,NA
+"61_3B","3","exposed","26_10_2010","infected","infected","III","C",0,"died during experiment",21,0.796304,27524.5
+"61_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",14,NA,NA
+"61_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"61_4A","3","exposed","26_10_2010","infected","infected","III","C",0,"died during experiment",21,0.805434,32004
+"61_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"61_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",20,NA,NA
+"61_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",6,NA,NA
+"61_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",6,NA,NA
+"61_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"61_5C","3","unexposed","26_10_2010","uninfected","unexposed, control","III","C",NA,"died during experiment",21,NA,NA
+"61_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"died during experiment",21,NA,NA
+"61_6A","3","exposed","26_10_2010","infected","infected","III","C",0,"died during experiment",21,0.71787,26601.5
+"61_6B","3","exposed","26_10_2010","infected","infected","III","C",0,"died during experiment",21,0.75579,23701
+"61_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",18,NA,NA
+"61_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","C",NA,"survived 21 dpi",20,NA,NA
+"62_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",21,NA,NA
+"62_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",18,NA,NA
+"62_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",18,NA,NA
+"62_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",18,NA,NA
+"62_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"62_2B","3","unexposed","26_10_2010","uninfected","unexposed, control","III","D",NA,"died during experiment",21,NA,NA
+"62_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",20,NA,NA
+"62_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"62_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",18,NA,NA
+"62_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"died during experiment",21,NA,NA
+"62_3C","3","exposed","26_10_2010","infected","infected","III","D",0,"died during experiment",21,0.745356,25459.5
+"62_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",20,NA,NA
+"62_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",6,NA,NA
+"62_4B","3","unexposed","26_10_2010","uninfected","unexposed, control","III","D",NA,"died during experiment",21,NA,NA
+"62_4C","3","exposed","26_10_2010","infected","infected","III","D",0,"died during experiment",21,0.75129,26467
+"62_4D","3","exposed","26_10_2010","infected","infected","III","D",0,"died during experiment",21,0.739736,26286
+"62_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",18,NA,NA
+"62_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",18,NA,NA
+"62_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",20,NA,NA
+"62_5D","3","exposed","26_10_2010","infected","infected","III","D",0,"died during experiment",21,0.748914,31609.5
+"62_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",18,NA,NA
+"62_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",12,NA,NA
+"62_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",12,NA,NA
+"62_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","D",NA,"survived 21 dpi",10,NA,NA
+"63_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",6,NA,NA
+"63_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"63_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",21,NA,NA
+"63_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",10,NA,NA
+"63_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"63_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"63_2C","3","unexposed","26_10_2010","uninfected","unexposed, control","III","E",NA,"survived 21 dpi",6,NA,NA
+"63_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"63_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"63_3B","3","exposed","26_10_2010","infected","infected","III","E",0,"survived 21 dpi",18,NA,NA
+"63_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"63_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",12,NA,NA
+"63_4A","3","exposed","26_10_2010","infected","infected","III","E",0,"died during experiment",21,0.752098,23524.5
+"63_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",20,NA,NA
+"63_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"63_4D","3","exposed","26_10_2010","infected","infected","III","E",0,"survived 21 dpi",20,NA,NA
+"63_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",6,NA,NA
+"63_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",14,NA,NA
+"63_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",14,NA,NA
+"63_5D","3","exposed","26_10_2010","infected","infected","III","E",0,"died during experiment",21,0.746704,29337
+"63_6A","3","unexposed","26_10_2010","uninfected","unexposed, control","III","E",NA,"survived 21 dpi",20,NA,NA
+"63_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"died during experiment",21,NA,NA
+"63_6C","3","exposed","26_10_2010","infected","infected","III","E",0,"survived 21 dpi",18,NA,NA
+"63_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","III","E",NA,"survived 21 dpi",14,NA,NA
+"64_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_1D","3","exposed","26_10_2010","infected","infected","IV","A",0,"died during experiment",21,0.830404,32786
+"64_2A","3","exposed","26_10_2010","infected","infected","IV","A",0,"died during experiment",21,0.834106,25943.5
+"64_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"survived 21 dpi",20,NA,NA
+"64_2D","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","A",NA,"survived 21 dpi",20,NA,NA
+"64_3A","3","exposed","26_10_2010","infected","infected","IV","A",0,"died during experiment",21,0.851336,27168
+"64_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"survived 21 dpi",12,NA,NA
+"64_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_5B","3","exposed","26_10_2010","infected","infected","IV","A",0,"died during experiment",21,0.82167,27644.5
+"64_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_5D","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","A",NA,"died during experiment",21,NA,NA
+"64_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"survived 21 dpi",10,NA,NA
+"64_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"64_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"65_1A","3","exposed","26_10_2010","infected","infected","IV","A",0,"survived 21 dpi",21,NA,NA
+"65_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"survived 21 dpi",6,NA,NA
+"65_1C","3","exposed","26_10_2010","infected","infected","IV","A",0,"died during experiment",21,0.821134,27382
+"65_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"65_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"65_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"survived 21 dpi",20,NA,NA
+"65_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"survived 21 dpi",10,NA,NA
+"65_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"65_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"survived 21 dpi",8,NA,NA
+"65_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"survived 21 dpi",20,NA,NA
+"65_3C","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","A",NA,"survived 21 dpi",6,NA,NA
+"65_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"65_4A","3","exposed","26_10_2010","infected","infected","IV","A",0,"survived 21 dpi",20,NA,NA
+"65_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"survived 21 dpi",20,NA,NA
+"65_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"65_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"65_5A","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","A",NA,"died during experiment",21,NA,NA
+"65_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"65_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"survived 21 dpi",10,NA,NA
+"65_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"65_6A","3","exposed","26_10_2010","infected","infected","IV","A",0,"died during experiment",21,0.81793,20052
+"65_6B","3","exposed","26_10_2010","infected","infected","IV","A",1,"died during experiment",21,0.837376,27733
+"65_6C","3","exposed","26_10_2010","infected","infected","IV","A",0,"died during experiment",21,0.81412,29678.5
+"65_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","A",NA,"died during experiment",21,NA,NA
+"66_1A","3","exposed","26_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.838296,30736.5
+"66_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"66_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",20,NA,NA
+"66_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"66_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"66_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"66_2C","3","exposed","26_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.859022,30975
+"66_2D","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","B",NA,"died during experiment",21,NA,NA
+"66_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",21,NA,NA
+"66_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"66_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"66_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"66_4A","3","exposed","26_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.776726,24633.5
+"66_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"66_4C","3","exposed","26_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.794632,25950
+"66_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"66_5A","3","exposed","26_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.80262,23822.5
+"66_5B","3","exposed","26_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.86404,23855
+"66_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"66_5D","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","B",NA,"died during experiment",21,NA,NA
+"66_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"66_6B","3","exposed","26_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.827256,24135
+"66_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",18,NA,NA
+"66_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"67_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"67_1B","3","exposed","26_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.84126,32901.5
+"67_1C","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","B",NA,"died during experiment",21,NA,NA
+"67_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",9,NA,NA
+"67_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",8,NA,NA
+"67_2B","3","exposed","26_10_2010","infected","infected","IV","B",0,"survived 21 dpi",18,NA,NA
+"67_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",9,NA,NA
+"67_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",21,NA,NA
+"67_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"67_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",18,NA,NA
+"67_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"67_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"67_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"67_4B","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","B",NA,"died during experiment",21,NA,NA
+"67_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",20,NA,NA
+"67_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"67_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"67_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",6,NA,NA
+"67_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",14,NA,NA
+"67_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"survived 21 dpi",6,NA,NA
+"67_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"67_6B","3","exposed","26_10_2010","infected","infected","IV","B",0,"died during experiment",21,0.77026,22358.5
+"67_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"67_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","B",NA,"died during experiment",21,NA,NA
+"68_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"68_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",12,NA,NA
+"68_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"68_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"68_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"68_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",20,NA,NA
+"68_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",14,NA,NA
+"68_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",20,NA,NA
+"68_3A","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","C",NA,"died during experiment",21,NA,NA
+"68_3B","3","exposed","26_10_2010","infected","infected","IV","C",0,"died during experiment",21,0.713712,24138.5
+"68_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"68_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"68_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",12,NA,NA
+"68_4B","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","C",NA,"survived 21 dpi",7,NA,NA
+"68_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",12,NA,NA
+"68_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"68_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",6,NA,NA
+"68_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"68_5C","3","exposed","26_10_2010",NA,NA,"IV","C",NA,NA,NA,NA,NA
+"68_5D","3","exposed","26_10_2010","infected","infected","IV","C",0,"died during experiment",21,0.817142,30652.5
+"68_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",12,NA,NA
+"68_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"68_6C","3","exposed","26_10_2010","infected","infected","IV","C",0,"died during experiment",21,0.829386,33324.5
+"68_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_1A","3","exposed","26_10_2010","infected","infected","IV","C",0,"died during experiment",21,0.775168,23981
+"69_1B","3","exposed","26_10_2010","infected","infected","IV","C",0,"survived 21 dpi",20,NA,NA
+"69_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_1D","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","C",NA,"died during experiment",21,NA,NA
+"69_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_2C","3","exposed","26_10_2010","infected","infected","IV","C",0,"died during experiment",21,0.791884,25401
+"69_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_3B","3","exposed","26_10_2010","infected","infected","IV","C",0,"died during experiment",21,0.814344,30165.5
+"69_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_4A","3","exposed","26_10_2010","infected","infected","IV","C",0,"died during experiment",21,0.845174,28872.5
+"69_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",18,NA,NA
+"69_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_5B","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","C",NA,"survived 21 dpi",20,NA,NA
+"69_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"69_6C","3","exposed","26_10_2010","infected","infected","IV","C",0,"died during experiment",21,0.835426,29834
+"69_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",6,NA,NA
+"70_1A","3","exposed","26_10_2010","infected","infected","IV","C",0,"died during experiment",21,0.846192,27557.5
+"70_1B","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","C",NA,"died during experiment",21,NA,NA
+"70_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",18,NA,NA
+"70_1D","3","exposed","26_10_2010","infected","infected","IV","C",0,"survived 21 dpi",18,NA,NA
+"70_2A","3","exposed","26_10_2010","infected","infected","IV","C",0,"died during experiment",21,0.827358,31987.5
+"70_2B","3","exposed","26_10_2010","infected","infected","IV","C",0,"died during experiment",21,0.856098,41432
+"70_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"70_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"70_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"70_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"70_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",8,NA,NA
+"70_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"70_4A","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","C",NA,"survived 21 dpi",18,NA,NA
+"70_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"70_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",6,NA,NA
+"70_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",18,NA,NA
+"70_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"70_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"70_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"survived 21 dpi",7,NA,NA
+"70_5D","3","exposed","26_10_2010","infected","infected","IV","C",NA,"survived 21 dpi",9,NA,NA
+"70_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"70_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"70_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","C",NA,"died during experiment",21,NA,NA
+"70_6D","3","exposed","26_10_2010","infected","infected","IV","C",0,"survived 21 dpi",18,NA,NA
+"71_1A","3","exposed","26_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.777606,30039
+"71_1B","3","exposed","26_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.794204,28118
+"71_1C","3","exposed","26_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.795448,31904.5
+"71_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"71_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"71_2B","3","exposed","26_10_2010","infected","infected","IV","D",0,"survived 21 dpi",12,NA,NA
+"71_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"71_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"71_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"71_3B","3","exposed","26_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.81004,28552.5
+"71_3C","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","D",NA,"survived 21 dpi",20,NA,NA
+"71_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"71_4A","3","exposed","26_10_2010","infected","infected","IV","D",0,"survived 21 dpi",10,NA,NA
+"71_4B","3","exposed","26_10_2010","infected","infected","IV","D",0,"died during experiment",21,0.832118,26680
+"71_4C","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","D",NA,"died during experiment",21,NA,NA
+"71_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"71_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"71_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"71_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"71_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"71_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"71_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"71_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,NA,NA,NA,NA
+"71_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","D",NA,"died during experiment",21,NA,NA
+"72_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"72_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"72_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"72_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"72_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"72_2B","3","exposed","26_10_2010","infected","infected","IV","E",0,"died during experiment",21,0.81437,25257.5
+"72_2C","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","E",NA,"died during experiment",21,NA,NA
+"72_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"72_3A","3","exposed","26_10_2010","infected","infected","IV","E",0,"died during experiment",21,0.84691,27059.5
+"72_3B","3","exposed","26_10_2010","infected","infected","IV","E",1,"survived 21 dpi",18,NA,NA
+"72_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"72_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"72_4A","3","exposed","26_10_2010","infected","infected","IV","E",0,"died during experiment",21,0.759394,30167.5
+"72_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"72_4C","3","exposed","26_10_2010","infected","infected","IV","E",1,"died during experiment",21,0.800854,32827
+"72_4D","3","exposed","26_10_2010","infected","infected","IV","E",0,"died during experiment",21,0.793102,29913
+"72_5A","3","exposed","26_10_2010","infected","infected","IV","E",1,"survived 21 dpi",12,NA,NA
+"72_5B","3","exposed","26_10_2010","infected","infected","IV","E",0,"died during experiment",21,0.802022,33053
+"72_5C","3","exposed","26_10_2010","infected","infected","IV","E",1,"died during experiment",21,0.815142,27496
+"72_5D","3","exposed","26_10_2010","infected","infected","IV","E",1,"survived 21 dpi",14,NA,NA
+"72_6A","3","exposed","26_10_2010","infected","infected","IV","E",0,"died during experiment",21,0.809424,25939
+"72_6B","3","exposed","26_10_2010","infected","infected","IV","E",0,"died during experiment",21,NA,NA
+"72_6C","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","E",NA,"died during experiment",21,NA,NA
+"72_6D","3","exposed","26_10_2010","infected","infected","IV","E",0,"died during experiment",21,0.81345,33924
+"73_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"survived 21 dpi",7,NA,NA
+"73_1B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"73_1C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"survived 21 dpi",6,NA,NA
+"73_1D","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","E",NA,"died during experiment",21,NA,NA
+"73_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"73_2B","3","exposed","26_10_2010","infected","infected","IV","E",0,"survived 21 dpi",14,NA,NA
+"73_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"survived 21 dpi",9,NA,NA
+"73_2D","3","exposed","26_10_2010","infected","infected","IV","E",1,"died during experiment",21,0.830306,28181.5
+"73_3A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"survived 21 dpi",12,NA,NA
+"73_3B","3","exposed","26_10_2010","infected","infected","IV","E",0,"died during experiment",21,0.844086,34204.5
+"73_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"73_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"73_4A","3","unexposed","26_10_2010","uninfected","unexposed, control","IV","E",NA,"died during experiment",21,NA,NA
+"73_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"survived 21 dpi",8,NA,NA
+"73_4C","3","exposed","26_10_2010","infected","infected","IV","E",0,"died during experiment",21,0.831538,28633.5
+"73_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"73_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"73_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"73_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"73_5D","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"73_6A","3","exposed","26_10_2010","infected","infected","IV","E",0,"survived 21 dpi",18,NA,NA
+"73_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"died during experiment",21,NA,NA
+"73_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","IV","E",NA,"survived 21 dpi",14,NA,NA
+"73_6D","3","exposed","26_10_2010","infected","infected","IV","E",0,"died during experiment",21,0.843538,30821
+"74_1A","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"74_1B","3","unexposed","26_10_2010","uninfected","unexposed, control","V","A",NA,"died during experiment",21,NA,NA
+"74_1C","3","exposed","26_10_2010","infected","infected","V","A",0,"died during experiment",21,0.716472,21554
+"74_1D","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"74_2A","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"74_2B","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"74_2C","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"74_2D","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"74_3A","3","exposed","26_10_2010","infected","infected","V","A",1,"died during experiment",21,0.754308,24348
+"74_3B","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"74_3C","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","A",NA,"survived 21 dpi",20,NA,NA
+"74_3D","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","A",NA,"died during experiment",21,NA,NA
+"74_4A","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","B",NA,"survived 21 dpi",20,NA,NA
+"74_4B","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","B",NA,"survived 21 dpi",14,NA,NA
+"74_4C","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"74_4D","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"74_5A","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"74_5B","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"74_5C","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"74_5D","3","unexposed","26_10_2010","uninfected","unexposed, control","V","B",NA,"died during experiment",21,NA,NA
+"74_6A","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"74_6B","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"74_6C","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
+"74_6D","3","exposed","26_10_2010","uninfected","exposed, uninfected","V","B",NA,"died during experiment",21,NA,NA
