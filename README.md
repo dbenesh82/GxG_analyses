@@ -12,7 +12,7 @@ For each recording event, copepods were recorded for two minutes. After one minu
 
 I explored different behavioral variables that could be extracted from these recordings [here](analyses/GxG_01_define_responses.md). I decided to focus on 'activity', which was the average speed copepods moved before and after the drop (it could be equivalently expressed as the distance moved). Activity incorporates both the frequency and magnitude of copepod movements. And though I found that the difference between infected and uninfected copepods was mainly determined by [movement frequency](analyses/GxG_01_define_responses.md#proportion-of-time-moving-vs-hop-distance), I decided there was little to gain by breaking this variable down into its component parts.
 
-Most analyses involved these datasets: [infection data](data/GxG_inf.csv) and [behavior data](data/behave_autotracked_reduced_dataset.csv) from the auto-tracker.
+Most analyses involved these datasets: [infection data](data/GxG_inf.csv) and [behavior data](data/behav_autotracked_reduced_dataset.csv) from the auto-tracker.
 
 # Main results
 
@@ -34,4 +34,5 @@ I conclude that the altered behavior of infected copepods primarily represents t
 
 # Reference
 
-Eventual paper citation
+These analyses have been published:
+[Benesh, D.P. 2019. Tapeworm manipulation of copepod behaviour: parasite genotype has a larger effect than host genotype. Biology Letters 15. doi: 10.1098/rsbl.2019.0495](https://royalsocietypublishing.org/doi/10.1098/rsbl.2019.0495).
